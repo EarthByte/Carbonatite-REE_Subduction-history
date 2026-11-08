@@ -102,6 +102,10 @@ def sets(p, mineable=False):
         if cls == "CARB":
             out.append(("CARB ore", d[d["ore"]], r))
             out.append(("CARB barren", d[~d["ore"].astype(bool)], r))
+            # the ore class by commodity (review 2026-11-08): REE ore, and niobium ore without REE
+            if "ore_ree" in d:
+                out.append(("CARB REE ore", d[d["ore_ree"].astype(bool)], r))
+                out.append(("CARB Nb ore only", d[d["ore_nb_only"].astype(bool)], r))
         if cls in ("CARB", "AIREE"):
             # inside the fertilised domains only, both sides: is the time since fertilisation (and the
             # arrival of slab water) different from that of reference points in the same domains?
@@ -111,6 +115,12 @@ def sets(p, mineable=False):
             for name, sd, sr in (("inside cratons", d["craton_dist_km"] < 0, r["craton_dist_km"] < 0),
                                  ("outside cratons", d["craton_dist_km"] >= 0, r["craton_dist_km"] >= 0)):
                 out.append((f"{cls} {name}", d[sd], r[sr]))
+            # by era, each against the reference points of the same era: whether the present-day
+            # lithospheric measures separate the young districts as they do the old (review 2026-11-08)
+            for era, lo, hi in (("Phanerozoic", 0.0, 541.0), ("Proterozoic", 541.0, 2500.0)):
+                sd, sr = (d["age_ma"] >= lo) & (d["age_ma"] < hi), (r["age_ma"] >= lo) & (r["age_ma"] < hi)
+                if d.loc[sd, "cluster_id"].nunique() >= 5:
+                    out.append((f"{cls} {era}", d[sd], r[sr]))
     return out
 
 
@@ -137,6 +147,33 @@ def holm(rows):
     return t.to_dict("records")
 
 
+def spatial_blocks(lon, lat, n_blocks=30, seed=84):
+    """Block label of every point: k-means on the unit sphere over all points given (deposits and
+    reference points together), so that a block bootstrap resamples regions rather than points."""
+    from sklearn.cluster import KMeans
+    lon, lat = np.radians(np.asarray(lon, float)), np.radians(np.asarray(lat, float))
+    xyz = np.c_[np.cos(lat) * np.cos(lon), np.cos(lat) * np.sin(lon), np.sin(lat)]
+    n = min(n_blocks, len(xyz))
+    return KMeans(n, n_init=4, random_state=seed).fit_predict(xyz)
+
+
+def block_interval(x, wx, bx, y, wy, by, boot, rng):
+    """95% interval of the weighted AUC when entire spatial blocks are resampled with replacement on
+    both sides (a block bootstrap; blocks from spatial_blocks)."""
+    labels = np.unique(np.r_[bx, by])
+    gx = {b: np.flatnonzero(bx == b) for b in labels}
+    gy = {b: np.flatnonzero(by == b) for b in labels}
+    vals = []
+    for _ in range(boot):
+        pick = rng.choice(labels, len(labels), replace=True)
+        ix = np.concatenate([gx[b] for b in pick]) if any(len(gx[b]) for b in pick) else np.array([], int)
+        iy = np.concatenate([gy[b] for b in pick]) if any(len(gy[b]) for b in pick) else np.array([], int)
+        vals.append(wauc(x[ix], wx[ix], y[iy], wy[iy]) if len(ix) and len(iy) else np.nan)
+    vals = np.asarray(vals, float)
+    vals = vals[np.isfinite(vals)]
+    return (np.nanpercentile(vals, [2.5, 97.5]) if len(vals) >= 20 else (np.nan, np.nan))
+
+
 def compare_one(d, r, col, boot, rng):
     """Probability that the value at a district of ``d`` exceeds that at a reference point of ``r`` for
     feature ``col`` (districts weighted, reference points reweighted to the district-weighted ages),
@@ -145,10 +182,15 @@ def compare_one(d, r, col, boot, rng):
     x, y = d[col].to_numpy(float), r[col].to_numpy(float)
     wx = d["w_cluster"].to_numpy(float)
     wy = age_weights(d["age_ma"].to_numpy(float), wx, r["age_ma"].to_numpy(float))
+    okr = np.isfinite(y) & (wy > 0)
     row = dict(n_districts=int(d.loc[np.isfinite(x), "cluster_id"].nunique()), n_ref=int(np.isfinite(y).sum()),
+               # effective number of reference points after the age reweighting (Kish): (sum w)^2 / sum w^2
+               ess_ref=float(wy[okr].sum() ** 2 / np.sum(wy[okr] ** 2)) if okr.any() else np.nan,
                median_dep=float(np.nanmedian(x)) if np.isfinite(x).any() else np.nan,
                median_ref=float(np.nanmedian(y)) if np.isfinite(y).any() else np.nan,
                auc=wauc(x, wx, y, wy))
+    # the same probability with the reference ages matched in twenty bins instead of ten
+    row["auc at 20 age bins"] = wauc(x, wx, y, age_weights(d["age_ma"].to_numpy(float), wx, r["age_ma"].to_numpy(float), n=20))
     groups = list(pd.Series(range(len(d))).groupby(d["cluster_id"].to_numpy()).indices.values())
     if boot and np.isfinite(row["auc"]):
         b = []
@@ -158,6 +200,10 @@ def compare_one(d, r, col, boot, rng):
             b.append(wauc(x[ix], wx[ix], y[iy], wy[iy]))
         row["lo"], row["hi"] = np.nanpercentile(b, [2.5, 97.5])
         row["p"] = boot_p(b)
+        # interval from resampling spatial blocks of both sides together (review 2026-11-08)
+        if "_block" in d and "_block" in r:
+            row["lo_block"], row["hi_block"] = block_interval(x, wx, d["_block"].to_numpy(), y, wy, r["_block"].to_numpy(),
+                                                              min(boot, 500), rng)
     for name, conds in CONDITIONS.items():
         if not all(c in d for c in conds):
             continue
@@ -200,6 +246,16 @@ def direct(d1, d2, col, boot, rng, age_match=False):
             b.append(wauc(x[i1], wx[i1], y[i2], wy[i2]))
         row["lo"], row["hi"] = np.nanpercentile(b, [2.5, 97.5])
         row["p"] = boot_p(b)
+        if "_block" in d1 and "_block" in d2:
+            row["lo_block"], row["hi_block"] = block_interval(x, wx, d1["_block"].to_numpy(), y, wy, d2["_block"].to_numpy(),
+                                                              min(boot, 500), rng)
+        if "since" in col and "episode" not in col:
+            # the end of an episode is read from topologies resolved every 5 Myr: the probability when every
+            # interval on both sides is perturbed by up to ±10 Myr (uniform), median and 5th–95th percentiles
+            # over 200 draws (review 2026-11-08)
+            jit = [wauc(x + rng.uniform(-10, 10, len(x)), wx, y + rng.uniform(-10, 10, len(y)), wy) for _ in range(200)]
+            row["auc termination ±10 Myr"], row["lo termination ±10 Myr"], row["hi termination ±10 Myr"] = \
+                np.nanpercentile(jit, [50, 5, 95])
     return row
 
 
@@ -209,6 +265,8 @@ def run_compare(p, feats, stage, boot, seed=84):
     (directly, age-matched, by era and by tectonic setting), for all sites and for mineable sites only.
     Returns the rows with Holm-adjusted p-values within each set and stage."""
     rng = np.random.default_rng(seed)
+    p = p.copy()
+    p["_block"] = spatial_blocks(p["lon0"], p["lat0"], 30, seed)
     rows = []
     for mineable in (False, True):
         tag = " mineable" if mineable else ""
@@ -223,9 +281,13 @@ def run_compare(p, feats, stage, boot, seed=84):
         bar = next(d for lab, d, _ in ss if lab == "CARB barren")
         carb = next(d for lab, d, _ in ss if lab == "CARB")
         alk = next(d for lab, d, _ in ss if lab == "AIREE")
+        ree = next((d for lab, d, _ in ss if lab == "CARB REE ore"), None)
         for col in feats:
             rows.append(dict(part="compare", set="CARB ore vs barren" + tag, feature=col, stage=stage.get(col, ""),
                              **direct(ore, bar, col, boot, rng)))
+            if ree is not None and ree["cluster_id"].nunique() >= 5:
+                rows.append(dict(part="compare", set="CARB REE ore vs barren" + tag, feature=col, stage=stage.get(col, ""),
+                                 **direct(ree, bar, col, boot, rng)))
             rows.append(dict(part="compare", set="AIREE vs CARB" + tag, feature=col, stage=stage.get(col, ""),
                              **direct(alk, carb, col, boot, rng)))
             rows.append(dict(part="compare", set="AIREE vs CARB, age-matched" + tag, feature=col,

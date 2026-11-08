@@ -68,6 +68,10 @@ LABEL = {
     "over_500km_myr": "Time on an overriding plate within 500 km of a trench (Myr)",
     "over_900km_stable_myr": "Time within 900 km of a stationary trench (Myr)",
     "over_900km_stable_since_myr": "Time since the last episode at a stationary trench (Myr)",
+    "over_500km_since_myr": "Time since the last such episode, trench within 500 km (Myr)",
+    "over_500km_since_censored_myr": "Time since the last episode or the covered history, trench within 500 km (Myr)",
+    "over_500km_episode": "Share of districts with such an episode, trench within 500 km",
+    "over_500km_stable_since_myr": "Time since the last episode at a stationary trench within 500 km (Myr)",
     "h2o_deep_fixed_400myr": "Slab water carried below 125 km, beneath the mantle position, 400 Myr before",
     "h2o_deep_track_400myr": "Slab water carried below 125 km, along the plate path, 400 Myr before",
     "deep_total_path_full": "Slab water carried below 125 km, entire plate path",
@@ -141,7 +145,9 @@ def sens_label(f):
             or LABEL.get(m.group(1), m.group(1))
         model = "Young et al. (2022)" if m.group(2) == "young" else f"mantle-flow case {m.group(2)[1:]}"
         return f"{base}; {model}"
-    fixed = {"dt_uplift_after_20": "Change in dynamic topography over the 20 Myr after (m)",
+    fixed = {"mem_carbon_nocap": "Reservoir, subducted carbon; single-step deliveries not capped",
+             "mem_water_out_nocap": "Reservoir, slab water released above 125 km; deliveries not capped",
+             "dt_uplift_after_20": "Change in dynamic topography over the 20 Myr after (m)",
              "dt_uplift_20_agree": "Models agreeing on uplift over the 20 Myr before (share)",
              "dt_high_p1000": "Share of the 80 Myr with high dynamic topography within 1,000 km",
              "dt_rise_p1000": "Share of the 80 Myr with rising dynamic topography within 1,000 km",
@@ -216,10 +222,10 @@ def t2(der, tag):
         feats = list(dict.fromkeys(c.loc[(c["set"] == "CARB") & (c["stage"] == stage), "feature"]))
         a = _measure_table(c, CLASSES, feats, lambda f: LABEL.get(f, f), col=EQUAL, lo=None, holm=False)
         b = _measure_table(c, DIRECT, feats, lambda f: LABEL.get(f, f))
-        # one table per stage: equal-condition columns, then the direct comparisons
-        rows = [x + " " + y.split("|", 2)[2].strip() for x, y in zip(a, b)]
-        rows[1] = "|---|" + "---|" * (len(CLASSES) + len(DIRECT))
-        out += ([] if not out else [""]) + [f"*{title}*", ""] + rows
+        # two tables per stage, so that neither runs past the page margin (review 2026-11-08): the
+        # equal-condition columns, then the direct comparisons
+        out += ([] if not out else [""]) + [f"*{title}: at equal craton-edge distance and exploration density*", ""] + a
+        out += ["", f"*{title}: direct comparisons*", ""] + b
     # the alkaline-silicate class by era against the carbonatites of its era (scripts/84; review 2026-10-18)
     # set names: "AIREE <era> vs CARB <era>, age-matched" and "AIREE <setting> vs CARB, age-matched"
     eras = [s_ for s_ in c["set"].unique() if s_.startswith("AIREE ") and " vs CARB" in s_ and "age-matched" in s_
@@ -337,17 +343,35 @@ RECUR = {"plate": "same plate position", "mantle": "same mantle position", "mant
 def t6(der, tag):
     s = pd.read_csv(der / f"carbonatite_secular_{tag}.csv")
     c = s[s["part"] == "correlation"]
+    fam = "p_family" in c.columns
     out = ["| Series | Against | Filter | Window | Districts | " +
            # scripts/85 applies a lead as round(lead / 10 Myr) bins, so the nominal 25 Myr lead is 20 Myr
-           " | ".join(f"Lag {int(round(x / 10) * 10)} Myr" for x in sorted(c["lead_myr"].unique())) + " |",
-           "|---|---|---|---|---:|" + "---|" * c["lead_myr"].nunique()]
+           " | ".join(f"Lag {int(round(x / 10) * 10)} Myr" for x in sorted(c["lead_myr"].unique())) +
+           (" | Largest, over all lags |" if fam else " |"),
+           "|---|---|---|---|---:|" + "---|" * (c["lead_myr"].nunique() + (1 if fam else 0))]
     for (se, fl, fi, w), x in c.groupby(["series", "flux", "filter", "window"], sort=False):
         x = x.sort_values("lead_myr")
         cells = ["–" if not np.isfinite(r.rho) else f"{r.rho:.2f} ({r.p_shift:.2f})".replace("-", "−")
                  for r in x.itertuples()]
+        if fam:
+            # the lead is chosen among those scanned: the probability that the largest |rho| over the
+            # scanned lags arises under circular shifts (scripts/85; review 2026-11-08)
+            i = x["rho"].abs().idxmax() if x["rho"].notna().any() else None
+            cells.append("–" if i is None else f"{x.loc[i, 'rho']:.2f} at {int(round(x.loc[i, 'lead_myr'] / 10) * 10)} Myr "
+                         f"({x.loc[i, 'p_family']:.2f})".replace("-", "−"))
         nd = x["n_districts"].max()
         nd = f"{int(nd)}" if np.isfinite(nd) else "–"
         out.append(f"| {SERIES[se]} | {FLUX[fl]} | {fi} | {w.replace('-', '–')} | {nd} | " + " | ".join(cells) + " |")
+    dcls = s[s["part"] == "correlation_difference"]
+    if len(dcls):
+        out += ["", "*Alkaline-silicate minus carbonatite correlation at each lag, with the probability of a difference at least "
+                "as large under the same circular shifts*", "",
+                "| Against | Filter | Window | " + " | ".join(f"Lag {int(round(x / 10) * 10)} Myr" for x in sorted(dcls["lead_myr"].unique())) + " |",
+                "|---|---|---|" + "---|" * dcls["lead_myr"].nunique()]
+        for (fl, fi, w), x in dcls.groupby(["flux", "filter", "window"], sort=False):
+            x = x.sort_values("lead_myr")
+            cells = ["–" if not np.isfinite(r.rho) else f"{r.rho:+.2f} ({r.p_shift:.2f})".replace("-", "−") for r in x.itertuples()]
+            out.append(f"| {FLUX[fl]} | {fi} | {w.replace('-', '–')} | " + " | ".join(cells) + " |")
     r = pd.read_csv(der / f"carbonatite_recurrence_{tag}.csv")
     out += ["", "| Class | Recurrence | Observed | Expected (95% range) | Ratio | Probability of excess | Probability of deficit |",
             "|---|---|---:|---|---:|---:|---:|"]
@@ -359,7 +383,81 @@ def t6(der, tag):
     return "\n".join(out).replace("-0.", "−0.")
 
 
-TABLES = {"t1": t1, "t2": t2, "t3": t3, "t4": t4, "t5": t5, "t6": t6}
+PRINCIPAL = ["out_total_path_full", "c_mantle_path_full", "deep_total_path_full", "mem_carbon", "mem_water_out",
+             "lid_km", "vsh150", "vsh_grad150", "craton_dist_km", "sz_dist_km", "over_900km_since_myr",
+             "over_900km_since_censored_myr", "abs_paleolat"]
+LITHO = ["lid_km", "vsh150", "vsh_grad150", "craton_dist_km"]
+
+
+def _row(idx, s_, f):
+    return idx.loc[(s_, f)] if (s_, f) in idx.index else None
+
+
+def t7(der, tag):
+    """Supplementary Table 7 (review 2026-11-08): the checks the review asked for, from the same compare rows.
+    Four parts: the ore class by commodity; the REE classes by era on the lithospheric measures; intervals from
+    spatial blocks, the effective number of reference points and finer age matching for the principal
+    measures; and the subduction-episode measures under other thresholds and with the end of the episode
+    perturbed."""
+    c = compare(der, tag)
+    idx = c.set_index(["set", "feature"])
+    out = []
+    # 1 ore by commodity
+    sets1 = [("CARB ore", "Ore-bearing (REE or Nb)"), ("CARB REE ore", "REE ore"), ("CARB Nb ore only", "Niobium ore only"),
+             ("CARB barren", "No recorded ore within 10 km")]
+    sets1 = [x for x in sets1 if x[0] in idx.index.get_level_values(0)]
+    direct1 = [x for x in [("CARB ore vs barren", "Ore-bearing against the rest"), ("CARB REE ore vs barren", "REE ore against the rest")]
+               if x[0] in idx.index.get_level_values(0)]
+    feats1 = [f for f in PRINCIPAL if f in set(c["feature"])]
+    out += ["*Carbonatites by commodity of the ore within 10 km, against reference lithosphere of the same ages*", ""]
+    out += _measure_table(c, sets1, feats1, lambda f: LABEL.get(f, f))
+    if direct1:
+        out += ["", "*Direct comparisons: carbonatites with ore against carbonatites without recorded ore*", ""]
+        out += _measure_table(c, direct1, feats1, lambda f: LABEL.get(f, f))
+    # 2 by era
+    sets2 = [(f"{g} {era}", f"{GROUP[g]}, {era}") for g in ("CARB", "AIREE") for era in ("Phanerozoic", "Proterozoic")]
+    sets2 = [x for x in sets2 if x[0] in idx.index.get_level_values(0)]
+    if sets2:
+        out += ["", "*The lithospheric measures by era, each class against reference lithosphere of the same era and ages*", ""]
+        out += _measure_table(c, sets2, [f for f in LITHO if f in set(c["feature"])], lambda f: LABEL.get(f, f))
+    # 3 block intervals, effective reference counts, finer age matching
+    if "lo_block" in c.columns:
+        out += ["", "*Principal measures: the 95% interval from resampling districts and reference points (as in Supplementary "
+                "Table 1) and from resampling 30 spatial blocks of both sides together; the effective number of reference "
+                "points after the age reweighting; and the probability with the reference ages matched in twenty bins instead of ten*", ""]
+        out += ["| Class | Measure | Probability (95% interval, districts) | 95% interval, spatial blocks | Reference points (effective) | Twenty age bins |",
+                "|---|---|---|---|---:|---:|"]
+        for s_, lab in [("CARB", "Carbonatites"), ("AIREE", "Alkaline-silicate REE"), ("AIREE vs CARB, age-matched", "Alkaline-silicate REE against carbonatites")]:
+            for f in PRINCIPAL:
+                r = _row(idx, s_, f)
+                if r is None or not np.isfinite(r["auc"]):
+                    continue
+                blk = span(r["lo_block"], r["hi_block"]) if np.isfinite(r.get("lo_block", np.nan)) else "–"
+                ess = f"{int(r['n_ref'])} ({r['ess_ref']:.0f})" if np.isfinite(r.get("ess_ref", np.nan)) else f"{int(r['n_ref'])}"
+                twenty = f"{r['auc at 20 age bins']:.2f}" if np.isfinite(r.get("auc at 20 age bins", np.nan)) else "–"
+                out.append(f"| {lab} | {LABEL.get(f, f)} | {cell(r)} | {blk} | {ess} | {twenty} |")
+    # 4 thresholds and termination uncertainty for the episode measures
+    feats4 = [f for f in ("over_900km_since_myr", "over_500km_since_myr", "over_900km_stable_since_myr", "over_500km_stable_since_myr",
+                          "over_900km_since_censored_myr", "over_500km_since_censored_myr", "over_900km_episode", "over_500km_episode")
+              if f in set(c["feature"])]
+    s_ = "AIREE vs CARB, age-matched"
+    if feats4 and s_ in idx.index.get_level_values(0):
+        out += ["", "*Alkaline-silicate REE districts against carbonatites of the same ages: the subduction-episode measures with the "
+                "trench within 900 km, at any trench or at a stationary one, and with the end of every episode "
+                "perturbed by up to ±10 Myr (median and 5th–95th percentiles over 200 draws)*", ""]
+        out += ["| Measure | Probability (95% interval) | Districts (alkaline-silicate, carbonatite) | End of episode ±10 Myr |", "|---|---|---|---|"]
+        for f in feats4:
+            r = _row(idx, s_, f)
+            if r is None or not np.isfinite(r["auc"]):
+                continue
+            jit = (f"{r['auc termination ±10 Myr']:.2f} ({r['lo termination ±10 Myr']:.2f}–{r['hi termination ±10 Myr']:.2f})"
+                   if np.isfinite(r.get("auc termination ±10 Myr", np.nan)) else "–")
+            lab = LABEL.get(f, f.replace("over_", "Trench within ").replace("km_", " km, ").replace("_", " "))
+            out.append(f"| {lab} | {cell(r)} | {int(r['n_districts'])}, {int(r['n_ref'])} | {jit} |")
+    return "\n".join(out).replace("-0.", "−0.")
+
+
+TABLES = {"t1": t1, "t2": t2, "t3": t3, "t4": t4, "t5": t5, "t6": t6, "t7": t7}
 
 
 def main():

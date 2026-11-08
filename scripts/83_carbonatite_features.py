@@ -37,7 +37,8 @@ and labels each by the stage of the mineral system it describes (``FEATURES`` be
 It also marks endowment (``ore_flags``): ``ore`` for carbonatites within 10 km of a deposit with
 reported tonnage and REE or Nb grade (Berger et al. 2009) or of a magmatic REE ore deposit of
 Spandler et al. (2026, Table S1b), and for every alkaline-igneous REE deposit;
-``ree_mineralised`` adds carbonatite-hosted REE occurrences (Orris and Grauch 2002).
+``ree_mineralised`` adds carbonatite-hosted REE occurrences (Orris and Grauch 2002); ``ore_ree`` and
+``ore_nb_only`` split the ore class by commodity (REE grade or magmatic REE ore deposit; niobium grade only).
 
 Output: ONE table, data/derived/carbonatite_features_<tag>.parquet, through a .partial name,
 with a companion data/derived/carbonatite_feature_stages_<tag>.csv naming the stage of every column.
@@ -274,6 +275,8 @@ def tropical_features(p, cfg):
 def _near(p, q, km):
     from scipy.spatial import cKDTree
     q = q[np.isfinite(q).all(axis=1)]
+    if not len(q):
+        return np.zeros(len(p), bool)
     tree = cKDTree(lonlat_to_xyz(q[:, 0], q[:, 1]))
     chord = 2 * np.sin(km / EARTH_RADIUS_KM / 2)
     return np.array([len(h) > 0 for h in tree.query_ball_point(lonlat_to_xyz(p["lon0"], p["lat0"]), chord)])
@@ -306,7 +309,17 @@ def ore_flags(p, root, cfg):
     # a record of the USGS carbonatite-deposit table is itself a deposit with grade and tonnage
     near_dep = _near(p, np.vstack(deposits), ORE_RADIUS_KM) | (p["source"] == "usgs_carbonatite").to_numpy()
     near_any = near_dep | _near(p, occ, ORE_RADIUS_KM)
-    return dep & (alk | (carb & near_dep)), dep & (alk | (carb & near_any))
+    # the ore class split by commodity (review 2026-11-08): ``ore_ree`` within ORE_RADIUS_KM of a USGS
+    # carbonatite deposit with an REE grade or of a magmatic REE ore deposit of Spandler et al.;
+    # ``ore_nb_only`` within that radius of a USGS carbonatite deposit with a niobium grade and no REE
+    # grade, and not of any REE deposit. A USGS record is within 0 km of itself, so it needs no own clause.
+    ree_dep = [u.loc[u["ree"].fillna(0) > 0, ["longitude", "latitude"]].to_numpy(float)] + deposits[1:]
+    near_ree = _near(p, np.vstack(ree_dep), ORE_RADIUS_KM)
+    nb_only = u[(u["niobium"].fillna(0) > 0) & ~(u["ree"].fillna(0) > 0)]
+    near_nb = _near(p, nb_only[["longitude", "latitude"]].to_numpy(float), ORE_RADIUS_KM) & ~near_ree
+    flags = dict(ore=dep & (alk | (carb & near_dep)), ree_mineralised=dep & (alk | (carb & near_any)),
+                 ore_ree=dep & carb & near_ree, ore_nb_only=dep & carb & near_nb)
+    return flags
 
 
 def main():
@@ -326,6 +339,15 @@ def main():
     p = p.merge(read_table(der / f"water_{a.tag}"), on="pt_id", how="left")
     try:
         p = p.merge(read_table(der / f"mantle_memory_{a.tag}"), on="pt_id", how="left")
+        # the reservoir without the cap on single-step deliveries (scripts/90 --spike-factor 1e9 --pilot
+        # --out-suffix _nocap), as a sensitivity measure (review 2026-11-08)
+        nocap = der / f"mantle_memory_{a.tag}_nocap.parquet"
+        if nocap.exists():
+            nc = read_table(der / f"mantle_memory_{a.tag}_nocap")
+            nc = nc[["pt_id"] + [c for c in ("mem_carbon", "mem_water_out") if c in nc]]
+            p = p.merge(nc.rename(columns={c: f"{c}_nocap" for c in nc.columns if c != "pt_id"}), on="pt_id", how="left")
+        else:
+            print("  mantle_memory_<tag>_nocap not found: the uncapped-reservoir sensitivity is skipped")
     except FileNotFoundError:
         print("  mantle_memory not found: run scripts/90 for the diffusing-reservoir measures")
     try:
@@ -354,12 +376,16 @@ def main():
     p = pd.concat([p, lid_features(p, ROOT)], axis=1)
     print("  time in the humid tropics after formation (Cao2024) ...", flush=True)
     p = pd.concat([p, tropical_features(p, cfg)], axis=1)
-    p["ore"], p["ree_mineralised"] = ore_flags(p, ROOT, cfg)
-    print("  ore-bearing: " + ", ".join(f"{g} {int(n)}" for g, n in p[p["kind"] == "deposit"].groupby("group")["ore"].sum().items()))
+    for name, flag in ore_flags(p, ROOT, cfg).items():
+        p[name] = flag
+    dd = p[p["kind"] == "deposit"]
+    print("  ore-bearing: " + ", ".join(f"{g} {int(n)}" for g, n in dd.groupby("group")["ore"].sum().items())
+          + f"; carbonatites with REE ore {int(dd['ore_ree'].sum())}, with niobium ore only {int(dd['ore_nb_only'].sum())}")
     features = dict(FEATURES)
     features.update({c: "sensitivity" for c in p.columns
                      if re.match(r"dt_(m|uplift_20|uplift_60|uplift_after_20|rise_200|high_p500|rise_p500|high_p1000|rise_p1000)_(m[1-6]|young)$", c)
-                     or re.match(r"mem_(carbon|carbon_sed|water_\w+)_k\d+_l\w+$", c) or c in ("mem_water_sub", "mem_water_deep", "mem_carbon_sed")})
+                     or re.match(r"mem_(carbon|carbon_sed|water_\w+)_k\d+_l\w+$", c)
+                     or c in ("mem_water_sub", "mem_water_deep", "mem_carbon_sed", "mem_carbon_nocap", "mem_water_out_nocap")})
     stages = pd.DataFrame([(k, v, k in p.columns) for k, v in features.items()], columns=["feature", "stage", "present"])
     stages.to_csv(der / f"carbonatite_feature_stages_{a.tag}.csv", index=False)
     print(f"wrote {write_table(p, der / f'carbonatite_features_{a.tag}')}")

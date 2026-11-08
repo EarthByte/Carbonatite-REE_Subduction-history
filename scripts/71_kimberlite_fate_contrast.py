@@ -397,6 +397,23 @@ def main():
                     rows.append(dict(base, quantity="margins minus failed rifts", auc=obs_m - obs_f,
                                      **summarise_diff(bm - bf)))
                     rows.append(dict(base, quantity="margin km minus failed-rift km", auc=obs_q, **summarise(bq)))
+                if cls == "KIMB" and fr == "reconstructed" and fdef == "database phases":
+                    # leave-one-unit-out (review 2026-11-08): the margin estimate with each group of districts
+                    # that share nearest rifts left out in turn, and the effective number of units (the inverse
+                    # Herfindahl index of the unit weights), the units being the breakup events as sampled
+                    wu = np.asarray([s.wd[g].sum() for g in grp_rift])
+                    ess_units = float(wu.sum() ** 2 / (wu ** 2).sum())
+                    for k, g in enumerate(grp_rift):
+                        keep_idx = np.concatenate([gg for j, gg in enumerate(grp_rift) if j != k])
+                        idx = (keep_idx, np.arange(len(s.r)))
+                        rows.append(dict(kind="leave one unit out", dclass=cls, frame=fr, window=w, fate_def=fdef,
+                                         treatment="shared rift", unit=k, unit_share=float(wu[k] / wu.sum()),
+                                         n_districts_left_out=int(pd.Series(s.cluster[g]).nunique()),
+                                         quantity="margins", auc=est(s, xm, ym, idx), auc_full=est(s, xm, ym)))
+                        rows[-1]["auc_failed"] = est(s, xf, yf, idx)
+                    rows.append(dict(kind="leave one unit out", dclass=cls, frame=fr, window=w, fate_def=fdef,
+                                     treatment="shared rift", quantity="effective number of units", auc=ess_units,
+                                     n_units=n_units, n_districts=int(s.d["cluster_id"].nunique())))
                 if cls == "KIMB" and fr == "present" and fdef == "database phases":
                     print(f"  {w}: shared-rift units {n_units} of {s.d['cluster_id'].nunique()} districts")
         print(f"  contrast {cls} {fdef} done", flush=True)

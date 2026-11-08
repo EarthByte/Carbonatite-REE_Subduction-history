@@ -129,6 +129,7 @@ mem_carbon_sed_k1000_l400,sensitivity,True
 mem_carbon_sed_k3000_lnone,sensitivity,True
 mem_carbon_sed_k3000_l800,sensitivity,True
 mem_carbon_sed_k3000_l400,sensitivity,True
+mem_carbon_nocap,sensitivity,True
 dt_m_m1,sensitivity,True
 dt_uplift_20_m1,sensitivity,True
 dt_uplift_60_m1,sensitivity,True

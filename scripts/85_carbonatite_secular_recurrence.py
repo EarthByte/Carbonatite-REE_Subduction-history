@@ -124,8 +124,10 @@ def run_secular(p, mantle, out):
     """Counts of districts per STEP Myr bin for every class (and the carbonatite share of carbonatites and
     kimberlites), smoothed over SMOOTH_MYR, against the global subduction flux leading by each of LEADS,
     in each of WINDOWS: Spearman correlation with a p-value from at most 300 circular shifts of the flux
-    of at least MIN_SHIFT Myr, smoothed and after removing the HIGHPASS_MYR running mean. Writes the
-    series and the correlations to ``out``."""
+    of at least MIN_SHIFT Myr, smoothed and after removing the HIGHPASS_MYR running mean, a family-wise
+    p-value for the largest |rho| over the leads scanned (the same shifts), and the p-value of the difference
+    between the alkaline-silicate and carbonatite correlations at each lead. Writes the series and the
+    correlations to ``out``."""
     times = np.arange(0.0, MAX_AGE + STEP / 2, STEP)
     print("  global subduction through time (Muller2025) ...", flush=True)
     g = global_subduction(mantle, times)
@@ -143,36 +145,65 @@ def run_secular(p, mantle, out):
     nshift = len(times)
     # circular shifts of at least MIN_SHIFT Myr from either end, for the null of the correlations
     shifts = [s for s in range(nshift) if MIN_SHIFT / STEP <= s <= nshift - MIN_SHIFT / STEP]
+    # one sample of shifts per flux, filter and window, shared by every lead and every class, so that the
+    # per-lead p-values, the family-wise p-value over the scanned leads (the null of the LARGEST |rho| over
+    # LEADS, since the reported lead is chosen among them; review 2026-11-08) and the p-value of the
+    # difference between two classes at a lead all come from the same null
+    smoothed = {}
     for cls, v in series.items():
-        c = smooth(v, SMOOTH_MYR) if "share" not in cls else pd.Series(v).rolling(
+        smoothed[cls] = smooth(v, SMOOTH_MYR) if "share" not in cls else pd.Series(v).rolling(
             int(SMOOTH_MYR / STEP), center=True, min_periods=1).mean().to_numpy()
-        for fname, filt in (("consumed_km2_yr", "smoothed"), ("trench_km", "smoothed"),
-                            ("consumed_km2_yr", "high-pass")):
-            f = smooth(g[fname].to_numpy(float), SMOOTH_MYR)
-            cc = c
-            if filt == "high-pass":
-                # remove the slow trend shared by every preserved record (more young deposits) and by
-                # the model (more trench length where reconstructions are better constrained)
-                f = f - smooth(f, HIGHPASS_MYR)
-                cc = c - smooth(c, HIGHPASS_MYR)
-            for lo, hi in WINDOWS:
-                for lead in LEADS:
-                    r = lagged_rho(cc, f, lead, lo, hi, times)
-                    null = np.array([lagged_rho(cc, np.roll(f, s), lead, lo, hi, times)
-                                     for s in rng.choice(shifts, min(300, len(shifts)), replace=False)])
-                    null = null[np.isfinite(null)]
-                    pv = float((np.sum(np.abs(null) >= abs(r)) + 1) / (len(null) + 1)) if np.isfinite(r) else np.nan
+    for fname, filt in (("consumed_km2_yr", "smoothed"), ("trench_km", "smoothed"),
+                        ("consumed_km2_yr", "high-pass")):
+        f0 = smooth(g[fname].to_numpy(float), SMOOTH_MYR)
+        if filt == "high-pass":
+            # remove the slow trend shared by every preserved record (more young deposits) and by
+            # the model (more trench length where reconstructions are better constrained)
+            f0 = f0 - smooth(f0, HIGHPASS_MYR)
+        for lo, hi in WINDOWS:
+            sample = rng.choice(shifts, min(300, len(shifts)), replace=False)
+            obs, null = {}, {}
+            for cls in series:
+                cc = smoothed[cls] - smooth(smoothed[cls], HIGHPASS_MYR) if filt == "high-pass" else smoothed[cls]
+                obs[cls] = np.array([lagged_rho(cc, f0, lead, lo, hi, times) for lead in LEADS])
+                null[cls] = np.array([[lagged_rho(cc, np.roll(f0, s), lead, lo, hi, times) for lead in LEADS]
+                                      for s in sample])                            # (shifts, leads)
+            for cls, v in series.items():
+                r_all, n_all = obs[cls], null[cls]
+                fam_obs = np.nanmax(np.abs(r_all)) if np.isfinite(r_all).any() else np.nan
+                fam_null = np.nanmax(np.abs(n_all), axis=1)
+                fam_null = fam_null[np.isfinite(fam_null)]
+                p_fam = float((np.sum(fam_null >= fam_obs) + 1) / (len(fam_null) + 1)) if np.isfinite(fam_obs) else np.nan
+                for j, lead in enumerate(LEADS):
+                    r = r_all[j]
+                    nl = n_all[:, j]
+                    nl = nl[np.isfinite(nl)]
+                    pv = float((np.sum(np.abs(nl) >= abs(r)) + 1) / (len(nl) + 1)) if np.isfinite(r) else np.nan
                     rows.append(dict(part="correlation", series=cls, flux=fname, filter=filt, window=f"{lo}-{hi} Ma",
-                                     lead_myr=lead, rho=r, p_shift=pv, n_bins=int(((times >= lo) & (times < hi)).sum()),
+                                     lead_myr=lead, rho=r, p_shift=pv, p_family=p_fam,
+                                     n_bins=int(((times >= lo) & (times < hi)).sum()),
                                      n_districts=int(np.nansum(v[(times >= lo) & (times < hi)])) if "share" not in cls else np.nan))
+            # alkaline-silicate against carbonatite numbers: is the correlation of one class larger than
+            # the other's at the same lead? Null: the difference under the same shifts of the flux
+            if "AIREE" in obs and "CARB" in obs:
+                for j, lead in enumerate(LEADS):
+                    dobs = obs["AIREE"][j] - obs["CARB"][j]
+                    dnull = null["AIREE"][:, j] - null["CARB"][:, j]
+                    dnull = dnull[np.isfinite(dnull)]
+                    pv = float((np.sum(np.abs(dnull) >= abs(dobs)) + 1) / (len(dnull) + 1)) if np.isfinite(dobs) else np.nan
+                    rows.append(dict(part="correlation_difference", series="AIREE minus CARB", flux=fname, filter=filt,
+                                     window=f"{lo}-{hi} Ma", lead_myr=lead, rho=dobs, p_shift=pv, p_family=np.nan,
+                                     n_bins=int(((times >= lo) & (times < hi)).sum()), n_districts=np.nan))
     t = pd.concat([g.assign(part="series"), pd.DataFrame(rows)], ignore_index=True)
     write_csv(t, out)
     best = pd.DataFrame(rows)
     best = best[best["flux"] == "consumed_km2_yr"]
+    best = best[best["part"] == "correlation"]
     for (s, filt, w), b in best.groupby(["series", "filter", "window"], sort=False):
         i = b["rho"].abs().idxmax()
         print(f"  {s:24s} {filt:9s} {w:12s} strongest at lead {b.loc[i, 'lead_myr']:>3.0f} Myr: "
-              f"rho {b.loc[i, 'rho']:+.2f}, p {b.loc[i, 'p_shift']:.3f}")
+              f"rho {b.loc[i, 'rho']:+.2f}, p {b.loc[i, 'p_shift']:.3f} at that lead, "
+              f"{b.loc[i, 'p_family']:.3f} over the {len(LEADS)} leads scanned")
 
 
 # -------------------------------------------------------------------------- recurrence

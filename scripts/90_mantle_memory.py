@@ -187,7 +187,13 @@ def main():
     ap.add_argument("--pilot", action="store_true", help="reference parameters only, no field file")
     ap.add_argument("--check", action="store_true", help="test the kernel on a synthetic delivery and stop")
     ap.add_argument("--spike-factor", type=float, default=10.0,
-                    help="cap a cell's delivery in one step at this many times the recent typical maximum")
+                    help="cap a cell's delivery in one step at this many times the recent typical maximum; "
+                         "a very large value (1e9) leaves every delivery as the grids give it")
+    ap.add_argument("--out-suffix", default="",
+                    help="appended to the output table name (mantle_memory_<tag><suffix>), for a sensitivity run "
+                         "such as the uncapped reservoir (--spike-factor 1e9 --pilot --out-suffix _nocap)")
+    ap.add_argument("--sources", nargs="*", default=None,
+                    help="restrict the reservoirs to these sources (carbon, water_sub, water_deep, water_out, carbon_sed)")
     a = ap.parse_args()
     cfg = load_config(a.config)
     der = Path(cfg["paths"]["derived"])
@@ -209,6 +215,8 @@ def main():
     if a.carbonate_set and any(g["name"] == a.carbonate_set for g in cfg["water"]["grid_sets"]):
         sg = grid_set(cfg, a.carbonate_set)
         sources["carbon_sed"] = (sg, sg.variables[0], "carbon")
+    if a.sources:
+        sources = {v: sources[v] for v in a.sources}
     ages_of = {v: set(int(x) for x in g.ages) for v, (g, _, _) in sources.items()}
     starts = {v: int(g.ages.max()) for v, (g, _, _) in sources.items()}
     ends = {v: int(g.ages.min()) for v, (g, _, _) in sources.items()}
@@ -309,7 +317,7 @@ def main():
     for tag, f in pts.items():
         res = pd.DataFrame({"pt_id": f["pt_id"].to_numpy(), **out[tag]})
         print(f"{tag}:\n{res.describe().T[['count', 'mean', '50%']].round(4).to_string()}")
-        print(f"wrote {write_table(res, der / f'mantle_memory_{tag}')}")
+        print(f"wrote {write_table(res, der / f'mantle_memory_{tag}{a.out_suffix}')}")
     if not a.pilot:
         import xarray as xr
         fields = dict(fields)

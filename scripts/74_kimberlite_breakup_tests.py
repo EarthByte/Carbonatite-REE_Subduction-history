@@ -32,7 +32,9 @@ kimberlite lies farther than a reference point; below 0.5, closer):
                of four modern tomographic families, rifts/llsvp.py; held fixed in the mantle frame;
                negative inside) and its absolute value;
                plate speed in the mantle frame at eruption. The margin estimate is repeated within
-               tertiles of each, and the LIP estimate within tertiles of margin distance.
+               tertiles of each, and the LIP estimate within tertiles of margin distance. The LIP
+               estimate is also given with each province left out in turn and with the provinces
+               resampled with replacement, the provinces being the independent events.
   migration    Within provinces, the reconstructed distance of each kimberlite to the nearest
                margin whose rifting ended 0-150 Myr before eruption against the time since that
                margin's rifting ended (and since it began): the slope in km per Myr, weighted by
@@ -71,7 +73,7 @@ LIP_WINDOWS = ((0.0, 20.0), (20.0, 40.0), (40.0, 70.0), (70.0, 120.0), (0.0, 70.
 SHUFFLE_MAX_END = 550.0
 MIGRATION_KM = 3000.0
 PARTS = {"timing": ("timing", "timing offset", "timing lag"), "power": ("power",),
-         "extension": ("extension",), "alternatives": ("alternatives", "stratified", "nearest lips"),
+         "extension": ("extension",), "alternatives": ("alternatives", "stratified", "nearest lips", "lip leave-one-out", "lip province bootstrap"),
          "migration": ("migration", "migration district", "breakup events")}
 OFFSETS = np.arange(-100, 101, 5)
 LIP_EXCLUDE = ("METER", "SEAMOUNT", "RIDGE", "PLATEAU", "RISE", "VOLCANIC PASSIVE", "BANK", "GUYOT", "ISLAND",
@@ -286,6 +288,8 @@ def main():
     # ------------------------------------------------------------------- 1 timing
     if "timing" in a.parts:
         pool_m = is_m & (end0 <= SHUFFLE_MAX_END) & (end0 > 0)
+        _rc = rifts.geometry.centroid
+        rift_pid, _, _ = mantle.assign_plate_ids(_rc.x.to_numpy(float), _rc.y.to_numpy(float))
         pool_all = any_fate & (fate != "active") & (end0 <= SHUFFLE_MAX_END) & (end0 > 0)
         for bname, s in (("continental crust", K), ("crust inside cratons", KC)):
             for lo, hi in MAIN:
@@ -293,12 +297,18 @@ def main():
                 xd, xr = vals(s, is_m, lo, hi)
                 obs = wauc(xd[0], s.wd, xr[0], s.wr)
                 obs_reach = reach(xd[0], s.wd) - reach(xr[0], s.wr)
-                for pname, pool in (("margins shuffled", pool_m), ("all rifts shuffled", pool_all)):
+                for pname, pool in (("margins shuffled", pool_m), ("all rifts shuffled", pool_all),
+                                    ("margins shuffled within plates", pool_m)):
                     rng = np.random.default_rng(74)
                     ids = np.nonzero(pool)[0]
+                    # restricted reassignment (review 2026-11-08): ages exchanged only among margins on
+                    # the same present-day plate, so that the null keeps the age distribution of each
+                    # continent; a plate with one margin keeps its age
+                    blocks = [ids[rift_pid[ids] == k] for k in np.unique(rift_pid[ids])] if "within" in pname else [ids]
                     null, null_reach = [], []
                     for _ in range(a.perm):
-                        p = rng.permutation(ids)
+                        p = np.concatenate([rng.permutation(b) for b in blocks])
+                        ids = np.concatenate(blocks)
                         on, en = onset0.copy(), end0.copy()
                         on[ids], en[ids] = onset0[p], end0[p]
                         pd_, pr_ = vals(s, is_m, lo, hi, on, en)
@@ -326,21 +336,30 @@ def main():
         lip_on0 = lips["onset_ma"].to_numpy(float)
         lip_code, lip_names = pd.factorize(lips["lip"])
         lip_age = pd.Series(lip_on0).groupby(lip_code).median().to_numpy()
+        _lc = lips.geometry.centroid
+        lip_pid_all, _, _ = mantle.assign_plate_ids(_lc.x.to_numpy(float), _lc.y.to_numpy(float))
         for lo, hi in ((0.0, 20.0), (0.0, 70.0), (20.0, 40.0), (40.0, 70.0)):
             w = wname(lo, hi)
             xd, xr = vals(K, np.ones(len(lips), bool), lo, hi, lip_on0, lip_on0, D=Dlip["KIMB"])
             obs = wauc(xd[0], K.wd, xr[0], K.wr)
-            rng = np.random.default_rng(75)
-            null = []
-            for _ in range(a.perm):
-                ages = rng.permutation(lip_age)[lip_code]
-                pd_, pr_ = vals(K, np.ones(len(lips), bool), lo, hi, ages, ages, D=Dlip["KIMB"])
-                null.append(wauc(pd_[0], K.wd, pr_[0], K.wr))
-            null = np.asarray(null)
-            rows.append(dict(kind="timing", dclass="KIMB", background="continental crust", window=w,
-                             quantity="large igneous provinces shuffled", auc=obs, null_median=float(np.nanmedian(null)),
-                             **summarise(null), p=float((1 + np.sum(null <= obs)) / (1 + np.isfinite(null).sum())),
-                             n_perm=a.perm, n_pool=int(len(lip_age))))
+            lip_pid = pd.Series(lip_pid_all).groupby(lip_code).agg(lambda v: pd.Series(v).mode().iloc[0]).to_numpy()
+            for qname, groups in (("large igneous provinces shuffled", [np.arange(len(lip_age))]),
+                                  ("large igneous provinces shuffled within plates",
+                                   [np.flatnonzero(lip_pid == k) for k in np.unique(lip_pid)])):
+                rng = np.random.default_rng(75)
+                null = []
+                for _ in range(a.perm):
+                    ages = lip_age.copy()
+                    for g in groups:
+                        ages[g] = rng.permutation(lip_age[g])
+                    ages = ages[lip_code]
+                    pd_, pr_ = vals(K, np.ones(len(lips), bool), lo, hi, ages, ages, D=Dlip["KIMB"])
+                    null.append(wauc(pd_[0], K.wd, pr_[0], K.wr))
+                null = np.asarray(null)
+                rows.append(dict(kind="timing", dclass="KIMB", background="continental crust", window=w,
+                                 quantity=qname, auc=obs, null_median=float(np.nanmedian(null)),
+                                 **summarise(null), p=float((1 + np.sum(null <= obs)) / (1 + np.isfinite(null).sum())),
+                                 n_perm=a.perm, n_pool=int(len(lip_age)), n_blocks=len(groups)))
         # a continuous version: the estimate for margins whose rifting ended lag..lag+30 Myr before
         for lag in range(0, 151, 5):
             xd, xr = vals(K, is_m, float(lag), float(lag + 30))
@@ -438,6 +457,30 @@ def main():
             comparison("alternatives", "large igneous provinces", KC,
                        *vals(KC, lip_all, lo, hi, lip_on, lip_on, D=(Dlip["KIMB"][0][crat_d], Dlip["KIMB"][1][crat_r])),
                        window=wname(lo, hi), background="crust inside cratons")
+        # event-level uncertainty of the LIP association (review 2026-11-08): the provinces, not the districts,
+        # are the independent events. Each province is left out in turn, and the provinces are resampled with
+        # replacement (a province left out of a draw contributes no polygon), for the main windows.
+        lip_code_a, lip_names_a = pd.factorize(lips["lip"])
+        rng_lip = np.random.default_rng(741)
+        for lo, hi in ((0.0, 70.0), (20.0, 40.0), (40.0, 70.0), (0.0, 20.0)):
+            xd, xr = vals(K, lip_all, lo, hi, lip_on, lip_on, D=Dlip["KIMB"])
+            full = wauc(xd[0], K.wd, xr[0], K.wr)
+            for j, name in enumerate(lip_names_a):
+                sel = lip_code_a != j
+                xd1, xr1 = vals(K, sel, lo, hi, lip_on, lip_on, D=Dlip["KIMB"])
+                rows.append(dict(kind="lip leave-one-out", dclass="KIMB", window=wname(lo, hi), quantity=str(name),
+                                 auc=wauc(xd1[0], K.wd, xr1[0], K.wr), auc_full=full,
+                                 n_polygons=int((~sel).sum()), n_provinces=len(lip_names_a)))
+            b = []
+            for _ in range(a.boot):
+                pick = rng_lip.integers(0, len(lip_names_a), len(lip_names_a))
+                sel = np.isin(lip_code_a, np.unique(pick))
+                xd1, xr1 = vals(K, sel, lo, hi, lip_on, lip_on, D=Dlip["KIMB"])
+                b.append(wauc(xd1[0], K.wd, xr1[0], K.wr))
+            rows.append(dict(kind="lip province bootstrap", dclass="KIMB", window=wname(lo, hi),
+                             quantity="large igneous provinces, provinces resampled", auc=full, **summarise(b),
+                             n_provinces=len(lip_names_a), n_districts=int(pd.Series(K.cluster).nunique())))
+        print("  LIP province-level checks done", flush=True)
         # the provinces nearest to kimberlite districts at eruption, 0-20 and 0-70 Myr before
         for lo, hi in ((0.0, 20.0), (0.0, 70.0)):
             (x, i, h), _ = vals(K, lip_all, lo, hi, lip_on, lip_on, D=Dlip["KIMB"])

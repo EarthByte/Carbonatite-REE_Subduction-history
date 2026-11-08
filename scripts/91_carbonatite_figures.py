@@ -193,7 +193,15 @@ def fig2(sysdf, out):
                         color=COLOUR[s], elinewidth=0.6, capsize=0, label=LABEL[s] if m == meas[0][0] else None)
     ax.axvline(0.5, color="#666666", lw=0.5, ls=(0, (2, 2)))
     ax.set_yticks(y0)
-    ax.set_yticklabels([lab for _, lab in meas])
+    # where a window leaves districts out (it runs past the covered history), the row label carries the
+    # numbers of carbonatite and alkaline-silicate districts that enter (review 2026-11-08)
+    total = {s: max(c.loc[s, "n_districts"]) if s in c.index.get_level_values(0) else 0 for s in ("CARB", "AIREE")}
+    labels = []
+    for m, lab in meas:
+        n = [int(c.loc[(s, m), "n_districts"]) if (s, m) in c.index else None for s in ("CARB", "AIREE")]
+        short = [x is not None and x < total[s] for x, s in zip(n, ("CARB", "AIREE"))]
+        labels.append(lab + (f" (n = {n[0]}, {n[1]})" if any(short) else ""))
+    ax.set_yticklabels(labels)
     ax.set_ylim(-0.6, len(meas) - 0.4)
     ax.set_xlim(0.25, 0.9)
     ax.set_xlabel("probability that the value beneath a district exceeds that beneath\nreference lithosphere of the same age (0.5: no difference)")
@@ -299,9 +307,12 @@ def fig5(p, out):
     """Fig. 5: weighted cumulative distributions of lid thickness and of the shear-wave-speed gradient at
     150 km beneath carbonatite, alkaline-silicate REE and kimberlite districts and reference
     lithosphere."""
-    fig, axes = plt.subplots(1, 2, figsize=(width_mm("double") * MM, 58 * MM), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(width_mm("double") * MM, 58 * MM), sharey=True)
+    # the lid is a floored proxy (50 km wherever the lithosphere is not fast at 60 km), so the shear-wave
+    # speed at 150 km is shown as well (review 2026-11-08)
     for ax, col, xlab in ((axes[0], "lid_km", "thickness of the fast lithospheric lid (km)"),
-                          (axes[1], "vsh_grad150", "horizontal gradient of shear-wave speed at 150 km\n(km/s per 100 km)")):
+                          (axes[1], "vsh150", "shear-wave speed at 150 km (km/s)"),
+                          (axes[2], "vsh_grad150", "horizontal gradient of shear-wave speed\nat 150 km (km/s per 100 km)")):
         for grp in ("CARB", "AIREE", "KIMB"):
             d, _ = sides(p, grp)
             wecdf(ax, d[col].to_numpy(float), d["w_cluster"].to_numpy(float), color=COLOUR[grp], lw=1.2, ls=LS[grp],
