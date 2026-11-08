@@ -1,4 +1,4 @@
-# Alkaline rare-earth deposits follow subduction, carbonatites follow lithospheric steps
+# Lithospheric steps and recent subduction control distinct rare-earth mineral systems
 
 Code and data behind the paper. Carbonatites (the dated occurrences of Humphreys-Williams & Zahirovic, 2021, with
 the USGS carbonatite and rare-earth deposit tables), alkaline-silicate rare-earth deposits (Orris & Grauch, 2002),
