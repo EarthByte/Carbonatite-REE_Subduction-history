@@ -1,0 +1,26 @@
+{
+  "title": "Alkaline rare-earth deposits follow subduction, carbonatites follow lithospheric steps: analysis and figure code",
+  "description": "<p>Analysis and figure code for  and Müller, <em>Alkaline rare-earth deposits follow subduction, carbonatites follow lithospheric steps</em>, with the rift outlines and the derived tables behind every figure and table of the paper.</p>",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Müller, R. Dietmar",
+      "affiliation": "EarthByte Group, School of Geosciences, University of Sydney, Australia",
+      "orcid": "0000-0002-3334-5764"
+    }
+  ],
+  "keywords": [
+    "carbonatites",
+    "rare earth elements",
+    "alkaline igneous rocks",
+    "subduction",
+    "subducted volatiles",
+    "lithospheric thickness",
+    "plate reconstructions",
+    "mineral systems",
+    "critical minerals"
+  ],
+  "language": "eng"
+}

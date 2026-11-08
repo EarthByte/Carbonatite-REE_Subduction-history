@@ -1,0 +1,619 @@
+kind,group,n,share_dep,note,measure,n_ref,dep_lo,dep_hi,share_ref,ref_lo,ref_hi,diff_lo,diff_hi,condition,matched,auc,median_in,median_out
+reproduction,carbonatites,303,0.669967,inside a polygon older than the occurrence,,,,,,,,,,,,,,
+reproduction,REE ore deposits,108,0.722222,inside a polygon older than the occurrence,,,,,,,,,,,,,,
+share,CARB,259,0.575581,,primed,1825,0.514485,0.636893,0.374795,0.353425,0.394521,0.135353,0.263646,,,,,
+share at equal,CARB,,0.581532,distance to the nearest craton outline at the age of the point,primed,,,,0.424236,,,,,craton_dist_km,1,,,
+share at equal,CARB,,0.575581,distance to the nearest craton outline at the present day,primed,,,,0.436159,,,,,craton_present_km,1,,,
+share at equal,CARB,,0.575581,distance to the nearest deposit of another family (exploration density),primed,,,,0.390275,,,,,other_family_km,1,,,
+share at equal,CARB,,0.575581,horizontal gradient of shear-wave velocity at 150 km,primed,,,,0.388698,,,,,vsh_grad150,1,,,
+share,CARB,259,0.439922,,primed_le1800,1825,0.377895,0.499057,0.272877,0.254233,0.292603,0.104439,0.229391,,,,,
+share at equal,CARB,,0.444008,distance to the nearest craton outline at the age of the point,primed_le1800,,,,0.303075,,,,,craton_dist_km,1,,,
+share at equal,CARB,,0.439922,distance to the nearest craton outline at the present day,primed_le1800,,,,0.308858,,,,,craton_present_km,1,,,
+share at equal,CARB,,0.439922,distance to the nearest deposit of another family (exploration density),primed_le1800,,,,0.302416,,,,,other_family_km,1,,,
+share at equal,CARB,,0.439922,horizontal gradient of shear-wave velocity at 150 km,primed_le1800,,,,0.280964,,,,,vsh_grad150,1,,,
+share,CARB,259,0.242894,,primed_within800,1825,0.192426,0.300388,0.152877,0.136438,0.169329,0.0376721,0.146166,,,,,
+share at equal,CARB,,0.24427,distance to the nearest craton outline at the age of the point,primed_within800,,,,0.168282,,,,,craton_dist_km,1,,,
+share at equal,CARB,,0.242894,distance to the nearest craton outline at the present day,primed_within800,,,,0.172549,,,,,craton_present_km,1,,,
+share at equal,CARB,,0.242894,distance to the nearest deposit of another family (exploration density),primed_within800,,,,0.169353,,,,,other_family_km,1,,,
+share at equal,CARB,,0.242894,horizontal gradient of shear-wave velocity at 150 km,primed_within800,,,,0.15883,,,,,vsh_grad150,1,,,
+share,AIREE,49,0.612245,,primed,1837,0.489796,0.755102,0.357648,0.335329,0.378892,0.122825,0.390384,,,,,
+share at equal,AIREE,,0.612245,distance to the nearest craton outline at the age of the point,primed,,,,0.392009,,,,,craton_dist_km,1,,,
+share at equal,AIREE,,0.612245,distance to the nearest craton outline at the present day,primed,,,,0.430871,,,,,craton_present_km,1,,,
+share at equal,AIREE,,0.612245,distance to the nearest deposit of another family (exploration density),primed,,,,0.391413,,,,,other_family_km,1,,,
+share at equal,AIREE,,0.612245,horizontal gradient of shear-wave velocity at 150 km,primed,,,,0.369168,,,,,vsh_grad150,1,,,
+share,AIREE,49,0.469388,,primed_le1800,1837,0.346939,0.612245,0.247142,0.228076,0.266208,0.0888822,0.364599,,,,,
+share at equal,AIREE,,0.469388,distance to the nearest craton outline at the age of the point,primed_le1800,,,,0.263757,,,,,craton_dist_km,1,,,
+share at equal,AIREE,,0.469388,distance to the nearest craton outline at the present day,primed_le1800,,,,0.289576,,,,,craton_present_km,1,,,
+share at equal,AIREE,,0.469388,distance to the nearest deposit of another family (exploration density),primed_le1800,,,,0.296475,,,,,other_family_km,1,,,
+share at equal,AIREE,,0.469388,horizontal gradient of shear-wave velocity at 150 km,primed_le1800,,,,0.25678,,,,,vsh_grad150,1,,,
+share,AIREE,49,0.387755,,primed_within800,1837,0.265306,0.530612,0.171475,0.154056,0.187833,0.0989765,0.365717,,,,,
+share at equal,AIREE,,0.387755,distance to the nearest craton outline at the age of the point,primed_within800,,,,0.183832,,,,,craton_dist_km,1,,,
+share at equal,AIREE,,0.387755,distance to the nearest craton outline at the present day,primed_within800,,,,0.197785,,,,,craton_present_km,1,,,
+share at equal,AIREE,,0.387755,distance to the nearest deposit of another family (exploration density),primed_within800,,,,0.187689,,,,,other_family_km,1,,,
+share at equal,AIREE,,0.387755,horizontal gradient of shear-wave velocity at 150 km,primed_within800,,,,0.173834,,,,,vsh_grad150,1,,,
+share,KIMB,200,0.610704,,primed,1825,0.546495,0.671453,0.360548,0.339178,0.380822,0.179359,0.317963,,,,,
+share at equal,KIMB,,0.610704,distance to the nearest craton outline at the age of the point,primed,,,,0.44314,,,,,craton_dist_km,1,,,
+share at equal,KIMB,,0.610704,distance to the nearest craton outline at the present day,primed,,,,0.458776,,,,,craton_present_km,1,,,
+share at equal,KIMB,,0.610704,distance to the nearest deposit of another family (exploration density),primed,,,,0.36511,,,,,other_family_km,1,,,
+share at equal,KIMB,,0.610704,horizontal gradient of shear-wave velocity at 150 km,primed,,,,0.360208,,,,,vsh_grad150,1,,,
+share,KIMB,200,0.434812,,primed_le1800,1825,0.369785,0.504343,0.256986,0.236699,0.27726,0.109831,0.246137,,,,,
+share at equal,KIMB,,0.434812,distance to the nearest craton outline at the age of the point,primed_le1800,,,,0.292388,,,,,craton_dist_km,1,,,
+share at equal,KIMB,,0.434812,distance to the nearest craton outline at the present day,primed_le1800,,,,0.300768,,,,,craton_present_km,1,,,
+share at equal,KIMB,,0.434812,distance to the nearest deposit of another family (exploration density),primed_le1800,,,,0.26272,,,,,other_family_km,1,,,
+share at equal,KIMB,,0.434812,horizontal gradient of shear-wave velocity at 150 km,primed_le1800,,,,0.256612,,,,,vsh_grad150,1,,,
+share,KIMB,200,0.113569,,primed_within800,1825,0.0729507,0.159559,0.127123,0.111219,0.14137,-0.054978,0.0342069,,,,,
+share at equal,KIMB,,0.113569,distance to the nearest craton outline at the age of the point,primed_within800,,,,0.13084,,,,,craton_dist_km,1,,,
+share at equal,KIMB,,0.113569,distance to the nearest craton outline at the present day,primed_within800,,,,0.13846,,,,,craton_present_km,1,,,
+share at equal,KIMB,,0.113569,distance to the nearest deposit of another family (exploration density),primed_within800,,,,0.130801,,,,,other_family_km,1,,,
+share at equal,KIMB,,0.113569,horizontal gradient of shear-wave velocity at 150 km,primed_within800,,,,0.12795,,,,,vsh_grad150,1,,,
+share,PCU,289,0.457525,,primed,1822,0.403949,0.516031,0.340834,0.319429,0.362788,0.0570954,0.179096,,,,,
+share at equal,PCU,,0.457525,distance to the nearest craton outline at the age of the point,primed,,,,0.267411,,,,,craton_dist_km,1,,,
+share at equal,PCU,,0.457525,distance to the nearest craton outline at the present day,primed,,,,0.281263,,,,,craton_present_km,1,,,
+share at equal,PCU,,0.457525,distance to the nearest deposit of another family (exploration density),primed,,,,0.402057,,,,,other_family_km,1,,,
+share at equal,PCU,,0.457525,horizontal gradient of shear-wave velocity at 150 km,primed,,,,0.353409,,,,,vsh_grad150,1,,,
+share,PCU,289,0.443579,,primed_le1800,1822,0.39116,0.498925,0.266191,0.245884,0.28761,0.115793,0.237106,,,,,
+share at equal,PCU,,0.443579,distance to the nearest craton outline at the age of the point,primed_le1800,,,,0.224903,,,,,craton_dist_km,1,,,
+share at equal,PCU,,0.443579,distance to the nearest craton outline at the present day,primed_le1800,,,,0.235624,,,,,craton_present_km,1,,,
+share at equal,PCU,,0.443579,distance to the nearest deposit of another family (exploration density),primed_le1800,,,,0.328741,,,,,other_family_km,1,,,
+share at equal,PCU,,0.443579,horizontal gradient of shear-wave velocity at 150 km,primed_le1800,,,,0.281015,,,,,vsh_grad150,1,,,
+share,PCU,289,0.373852,,primed_within800,1822,0.317121,0.430325,0.103732,0.0899973,0.1191,0.21354,0.326691,,,,,
+share at equal,PCU,,0.373852,distance to the nearest craton outline at the age of the point,primed_within800,,,,0.121937,,,,,craton_dist_km,1,,,
+share at equal,PCU,,0.373852,distance to the nearest craton outline at the present day,primed_within800,,,,0.124519,,,,,craton_present_km,1,,,
+share at equal,PCU,,0.373852,distance to the nearest deposit of another family (exploration density),primed_within800,,,,0.126966,,,,,other_family_km,1,,,
+share at equal,PCU,,0.373852,horizontal gradient of shear-wave velocity at 150 km,primed_within800,,,,0.108888,,,,,vsh_grad150,1,,,
+spandler by host,carbonatites (all),303,0.669967,median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age,primed,,,,0.33156,,,0.283953,0.391457,,,,,
+spandler by host,carbonatites (all),303,0.669967,"median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed,,,,0.429829,,,0.194486,0.287532,craton_present_km,,,,
+spandler by host,carbonatites (all),303,0.105611,median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age,primed_within400,,,,0.0653403,,,0.00595072,0.0759532,,,,,
+spandler by host,carbonatites (all),303,0.105611,"median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within400,,,,0.0799974,,,-0.00789533,0.0598565,craton_present_km,,,,
+spandler by host,carbonatites (all),303,0.267327,median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age,primed_within800,,,,0.110879,,,0.111643,0.203175,,,,,
+spandler by host,carbonatites (all),303,0.267327,"median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within800,,,,0.146754,,,0.0718925,0.17172,craton_present_km,,,,
+spandler by host,carbonatites (all),303,0.429043,median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age,primed_within1200,,,,0.167456,,,0.204381,0.316291,,,,,
+spandler by host,carbonatites (all),303,0.429043,"median age 209 Ma; median craton-edge distance 106 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within1200,,,,0.224103,,,0.151009,0.264788,craton_present_km,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.645161,median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age,primed,,,,0.305833,,,0.146283,0.502051,,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.645161,"median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed,,,,0.346815,,,0.14102,0.453231,craton_present_km,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.258065,median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age,primed_within400,,,,0.0647838,,,0.0564204,0.353644,,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.258065,"median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within400,,,,0.090026,,,0.0254843,0.317103,craton_present_km,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.483871,median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age,primed_within800,,,,0.148214,,,0.16765,0.506188,,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.483871,"median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within800,,,,0.199721,,,0.132437,0.43726,craton_present_km,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.483871,median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age,primed_within1200,,,,0.181237,,,0.155809,0.460064,,,,,
+spandler by host,"REE ore, alkaline-silicate",31,0.483871,"median age 386 Ma; median craton-edge distance 152 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within1200,,,,0.238059,,,0.109935,0.389743,craton_present_km,,,,
+spandler by host,"REE ore, carbonatite",72,0.75,median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age,primed,,,,0.328406,,,0.321628,0.524396,,,,,
+spandler by host,"REE ore, carbonatite",72,0.75,"median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed,,,,0.45346,,,0.186768,0.396244,craton_present_km,,,,
+spandler by host,"REE ore, carbonatite",72,0.0833333,median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age,primed_within400,,,,0.0641847,,,-0.0361567,0.0837248,,,,,
+spandler by host,"REE ore, carbonatite",72,0.0833333,"median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within400,,,,0.0726343,,,-0.0450186,0.0745325,craton_present_km,,,,
+spandler by host,"REE ore, carbonatite",72,0.222222,median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age,primed_within800,,,,0.115485,,,0.0133606,0.195288,,,,,
+spandler by host,"REE ore, carbonatite",72,0.222222,"median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within800,,,,0.150021,,,-0.0164484,0.169314,craton_present_km,,,,
+spandler by host,"REE ore, carbonatite",72,0.430556,median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age,primed_within1200,,,,0.17062,,,0.153804,0.363417,,,,,
+spandler by host,"REE ore, carbonatite",72,0.430556,"median age 232 Ma; median craton-edge distance 100 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within1200,,,,0.233918,,,0.0925979,0.299667,craton_present_km,,,,
+spandler by host,"REE ore, volcanic",5,0.8,median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age,primed,,,,0.340537,,,0.0472936,0.683801,,,,,
+spandler by host,"REE ore, volcanic",5,0.8,"median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed,,,,0.477075,,,0.0173913,0.481028,craton_present_km,,,,
+spandler by host,"REE ore, volcanic",5,0.2,median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age,primed_within400,,,,0.0651916,,,-0.0803635,0.531924,,,,,
+spandler by host,"REE ore, volcanic",5,0.2,"median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within400,,,,0.0940711,,,-0.120949,0.520949,craton_present_km,,,,
+spandler by host,"REE ore, volcanic",5,0.2,median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age,primed_within800,,,,0.0988542,,,-0.108376,0.498617,,,,,
+spandler by host,"REE ore, volcanic",5,0.2,"median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within800,,,,0.152964,,,-0.170949,0.458103,craton_present_km,,,,
+spandler by host,"REE ore, volcanic",5,0.4,median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age,primed_within1200,,,,0.134492,,,-0.143698,0.674714,,,,,
+spandler by host,"REE ore, volcanic",5,0.4,"median age 185 Ma; median craton-edge distance 49 km; expected = reference positions covered by a polygon of the deposit's age, within the deposit's quintile of present-day craton-edge distance",primed_within1200,,,,0.205731,,,-0.200198,0.591003,craton_present_km,,,,
+polygon vs volatiles,all reference points,2531,,,h2o_mean_subducted_water_fixed_25myr,4486,,,,,,,,primed,,0.500463,0,0
+polygon vs volatiles,"all reference points, within age deciles",2531,,,h2o_mean_subducted_water_fixed_25myr,4486,,,,,,,,primed,,0.502147,0,0
+polygon vs volatiles,all reference points,2510,,,h2o_mean_subducted_water_fixed_50myr,4476,,,,,,,,primed,,0.494152,0,0
+polygon vs volatiles,"all reference points, within age deciles",2510,,,h2o_mean_subducted_water_fixed_50myr,4476,,,,,,,,primed,,0.494644,0,0
+polygon vs volatiles,all reference points,2477,,,h2o_mean_subducted_water_fixed_100myr,4442,,,,,,,,primed,,0.49843,3.40061e-09,9.12766e-09
+polygon vs volatiles,"all reference points, within age deciles",2477,,,h2o_mean_subducted_water_fixed_100myr,4442,,,,,,,,primed,,0.497693,3.40061e-09,9.12766e-09
+polygon vs volatiles,all reference points,2412,,,h2o_mean_subducted_water_fixed_200myr,4402,,,,,,,,primed,,0.501799,0.000863103,0.000735983
+polygon vs volatiles,"all reference points, within age deciles",2412,,,h2o_mean_subducted_water_fixed_200myr,4402,,,,,,,,primed,,0.502826,0.000863103,0.000735983
+polygon vs volatiles,all reference points,2313,,,h2o_mean_subducted_water_fixed_400myr,4283,,,,,,,,primed,,0.484437,0.00335757,0.00332672
+polygon vs volatiles,"all reference points, within age deciles",2313,,,h2o_mean_subducted_water_fixed_400myr,4283,,,,,,,,primed,,0.486567,0.00335757,0.00332672
+polygon vs volatiles,all reference points,2512,,,h2o_mean_subducted_water_track_25myr,4463,,,,,,,,primed,,0.497522,0,0
+polygon vs volatiles,"all reference points, within age deciles",2512,,,h2o_mean_subducted_water_track_25myr,4463,,,,,,,,primed,,0.50008,0,0
+polygon vs volatiles,all reference points,2498,,,h2o_mean_subducted_water_track_50myr,4424,,,,,,,,primed,,0.490305,0,0
+polygon vs volatiles,"all reference points, within age deciles",2498,,,h2o_mean_subducted_water_track_50myr,4424,,,,,,,,primed,,0.495246,0,0
+polygon vs volatiles,all reference points,2462,,,h2o_mean_subducted_water_track_100myr,4347,,,,,,,,primed,,0.48812,0,0
+polygon vs volatiles,"all reference points, within age deciles",2462,,,h2o_mean_subducted_water_track_100myr,4347,,,,,,,,primed,,0.49277,0,0
+polygon vs volatiles,all reference points,2390,,,h2o_mean_subducted_water_track_200myr,4187,,,,,,,,primed,,0.483043,4.29364e-14,2.33476e-14
+polygon vs volatiles,"all reference points, within age deciles",2390,,,h2o_mean_subducted_water_track_200myr,4187,,,,,,,,primed,,0.488029,4.29364e-14,2.33476e-14
+polygon vs volatiles,all reference points,2194,,,h2o_mean_subducted_water_track_400myr,3730,,,,,,,,primed,,0.472439,5.74229e-07,6.00226e-06
+polygon vs volatiles,"all reference points, within age deciles",2194,,,h2o_mean_subducted_water_track_400myr,3730,,,,,,,,primed,,0.48323,5.74229e-07,6.00226e-06
+polygon vs volatiles,all reference points,2506,,,h2o_mean_slab_outflux_fixed_25myr,4464,,,,,,,,primed,,0.500787,0,0
+polygon vs volatiles,"all reference points, within age deciles",2506,,,h2o_mean_slab_outflux_fixed_25myr,4464,,,,,,,,primed,,0.502201,0,0
+polygon vs volatiles,all reference points,2484,,,h2o_mean_slab_outflux_fixed_50myr,4451,,,,,,,,primed,,0.493018,0,0
+polygon vs volatiles,"all reference points, within age deciles",2484,,,h2o_mean_slab_outflux_fixed_50myr,4451,,,,,,,,primed,,0.493477,0,0
+polygon vs volatiles,all reference points,2450,,,h2o_mean_slab_outflux_fixed_100myr,4417,,,,,,,,primed,,0.497949,3.66881e-09,9.22751e-09
+polygon vs volatiles,"all reference points, within age deciles",2450,,,h2o_mean_slab_outflux_fixed_100myr,4417,,,,,,,,primed,,0.497168,3.66881e-09,9.22751e-09
+polygon vs volatiles,all reference points,2387,,,h2o_mean_slab_outflux_fixed_200myr,4365,,,,,,,,primed,,0.501547,0.000784422,0.000627824
+polygon vs volatiles,"all reference points, within age deciles",2387,,,h2o_mean_slab_outflux_fixed_200myr,4365,,,,,,,,primed,,0.503057,0.000784422,0.000627824
+polygon vs volatiles,all reference points,2285,,,h2o_mean_slab_outflux_fixed_400myr,4240,,,,,,,,primed,,0.483534,0.00296605,0.00300414
+polygon vs volatiles,"all reference points, within age deciles",2285,,,h2o_mean_slab_outflux_fixed_400myr,4240,,,,,,,,primed,,0.486105,0.00296605,0.00300414
+polygon vs volatiles,all reference points,2488,,,h2o_mean_slab_outflux_track_25myr,4434,,,,,,,,primed,,0.496959,0,0
+polygon vs volatiles,"all reference points, within age deciles",2488,,,h2o_mean_slab_outflux_track_25myr,4434,,,,,,,,primed,,0.499679,0,0
+polygon vs volatiles,all reference points,2471,,,h2o_mean_slab_outflux_track_50myr,4394,,,,,,,,primed,,0.490049,0,0
+polygon vs volatiles,"all reference points, within age deciles",2471,,,h2o_mean_slab_outflux_track_50myr,4394,,,,,,,,primed,,0.495035,0,0
+polygon vs volatiles,all reference points,2434,,,h2o_mean_slab_outflux_track_100myr,4313,,,,,,,,primed,,0.487491,0,0
+polygon vs volatiles,"all reference points, within age deciles",2434,,,h2o_mean_slab_outflux_track_100myr,4313,,,,,,,,primed,,0.491701,0,0
+polygon vs volatiles,all reference points,2356,,,h2o_mean_slab_outflux_track_200myr,4146,,,,,,,,primed,,0.483381,4.56677e-14,2.68761e-14
+polygon vs volatiles,"all reference points, within age deciles",2356,,,h2o_mean_slab_outflux_track_200myr,4146,,,,,,,,primed,,0.488047,4.56677e-14,2.68761e-14
+polygon vs volatiles,all reference points,2138,,,h2o_mean_slab_outflux_track_400myr,3666,,,,,,,,primed,,0.474714,6.73524e-07,5.54879e-06
+polygon vs volatiles,"all reference points, within age deciles",2138,,,h2o_mean_slab_outflux_track_400myr,3666,,,,,,,,primed,,0.483801,6.73524e-07,5.54879e-06
+polygon vs volatiles,all reference points,2496,,,c300_mantle_subducted_carbon_stock,4481,,,,,,,,primed,,0.462342,0.000304331,0.000353182
+polygon vs volatiles,"all reference points, within age deciles",2496,,,c300_mantle_subducted_carbon_stock,4481,,,,,,,,primed,,0.480046,0.000304331,0.000353182
+polygon vs volatiles,all reference points,2489,,,c300_mantle_subducted_carbon_fixed_25myr,4474,,,,,,,,primed,,0.494902,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,c300_mantle_subducted_carbon_fixed_25myr,4474,,,,,,,,primed,,0.494917,0,0
+polygon vs volatiles,all reference points,2489,,,c300_mantle_subducted_carbon_fixed_50myr,4474,,,,,,,,primed,,0.492778,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,c300_mantle_subducted_carbon_fixed_50myr,4474,,,,,,,,primed,,0.492208,0,0
+polygon vs volatiles,all reference points,2489,,,c300_mantle_subducted_carbon_fixed_100myr,4474,,,,,,,,primed,,0.496008,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,c300_mantle_subducted_carbon_fixed_100myr,4474,,,,,,,,primed,,0.495565,0,0
+polygon vs volatiles,all reference points,2436,,,c300_mantle_subducted_carbon_fixed_200myr,4420,,,,,,,,primed,,0.503665,2.27071e-05,1.80847e-05
+polygon vs volatiles,"all reference points, within age deciles",2436,,,c300_mantle_subducted_carbon_fixed_200myr,4420,,,,,,,,primed,,0.504233,2.27071e-05,1.80847e-05
+polygon vs volatiles,all reference points,2299,,,c300_mantle_subducted_carbon_fixed_400myr,4242,,,,,,,,primed,,0.469079,8.61088e-05,9.89703e-05
+polygon vs volatiles,"all reference points, within age deciles",2299,,,c300_mantle_subducted_carbon_fixed_400myr,4242,,,,,,,,primed,,0.472047,8.61088e-05,9.89703e-05
+polygon vs volatiles,all reference points,2115,,,c300_mantle_subducted_carbon_fixed_800myr,4011,,,,,,,,primed,,0.464965,0.000211528,0.000244115
+polygon vs volatiles,"all reference points, within age deciles",2115,,,c300_mantle_subducted_carbon_fixed_800myr,4011,,,,,,,,primed,,0.462523,0.000211528,0.000244115
+polygon vs volatiles,all reference points,2488,,,c300_mantle_subducted_carbon_track_25myr,4471,,,,,,,,primed,,0.484064,0,0
+polygon vs volatiles,"all reference points, within age deciles",2488,,,c300_mantle_subducted_carbon_track_25myr,4471,,,,,,,,primed,,0.486352,0,0
+polygon vs volatiles,all reference points,2487,,,c300_mantle_subducted_carbon_track_50myr,4462,,,,,,,,primed,,0.4796,0,0
+polygon vs volatiles,"all reference points, within age deciles",2487,,,c300_mantle_subducted_carbon_track_50myr,4462,,,,,,,,primed,,0.482846,0,0
+polygon vs volatiles,all reference points,2481,,,c300_mantle_subducted_carbon_track_100myr,4441,,,,,,,,primed,,0.478357,0,0
+polygon vs volatiles,"all reference points, within age deciles",2481,,,c300_mantle_subducted_carbon_track_100myr,4441,,,,,,,,primed,,0.482808,0,0
+polygon vs volatiles,all reference points,2419,,,c300_mantle_subducted_carbon_track_200myr,4319,,,,,,,,primed,,0.476732,0,0
+polygon vs volatiles,"all reference points, within age deciles",2419,,,c300_mantle_subducted_carbon_track_200myr,4319,,,,,,,,primed,,0.483811,0,0
+polygon vs volatiles,all reference points,2228,,,c300_mantle_subducted_carbon_track_400myr,3826,,,,,,,,primed,,0.456683,0,1.34791e-08
+polygon vs volatiles,"all reference points, within age deciles",2228,,,c300_mantle_subducted_carbon_track_400myr,3826,,,,,,,,primed,,0.464194,0,1.34791e-08
+polygon vs volatiles,all reference points,1774,,,c300_mantle_subducted_carbon_track_800myr,2667,,,,,,,,primed,,0.455575,2.55442e-06,1.14508e-05
+polygon vs volatiles,"all reference points, within age deciles",1774,,,c300_mantle_subducted_carbon_track_800myr,2667,,,,,,,,primed,,0.456703,2.55442e-06,1.14508e-05
+polygon vs volatiles,all reference points,2620,,,c_mantle_subducted_carbon_stock,4689,,,,,,,,primed,,0.480953,0.000459669,0.000501319
+polygon vs volatiles,"all reference points, within age deciles",2620,,,c_mantle_subducted_carbon_stock,4689,,,,,,,,primed,,0.497843,0.000459669,0.000501319
+polygon vs volatiles,all reference points,2617,,,c_mantle_subducted_carbon_fixed_25myr,4678,,,,,,,,primed,,0.497885,0,0
+polygon vs volatiles,"all reference points, within age deciles",2617,,,c_mantle_subducted_carbon_fixed_25myr,4678,,,,,,,,primed,,0.498867,0,0
+polygon vs volatiles,all reference points,2616,,,c_mantle_subducted_carbon_fixed_50myr,4675,,,,,,,,primed,,0.49889,0,0
+polygon vs volatiles,"all reference points, within age deciles",2616,,,c_mantle_subducted_carbon_fixed_50myr,4675,,,,,,,,primed,,0.500351,0,0
+polygon vs volatiles,all reference points,2560,,,c_mantle_subducted_carbon_fixed_100myr,4572,,,,,,,,primed,,0.500697,4.2444e-07,2.14886e-07
+polygon vs volatiles,"all reference points, within age deciles",2560,,,c_mantle_subducted_carbon_fixed_100myr,4572,,,,,,,,primed,,0.501848,4.2444e-07,2.14886e-07
+polygon vs volatiles,all reference points,2543,,,c_mantle_subducted_carbon_fixed_200myr,4557,,,,,,,,primed,,0.50926,3.48552e-05,2.71132e-05
+polygon vs volatiles,"all reference points, within age deciles",2543,,,c_mantle_subducted_carbon_fixed_200myr,4557,,,,,,,,primed,,0.511496,3.48552e-05,2.71132e-05
+polygon vs volatiles,all reference points,2489,,,c_mantle_subducted_carbon_fixed_400myr,4474,,,,,,,,primed,,0.479066,0.000110652,0.000118427
+polygon vs volatiles,"all reference points, within age deciles",2489,,,c_mantle_subducted_carbon_fixed_400myr,4474,,,,,,,,primed,,0.486512,0.000110652,0.000118427
+polygon vs volatiles,all reference points,2236,,,c_mantle_subducted_carbon_fixed_800myr,4163,,,,,,,,primed,,0.465134,0.000262723,0.000310756
+polygon vs volatiles,"all reference points, within age deciles",2236,,,c_mantle_subducted_carbon_fixed_800myr,4163,,,,,,,,primed,,0.465211,0.000262723,0.000310756
+polygon vs volatiles,all reference points,2614,,,c_mantle_subducted_carbon_track_25myr,4675,,,,,,,,primed,,0.494417,0,0
+polygon vs volatiles,"all reference points, within age deciles",2614,,,c_mantle_subducted_carbon_track_25myr,4675,,,,,,,,primed,,0.496438,0,0
+polygon vs volatiles,all reference points,2612,,,c_mantle_subducted_carbon_track_50myr,4663,,,,,,,,primed,,0.493406,0,0
+polygon vs volatiles,"all reference points, within age deciles",2612,,,c_mantle_subducted_carbon_track_50myr,4663,,,,,,,,primed,,0.496421,0,0
+polygon vs volatiles,all reference points,2552,,,c_mantle_subducted_carbon_track_100myr,4539,,,,,,,,primed,,0.494963,0,0
+polygon vs volatiles,"all reference points, within age deciles",2552,,,c_mantle_subducted_carbon_track_100myr,4539,,,,,,,,primed,,0.499934,0,0
+polygon vs volatiles,all reference points,2518,,,c_mantle_subducted_carbon_track_200myr,4456,,,,,,,,primed,,0.498009,0,0
+polygon vs volatiles,"all reference points, within age deciles",2518,,,c_mantle_subducted_carbon_track_200myr,4456,,,,,,,,primed,,0.505794,0,0
+polygon vs volatiles,all reference points,2399,,,c_mantle_subducted_carbon_track_400myr,4058,,,,,,,,primed,,0.490309,3.56791e-06,3.17418e-06
+polygon vs volatiles,"all reference points, within age deciles",2399,,,c_mantle_subducted_carbon_track_400myr,4058,,,,,,,,primed,,0.502227,3.56791e-06,3.17418e-06
+polygon vs volatiles,all reference points,1876,,,c_mantle_subducted_carbon_track_800myr,2800,,,,,,,,primed,,0.481668,4.23084e-05,4.64245e-05
+polygon vs volatiles,"all reference points, within age deciles",1876,,,c_mantle_subducted_carbon_track_800myr,2800,,,,,,,,primed,,0.485061,4.23084e-05,4.64245e-05
+polygon vs volatiles,all reference points,504,,,c_carbonate_subducted_carbon_stock,1092,,,,,,,,primed,,0.441421,5.7236e-06,1.31138e-05
+polygon vs volatiles,"all reference points, within age deciles",504,,,c_carbonate_subducted_carbon_stock,1092,,,,,,,,primed,,0.438612,5.7236e-06,1.31138e-05
+polygon vs volatiles,all reference points,433,,,c_carbonate_subducted_carbon_fixed_25myr,987,,,,,,,,primed,,0.489644,4.84198e-07,3.52133e-07
+polygon vs volatiles,"all reference points, within age deciles",433,,,c_carbonate_subducted_carbon_fixed_25myr,987,,,,,,,,primed,,0.492621,4.84198e-07,3.52133e-07
+polygon vs volatiles,all reference points,341,,,c_carbonate_subducted_carbon_fixed_50myr,775,,,,,,,,primed,,0.483091,2.69152e-06,2.63246e-06
+polygon vs volatiles,"all reference points, within age deciles",341,,,c_carbonate_subducted_carbon_fixed_50myr,775,,,,,,,,primed,,0.476412,2.69152e-06,2.63246e-06
+polygon vs volatiles,all reference points,132,,,c_carbonate_subducted_carbon_fixed_100myr,369,,,,,,,,primed,,0.402891,1.08202e-05,2.38555e-05
+polygon vs volatiles,"all reference points, within age deciles",132,,,c_carbonate_subducted_carbon_fixed_100myr,369,,,,,,,,primed,,0.402434,1.08202e-05,2.38555e-05
+polygon vs volatiles,all reference points,0,,,c_carbonate_subducted_carbon_fixed_200myr,0,,,,,,,,primed,,,,
+polygon vs volatiles,"all reference points, within age deciles",0,,,c_carbonate_subducted_carbon_fixed_200myr,0,,,,,,,,primed,,,,
+polygon vs volatiles,all reference points,357,,,c_carbonate_subducted_carbon_track_25myr,871,,,,,,,,primed,,0.465587,1.57937e-07,1.75992e-07
+polygon vs volatiles,"all reference points, within age deciles",357,,,c_carbonate_subducted_carbon_track_25myr,871,,,,,,,,primed,,0.470927,1.57937e-07,1.75992e-07
+polygon vs volatiles,all reference points,252,,,c_carbonate_subducted_carbon_track_50myr,646,,,,,,,,primed,,0.44102,1.04565e-06,3.03873e-06
+polygon vs volatiles,"all reference points, within age deciles",252,,,c_carbonate_subducted_carbon_track_50myr,646,,,,,,,,primed,,0.446604,1.04565e-06,3.03873e-06
+polygon vs volatiles,all reference points,102,,,c_carbonate_subducted_carbon_track_100myr,292,,,,,,,,primed,,0.406863,1.41145e-05,3.607e-05
+polygon vs volatiles,"all reference points, within age deciles",102,,,c_carbonate_subducted_carbon_track_100myr,292,,,,,,,,primed,,0.412498,1.41145e-05,3.607e-05
+polygon vs volatiles,all reference points,0,,,c_carbonate_subducted_carbon_track_200myr,0,,,,,,,,primed,,,,
+polygon vs volatiles,"all reference points, within age deciles",0,,,c_carbonate_subducted_carbon_track_200myr,0,,,,,,,,primed,,,,
+polygon vs volatiles,all reference points,1948,,,c_organic_subducted_carbon_stock,3797,,,,,,,,primed,,0.509813,1.3197e-05,1.23354e-05
+polygon vs volatiles,"all reference points, within age deciles",1948,,,c_organic_subducted_carbon_stock,3797,,,,,,,,primed,,0.504624,1.3197e-05,1.23354e-05
+polygon vs volatiles,all reference points,1926,,,c_organic_subducted_carbon_fixed_25myr,3733,,,,,,,,primed,,0.484577,1.44216e-16,2.27299e-15
+polygon vs volatiles,"all reference points, within age deciles",1926,,,c_organic_subducted_carbon_fixed_25myr,3733,,,,,,,,primed,,0.48237,1.44216e-16,2.27299e-15
+polygon vs volatiles,all reference points,1891,,,c_organic_subducted_carbon_fixed_50myr,3653,,,,,,,,primed,,0.48219,7.81064e-13,5.71132e-12
+polygon vs volatiles,"all reference points, within age deciles",1891,,,c_organic_subducted_carbon_fixed_50myr,3653,,,,,,,,primed,,0.47969,7.81064e-13,5.71132e-12
+polygon vs volatiles,all reference points,1816,,,c_organic_subducted_carbon_fixed_100myr,3539,,,,,,,,primed,,0.483128,1.35735e-08,1.96598e-08
+polygon vs volatiles,"all reference points, within age deciles",1816,,,c_organic_subducted_carbon_fixed_100myr,3539,,,,,,,,primed,,0.478019,1.35735e-08,1.96598e-08
+polygon vs volatiles,all reference points,1662,,,c_organic_subducted_carbon_fixed_200myr,3189,,,,,,,,primed,,0.492801,2.45078e-06,1.84936e-06
+polygon vs volatiles,"all reference points, within age deciles",1662,,,c_organic_subducted_carbon_fixed_200myr,3189,,,,,,,,primed,,0.489046,2.45078e-06,1.84936e-06
+polygon vs volatiles,all reference points,1011,,,c_organic_subducted_carbon_fixed_400myr,2061,,,,,,,,primed,,0.450118,7.96054e-06,1.00688e-05
+polygon vs volatiles,"all reference points, within age deciles",1011,,,c_organic_subducted_carbon_fixed_400myr,2061,,,,,,,,primed,,0.451346,7.96054e-06,1.00688e-05
+polygon vs volatiles,all reference points,1883,,,c_organic_subducted_carbon_track_25myr,3650,,,,,,,,primed,,0.476899,3.60836e-19,5.91687e-17
+polygon vs volatiles,"all reference points, within age deciles",1883,,,c_organic_subducted_carbon_track_25myr,3646,,,,,,,,primed,,0.475049,3.60836e-19,5.91687e-17
+polygon vs volatiles,all reference points,1825,,,c_organic_subducted_carbon_track_50myr,3546,,,,,,,,primed,,0.467447,1.25649e-16,6.76272e-15
+polygon vs volatiles,"all reference points, within age deciles",1825,,,c_organic_subducted_carbon_track_50myr,3546,,,,,,,,primed,,0.466399,1.25649e-16,6.76272e-15
+polygon vs volatiles,all reference points,1716,,,c_organic_subducted_carbon_track_100myr,3314,,,,,,,,primed,,0.472046,2.69825e-13,9.33715e-13
+polygon vs volatiles,"all reference points, within age deciles",1716,,,c_organic_subducted_carbon_track_100myr,3314,,,,,,,,primed,,0.471782,2.69825e-13,9.33715e-13
+polygon vs volatiles,all reference points,1483,,,c_organic_subducted_carbon_track_200myr,2845,,,,,,,,primed,,0.47771,8.18196e-11,2.60633e-10
+polygon vs volatiles,"all reference points, within age deciles",1483,,,c_organic_subducted_carbon_track_200myr,2845,,,,,,,,primed,,0.481727,8.18196e-11,2.60633e-10
+polygon vs volatiles,all reference points,885,,,c_organic_subducted_carbon_track_400myr,1475,,,,,,,,primed,,0.480792,2.72486e-07,7.16098e-07
+polygon vs volatiles,"all reference points, within age deciles",885,,,c_organic_subducted_carbon_track_400myr,1475,,,,,,,,primed,,0.478566,2.72486e-07,7.16098e-07
+polygon vs volatiles,all reference points,2619,,,out_sed_path_full,4679,,,,,,,,primed,,0.599576,1.78943e-05,5.18426e-07
+polygon vs volatiles,"all reference points, within age deciles",2619,,,out_sed_path_full,4679,,,,,,,,primed,,0.613988,1.78943e-05,5.18426e-07
+polygon vs volatiles,all reference points,2463,,,out_sed_path_lag_myr,3914,,,,,,,,primed,,0.613814,416.811,269.035
+polygon vs volatiles,"all reference points, within age deciles",2463,,,out_sed_path_lag_myr,3914,,,,,,,,primed,,0.616889,416.811,269.035
+polygon vs volatiles,all reference points,2489,,,out_sed_path_100myr,4116,,,,,,,,primed,,0.522811,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,out_sed_path_100myr,4116,,,,,,,,primed,,0.526234,0,0
+polygon vs volatiles,all reference points,2372,,,out_sed_path_200myr,3716,,,,,,,,primed,,0.532385,5.14996e-18,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,out_sed_path_200myr,3716,,,,,,,,primed,,0.536559,5.14996e-18,0
+polygon vs volatiles,all reference points,2000,,,out_sed_path_400myr,2682,,,,,,,,primed,,0.574664,2.78446e-10,9.40783e-16
+polygon vs volatiles,"all reference points, within age deciles",2000,,,out_sed_path_400myr,2682,,,,,,,,primed,,0.581465,2.78446e-10,9.40783e-16
+polygon vs volatiles,all reference points,1411,,,out_sed_path_800myr,1587,,,,,,,,primed,,0.570749,8.28818e-07,1.65381e-08
+polygon vs volatiles,"all reference points, within age deciles",1411,,,out_sed_path_800myr,1587,,,,,,,,primed,,0.568805,8.28818e-07,1.65381e-08
+polygon vs volatiles,all reference points,1074,,,out_sed_path_1200myr,1161,,,,,,,,primed,,0.605233,1.87186e-06,7.77238e-09
+polygon vs volatiles,"all reference points, within age deciles",1074,,,out_sed_path_1200myr,1161,,,,,,,,primed,,0.608417,1.87186e-06,7.77238e-09
+polygon vs volatiles,all reference points,2619,,,out_crust_path_full,4679,,,,,,,,primed,,0.6072,7.70512e-05,2.345e-06
+polygon vs volatiles,"all reference points, within age deciles",2619,,,out_crust_path_full,4679,,,,,,,,primed,,0.621442,7.70512e-05,2.345e-06
+polygon vs volatiles,all reference points,2436,,,out_crust_path_lag_myr,3898,,,,,,,,primed,,0.611905,421.756,271.468
+polygon vs volatiles,"all reference points, within age deciles",2436,,,out_crust_path_lag_myr,3898,,,,,,,,primed,,0.614354,421.756,271.468
+polygon vs volatiles,all reference points,2489,,,out_crust_path_100myr,4116,,,,,,,,primed,,0.521517,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,out_crust_path_100myr,4116,,,,,,,,primed,,0.525192,0,0
+polygon vs volatiles,all reference points,2372,,,out_crust_path_200myr,3716,,,,,,,,primed,,0.533803,3.36103e-17,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,out_crust_path_200myr,3716,,,,,,,,primed,,0.537887,3.36103e-17,0
+polygon vs volatiles,all reference points,2000,,,out_crust_path_400myr,2682,,,,,,,,primed,,0.577376,1.14226e-09,3.83135e-15
+polygon vs volatiles,"all reference points, within age deciles",2000,,,out_crust_path_400myr,2682,,,,,,,,primed,,0.58285,1.14226e-09,3.83135e-15
+polygon vs volatiles,all reference points,1411,,,out_crust_path_800myr,1587,,,,,,,,primed,,0.575895,4.18372e-06,6.24363e-08
+polygon vs volatiles,"all reference points, within age deciles",1411,,,out_crust_path_800myr,1587,,,,,,,,primed,,0.575036,4.18372e-06,6.24363e-08
+polygon vs volatiles,all reference points,1074,,,out_crust_path_1200myr,1161,,,,,,,,primed,,0.614352,9.39675e-06,2.68136e-08
+polygon vs volatiles,"all reference points, within age deciles",1074,,,out_crust_path_1200myr,1161,,,,,,,,primed,,0.617226,9.39675e-06,2.68136e-08
+polygon vs volatiles,all reference points,2619,,,out_mantle_path_full,4679,,,,,,,,primed,,0.598628,7.76096e-05,2.23432e-06
+polygon vs volatiles,"all reference points, within age deciles",2619,,,out_mantle_path_full,4679,,,,,,,,primed,,0.607646,7.76096e-05,2.23432e-06
+polygon vs volatiles,all reference points,1982,,,out_mantle_path_lag_myr,2748,,,,,,,,primed,,0.620269,436.563,269.946
+polygon vs volatiles,"all reference points, within age deciles",1982,,,out_mantle_path_lag_myr,2748,,,,,,,,primed,,0.617004,436.563,269.946
+polygon vs volatiles,all reference points,2489,,,out_mantle_path_100myr,4116,,,,,,,,primed,,0.503937,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,out_mantle_path_100myr,4116,,,,,,,,primed,,0.505973,0,0
+polygon vs volatiles,all reference points,2372,,,out_mantle_path_200myr,3716,,,,,,,,primed,,0.517381,0,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,out_mantle_path_200myr,3716,,,,,,,,primed,,0.519646,0,0
+polygon vs volatiles,all reference points,2000,,,out_mantle_path_400myr,2682,,,,,,,,primed,,0.544267,0,0
+polygon vs volatiles,"all reference points, within age deciles",2000,,,out_mantle_path_400myr,2682,,,,,,,,primed,,0.546045,0,0
+polygon vs volatiles,all reference points,1411,,,out_mantle_path_800myr,1587,,,,,,,,primed,,0.561213,4.15575e-06,1.88572e-08
+polygon vs volatiles,"all reference points, within age deciles",1411,,,out_mantle_path_800myr,1587,,,,,,,,primed,,0.559545,4.15575e-06,1.88572e-08
+polygon vs volatiles,all reference points,1074,,,out_mantle_path_1200myr,1161,,,,,,,,primed,,0.597289,9.33149e-06,0
+polygon vs volatiles,"all reference points, within age deciles",1074,,,out_mantle_path_1200myr,1161,,,,,,,,primed,,0.601311,9.33149e-06,0
+polygon vs volatiles,all reference points,2619,,,out_total_path_full,4679,,,,,,,,primed,,0.608419,0.000188997,5.34202e-06
+polygon vs volatiles,"all reference points, within age deciles",2619,,,out_total_path_full,4679,,,,,,,,primed,,0.622104,0.000188997,5.34202e-06
+polygon vs volatiles,all reference points,2470,,,out_total_path_lag_myr,3954,,,,,,,,primed,,0.608452,421.456,274.745
+polygon vs volatiles,"all reference points, within age deciles",2470,,,out_total_path_lag_myr,3954,,,,,,,,primed,,0.611138,421.456,274.745
+polygon vs volatiles,all reference points,2489,,,out_total_path_100myr,4116,,,,,,,,primed,,0.522787,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,out_total_path_100myr,4116,,,,,,,,primed,,0.526485,0,0
+polygon vs volatiles,all reference points,2372,,,out_total_path_200myr,3716,,,,,,,,primed,,0.533156,4.04136e-17,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,out_total_path_200myr,3716,,,,,,,,primed,,0.537475,4.04136e-17,0
+polygon vs volatiles,all reference points,2000,,,out_total_path_400myr,2682,,,,,,,,primed,,0.577553,1.3832e-09,5.91697e-15
+polygon vs volatiles,"all reference points, within age deciles",2000,,,out_total_path_400myr,2682,,,,,,,,primed,,0.582962,1.3832e-09,5.91697e-15
+polygon vs volatiles,all reference points,1411,,,out_total_path_800myr,1587,,,,,,,,primed,,0.574796,9.99254e-06,1.10048e-07
+polygon vs volatiles,"all reference points, within age deciles",1411,,,out_total_path_800myr,1587,,,,,,,,primed,,0.573792,9.99254e-06,1.10048e-07
+polygon vs volatiles,all reference points,1074,,,out_total_path_1200myr,1161,,,,,,,,primed,,0.610726,2.10918e-05,4.97186e-08
+polygon vs volatiles,"all reference points, within age deciles",1074,,,out_total_path_1200myr,1161,,,,,,,,primed,,0.61421,2.10918e-05,4.97186e-08
+polygon vs volatiles,all reference points,2619,,,sub_total_path_full,4679,,,,,,,,primed,,0.608255,0.000200661,5.4959e-06
+polygon vs volatiles,"all reference points, within age deciles",2619,,,sub_total_path_full,4679,,,,,,,,primed,,0.621884,0.000200661,5.4959e-06
+polygon vs volatiles,all reference points,2464,,,sub_total_path_lag_myr,3974,,,,,,,,primed,,0.607327,427.099,277.434
+polygon vs volatiles,"all reference points, within age deciles",2464,,,sub_total_path_lag_myr,3974,,,,,,,,primed,,0.610119,427.099,277.434
+polygon vs volatiles,all reference points,2489,,,sub_total_path_100myr,4116,,,,,,,,primed,,0.520882,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,sub_total_path_100myr,4116,,,,,,,,primed,,0.524308,0,0
+polygon vs volatiles,all reference points,2372,,,sub_total_path_200myr,3716,,,,,,,,primed,,0.533363,3.90313e-17,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,sub_total_path_200myr,3716,,,,,,,,primed,,0.537423,3.90313e-17,0
+polygon vs volatiles,all reference points,2000,,,sub_total_path_400myr,2682,,,,,,,,primed,,0.574934,1.38424e-09,5.93189e-15
+polygon vs volatiles,"all reference points, within age deciles",2000,,,sub_total_path_400myr,2682,,,,,,,,primed,,0.581223,1.38424e-09,5.93189e-15
+polygon vs volatiles,all reference points,1411,,,sub_total_path_800myr,1587,,,,,,,,primed,,0.574125,1.05634e-05,9.80542e-08
+polygon vs volatiles,"all reference points, within age deciles",1411,,,sub_total_path_800myr,1587,,,,,,,,primed,,0.573067,1.05634e-05,9.80542e-08
+polygon vs volatiles,all reference points,1074,,,sub_total_path_1200myr,1161,,,,,,,,primed,,0.611237,2.15598e-05,4.98407e-08
+polygon vs volatiles,"all reference points, within age deciles",1074,,,sub_total_path_1200myr,1161,,,,,,,,primed,,0.615,2.15598e-05,4.98407e-08
+polygon vs volatiles,all reference points,2619,,,c_mantle_path_full,4679,,,,,,,,primed,,0.621287,5.71179e-05,8.18209e-06
+polygon vs volatiles,"all reference points, within age deciles",2619,,,c_mantle_path_full,4679,,,,,,,,primed,,0.632477,5.71179e-05,8.18209e-06
+polygon vs volatiles,all reference points,2244,,,c_mantle_path_lag_myr,3285,,,,,,,,primed,,0.612471,426.681,283.258
+polygon vs volatiles,"all reference points, within age deciles",2244,,,c_mantle_path_lag_myr,3285,,,,,,,,primed,,0.609956,426.681,283.258
+polygon vs volatiles,all reference points,2489,,,c_mantle_path_100myr,4116,,,,,,,,primed,,0.521245,0,0
+polygon vs volatiles,"all reference points, within age deciles",2489,,,c_mantle_path_100myr,4116,,,,,,,,primed,,0.522623,0,0
+polygon vs volatiles,all reference points,2372,,,c_mantle_path_200myr,3716,,,,,,,,primed,,0.540206,0,0
+polygon vs volatiles,"all reference points, within age deciles",2372,,,c_mantle_path_200myr,3716,,,,,,,,primed,,0.541775,0,0
+polygon vs volatiles,all reference points,2000,,,c_mantle_path_400myr,2682,,,,,,,,primed,,0.574176,5.21332e-07,0
+polygon vs volatiles,"all reference points, within age deciles",2000,,,c_mantle_path_400myr,2682,,,,,,,,primed,,0.578893,5.21332e-07,0
+polygon vs volatiles,all reference points,1411,,,c_mantle_path_800myr,1587,,,,,,,,primed,,0.583044,1.67298e-05,1.82125e-06
+polygon vs volatiles,"all reference points, within age deciles",1411,,,c_mantle_path_800myr,1587,,,,,,,,primed,,0.581179,1.67298e-05,1.82125e-06
+polygon vs volatiles,all reference points,1074,,,c_mantle_path_1200myr,1161,,,,,,,,primed,,0.632048,2.46718e-05,1.1236e-06
+polygon vs volatiles,"all reference points, within age deciles",1074,,,c_mantle_path_1200myr,1161,,,,,,,,primed,,0.635549,2.46718e-05,1.1236e-06
+polygon vs volatiles,all reference points,2488,,,c300_path_full,4464,,,,,,,,primed,,0.570397,1.78726e-06,0
+polygon vs volatiles,"all reference points, within age deciles",2488,,,c300_path_full,4464,,,,,,,,primed,,0.580766,1.78726e-06,0
+polygon vs volatiles,all reference points,1574,,,c300_path_lag_myr,2189,,,,,,,,primed,,0.623144,371.296,235.444
+polygon vs volatiles,"all reference points, within age deciles",1574,,,c300_path_lag_myr,2189,,,,,,,,primed,,0.624987,371.296,235.444
+polygon vs volatiles,all reference points,2418,,,c300_path_100myr,4019,,,,,,,,primed,,0.503051,0,0
+polygon vs volatiles,"all reference points, within age deciles",2418,,,c300_path_100myr,4019,,,,,,,,primed,,0.504597,0,0
+polygon vs volatiles,all reference points,2276,,,c300_path_200myr,3581,,,,,,,,primed,,0.516175,0,0
+polygon vs volatiles,"all reference points, within age deciles",2276,,,c300_path_200myr,3581,,,,,,,,primed,,0.517767,0,0
+polygon vs volatiles,all reference points,1841,,,c300_path_400myr,2457,,,,,,,,primed,,0.532466,0,0
+polygon vs volatiles,"all reference points, within age deciles",1841,,,c300_path_400myr,2457,,,,,,,,primed,,0.53535,0,0
+polygon vs volatiles,all reference points,1330,,,c300_path_800myr,1487,,,,,,,,primed,,0.555301,1.9564e-07,0
+polygon vs volatiles,"all reference points, within age deciles",1330,,,c300_path_800myr,1487,,,,,,,,primed,,0.554572,1.9564e-07,0
+polygon vs volatiles,all reference points,777,,,c300_path_1200myr,744,,,,,,,,primed,,0.604045,2.68429e-07,0
+polygon vs volatiles,"all reference points, within age deciles",777,,,c300_path_1200myr,744,,,,,,,,primed,,0.603506,2.68429e-07,0
+polygon vs volatiles,all reference points,2620,,,path_cover_to_ma,4689,,,,,,,,primed,,0.628192,1800,853
+polygon vs volatiles,"all reference points, within age deciles",2620,,,path_cover_to_ma,4689,,,,,,,,primed,,0.612061,1800,853
+polygon vs volatiles,all reference points,2620,,,over_500km_myr,4689,,,,,,,,primed,,0.583149,10,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_500km_myr,4689,,,,,,,,primed,,0.592195,10,0
+polygon vs volatiles,all reference points,2620,,,over_500km_longest_myr,4689,,,,,,,,primed,,0.582933,10,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_500km_longest_myr,4689,,,,,,,,primed,,0.591256,10,0
+polygon vs volatiles,all reference points,488,,,over_500km_since_myr,537,,,,,,,,primed,,0.537446,385,299.619
+polygon vs volatiles,"all reference points, within age deciles",488,,,over_500km_since_myr,537,,,,,,,,primed,,0.560024,385,299.619
+polygon vs volatiles,all reference points,488,,,over_500km_first_myr,537,,,,,,,,primed,,0.528378,527,503
+polygon vs volatiles,"all reference points, within age deciles",488,,,over_500km_first_myr,537,,,,,,,,primed,,0.540656,527,503
+polygon vs volatiles,all reference points,2620,,,over_500km_stable_myr,4689,,,,,,,,primed,,0.535102,0,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_500km_stable_myr,4689,,,,,,,,primed,,0.536977,0,0
+polygon vs volatiles,all reference points,2620,,,over_500km_stable_longest_myr,4689,,,,,,,,primed,,0.535713,0,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_500km_stable_longest_myr,4689,,,,,,,,primed,,0.537656,0,0
+polygon vs volatiles,all reference points,488,,,over_500km_stable_since_myr,537,,,,,,,,primed,,0.537446,385,299.619
+polygon vs volatiles,"all reference points, within age deciles",488,,,over_500km_stable_since_myr,537,,,,,,,,primed,,0.560024,385,299.619
+polygon vs volatiles,all reference points,2620,,,over_900km_myr,4689,,,,,,,,primed,,0.69463,135,30
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_900km_myr,4689,,,,,,,,primed,,0.703728,135,30
+polygon vs volatiles,all reference points,2620,,,over_900km_longest_myr,4689,,,,,,,,primed,,0.693506,100,25
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_900km_longest_myr,4689,,,,,,,,primed,,0.699993,100,25
+polygon vs volatiles,all reference points,1397,,,over_900km_since_myr,1119,,,,,,,,primed,,0.553894,387,290
+polygon vs volatiles,"all reference points, within age deciles",1397,,,over_900km_since_myr,1119,,,,,,,,primed,,0.55868,387,290
+polygon vs volatiles,all reference points,1397,,,over_900km_first_myr,1119,,,,,,,,primed,,0.611509,667.4,518.7
+polygon vs volatiles,"all reference points, within age deciles",1397,,,over_900km_first_myr,1119,,,,,,,,primed,,0.613569,667.4,518.7
+polygon vs volatiles,all reference points,2620,,,over_900km_stable_myr,4689,,,,,,,,primed,,0.626036,0,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_900km_stable_myr,4689,,,,,,,,primed,,0.627803,0,0
+polygon vs volatiles,all reference points,2620,,,over_900km_stable_longest_myr,4689,,,,,,,,primed,,0.626894,0,0
+polygon vs volatiles,"all reference points, within age deciles",2620,,,over_900km_stable_longest_myr,4689,,,,,,,,primed,,0.628641,0,0
+polygon vs volatiles,all reference points,1132,,,over_900km_stable_since_myr,929,,,,,,,,primed,,0.523906,399,353.45
+polygon vs volatiles,"all reference points, within age deciles",1132,,,over_900km_stable_since_myr,929,,,,,,,,primed,,0.5324,399,353.45
+polygon vs volatiles,all reference points,2620,,,topo_cover_myr,4689,,,,,,,,primed,,0.631926,945,485
+polygon vs volatiles,"all reference points, within age deciles",2620,,,topo_cover_myr,4689,,,,,,,,primed,,0.621731,945,485
+polygon vs volatiles,all reference points,932,,,h2o_mean_subducted_water_fixed_25myr,6085,,,,,,,,primed_within800,,0.644724,1.83456e-10,0
+polygon vs volatiles,"all reference points, within age deciles",932,,,h2o_mean_subducted_water_fixed_25myr,6085,,,,,,,,primed_within800,,0.657362,1.83456e-10,0
+polygon vs volatiles,all reference points,915,,,h2o_mean_subducted_water_fixed_50myr,6071,,,,,,,,primed_within800,,0.635049,3.66041e-07,0
+polygon vs volatiles,"all reference points, within age deciles",915,,,h2o_mean_subducted_water_fixed_50myr,6071,,,,,,,,primed_within800,,0.646917,3.66041e-07,0
+polygon vs volatiles,all reference points,890,,,h2o_mean_subducted_water_fixed_100myr,6029,,,,,,,,primed_within800,,0.614764,0.000242264,1.87954e-10
+polygon vs volatiles,"all reference points, within age deciles",890,,,h2o_mean_subducted_water_fixed_100myr,6029,,,,,,,,primed_within800,,0.620694,0.000242264,1.87954e-10
+polygon vs volatiles,all reference points,839,,,h2o_mean_subducted_water_fixed_200myr,5975,,,,,,,,primed_within800,,0.599894,0.00197289,0.000602034
+polygon vs volatiles,"all reference points, within age deciles",839,,,h2o_mean_subducted_water_fixed_200myr,5975,,,,,,,,primed_within800,,0.604146,0.00197289,0.000602034
+polygon vs volatiles,all reference points,755,,,h2o_mean_subducted_water_fixed_400myr,5841,,,,,,,,primed_within800,,0.573545,0.00424091,0.00321587
+polygon vs volatiles,"all reference points, within age deciles",755,,,h2o_mean_subducted_water_fixed_400myr,5841,,,,,,,,primed_within800,,0.573938,0.00424091,0.00321587
+polygon vs volatiles,all reference points,919,,,h2o_mean_subducted_water_track_25myr,6056,,,,,,,,primed_within800,,0.645954,5.61148e-14,0
+polygon vs volatiles,"all reference points, within age deciles",919,,,h2o_mean_subducted_water_track_25myr,6056,,,,,,,,primed_within800,,0.654822,5.61148e-14,0
+polygon vs volatiles,all reference points,910,,,h2o_mean_subducted_water_track_50myr,6012,,,,,,,,primed_within800,,0.64662,1.0497e-11,0
+polygon vs volatiles,"all reference points, within age deciles",910,,,h2o_mean_subducted_water_track_50myr,6012,,,,,,,,primed_within800,,0.661827,1.0497e-11,0
+polygon vs volatiles,all reference points,886,,,h2o_mean_subducted_water_track_100myr,5923,,,,,,,,primed_within800,,0.653932,8.08875e-09,0
+polygon vs volatiles,"all reference points, within age deciles",886,,,h2o_mean_subducted_water_track_100myr,5923,,,,,,,,primed_within800,,0.666184,8.08875e-09,0
+polygon vs volatiles,all reference points,838,,,h2o_mean_subducted_water_track_200myr,5739,,,,,,,,primed_within800,,0.658688,2.44811e-06,2.94903e-17
+polygon vs volatiles,"all reference points, within age deciles",838,,,h2o_mean_subducted_water_track_200myr,5739,,,,,,,,primed_within800,,0.665636,2.44811e-06,2.94903e-17
+polygon vs volatiles,all reference points,713,,,h2o_mean_subducted_water_track_400myr,5211,,,,,,,,primed_within800,,0.636892,0.000242259,4.46801e-07
+polygon vs volatiles,"all reference points, within age deciles",713,,,h2o_mean_subducted_water_track_400myr,5211,,,,,,,,primed_within800,,0.648542,0.000242259,4.46801e-07
+polygon vs volatiles,all reference points,915,,,h2o_mean_slab_outflux_fixed_25myr,6055,,,,,,,,primed_within800,,0.646091,3.88286e-10,0
+polygon vs volatiles,"all reference points, within age deciles",915,,,h2o_mean_slab_outflux_fixed_25myr,6055,,,,,,,,primed_within800,,0.658737,3.88286e-10,0
+polygon vs volatiles,all reference points,897,,,h2o_mean_slab_outflux_fixed_50myr,6038,,,,,,,,primed_within800,,0.634291,3.55001e-07,0
+polygon vs volatiles,"all reference points, within age deciles",897,,,h2o_mean_slab_outflux_fixed_50myr,6038,,,,,,,,primed_within800,,0.646922,3.55001e-07,0
+polygon vs volatiles,all reference points,873,,,h2o_mean_slab_outflux_fixed_100myr,5994,,,,,,,,primed_within800,,0.614269,0.000218802,2.19468e-10
+polygon vs volatiles,"all reference points, within age deciles",873,,,h2o_mean_slab_outflux_fixed_100myr,5994,,,,,,,,primed_within800,,0.620563,0.000218802,2.19468e-10
+polygon vs volatiles,all reference points,825,,,h2o_mean_slab_outflux_fixed_200myr,5927,,,,,,,,primed_within800,,0.600321,0.00172686,0.000523265
+polygon vs volatiles,"all reference points, within age deciles",825,,,h2o_mean_slab_outflux_fixed_200myr,5927,,,,,,,,primed_within800,,0.606949,0.00172686,0.000523265
+polygon vs volatiles,all reference points,742,,,h2o_mean_slab_outflux_fixed_400myr,5783,,,,,,,,primed_within800,,0.569819,0.00374142,0.00288628
+polygon vs volatiles,"all reference points, within age deciles",742,,,h2o_mean_slab_outflux_fixed_400myr,5783,,,,,,,,primed_within800,,0.570717,0.00374142,0.00288628
+polygon vs volatiles,all reference points,902,,,h2o_mean_slab_outflux_track_25myr,6020,,,,,,,,primed_within800,,0.644995,9.40248e-14,0
+polygon vs volatiles,"all reference points, within age deciles",902,,,h2o_mean_slab_outflux_track_25myr,6020,,,,,,,,primed_within800,,0.654737,9.40248e-14,0
+polygon vs volatiles,all reference points,890,,,h2o_mean_slab_outflux_track_50myr,5975,,,,,,,,primed_within800,,0.648171,1.23678e-11,0
+polygon vs volatiles,"all reference points, within age deciles",890,,,h2o_mean_slab_outflux_track_50myr,5975,,,,,,,,primed_within800,,0.662917,1.23678e-11,0
+polygon vs volatiles,all reference points,868,,,h2o_mean_slab_outflux_track_100myr,5879,,,,,,,,primed_within800,,0.653808,8.71843e-09,0
+polygon vs volatiles,"all reference points, within age deciles",868,,,h2o_mean_slab_outflux_track_100myr,5879,,,,,,,,primed_within800,,0.663466,8.71843e-09,0
+polygon vs volatiles,all reference points,819,,,h2o_mean_slab_outflux_track_200myr,5683,,,,,,,,primed_within800,,0.660597,2.73082e-06,4.85723e-17
+polygon vs volatiles,"all reference points, within age deciles",819,,,h2o_mean_slab_outflux_track_200myr,5683,,,,,,,,primed_within800,,0.666077,2.73082e-06,4.85723e-17
+polygon vs volatiles,all reference points,678,,,h2o_mean_slab_outflux_track_400myr,5126,,,,,,,,primed_within800,,0.64226,0.000260055,4.62421e-07
+polygon vs volatiles,"all reference points, within age deciles",678,,,h2o_mean_slab_outflux_track_400myr,5126,,,,,,,,primed_within800,,0.649643,0.000260055,4.62421e-07
+polygon vs volatiles,all reference points,891,,,c300_mantle_subducted_carbon_stock,6086,,,,,,,,primed_within800,,0.412248,0.000249852,0.000349431
+polygon vs volatiles,"all reference points, within age deciles",891,,,c300_mantle_subducted_carbon_stock,6086,,,,,,,,primed_within800,,0.482819,0.000249852,0.000349431
+polygon vs volatiles,all reference points,884,,,c300_mantle_subducted_carbon_fixed_25myr,6079,,,,,,,,primed_within800,,0.596728,0,0
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_mantle_subducted_carbon_fixed_25myr,6079,,,,,,,,primed_within800,,0.605695,0,0
+polygon vs volatiles,all reference points,884,,,c300_mantle_subducted_carbon_fixed_50myr,6079,,,,,,,,primed_within800,,0.607235,0,0
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_mantle_subducted_carbon_fixed_50myr,6079,,,,,,,,primed_within800,,0.616383,0,0
+polygon vs volatiles,all reference points,884,,,c300_mantle_subducted_carbon_fixed_100myr,6079,,,,,,,,primed_within800,,0.596485,9.62608e-06,0
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_mantle_subducted_carbon_fixed_100myr,6079,,,,,,,,primed_within800,,0.60226,9.62608e-06,0
+polygon vs volatiles,all reference points,831,,,c300_mantle_subducted_carbon_fixed_200myr,6025,,,,,,,,primed_within800,,0.59681,4.83426e-05,1.53829e-05
+polygon vs volatiles,"all reference points, within age deciles",831,,,c300_mantle_subducted_carbon_fixed_200myr,6025,,,,,,,,primed_within800,,0.603626,4.83426e-05,1.53829e-05
+polygon vs volatiles,all reference points,721,,,c300_mantle_subducted_carbon_fixed_400myr,5820,,,,,,,,primed_within800,,0.547944,0.000113665,9.02364e-05
+polygon vs volatiles,"all reference points, within age deciles",721,,,c300_mantle_subducted_carbon_fixed_400myr,5820,,,,,,,,primed_within800,,0.548346,0.000113665,9.02364e-05
+polygon vs volatiles,all reference points,646,,,c300_mantle_subducted_carbon_fixed_800myr,5480,,,,,,,,primed_within800,,0.480178,0.000218184,0.000236733
+polygon vs volatiles,"all reference points, within age deciles",646,,,c300_mantle_subducted_carbon_fixed_800myr,5480,,,,,,,,primed_within800,,0.480747,0.000218184,0.000236733
+polygon vs volatiles,all reference points,884,,,c300_mantle_subducted_carbon_track_25myr,6075,,,,,,,,primed_within800,,0.554197,0,0
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_mantle_subducted_carbon_track_25myr,6075,,,,,,,,primed_within800,,0.562844,0,0
+polygon vs volatiles,all reference points,884,,,c300_mantle_subducted_carbon_track_50myr,6065,,,,,,,,primed_within800,,0.560487,0,0
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_mantle_subducted_carbon_track_50myr,6065,,,,,,,,primed_within800,,0.570605,0,0
+polygon vs volatiles,all reference points,882,,,c300_mantle_subducted_carbon_track_100myr,6040,,,,,,,,primed_within800,,0.573619,0,0
+polygon vs volatiles,"all reference points, within age deciles",882,,,c300_mantle_subducted_carbon_track_100myr,6040,,,,,,,,primed_within800,,0.584925,0,0
+polygon vs volatiles,all reference points,822,,,c300_mantle_subducted_carbon_track_200myr,5916,,,,,,,,primed_within800,,0.600982,0,0
+polygon vs volatiles,"all reference points, within age deciles",822,,,c300_mantle_subducted_carbon_track_200myr,5916,,,,,,,,primed_within800,,0.613129,0,0
+polygon vs volatiles,all reference points,686,,,c300_mantle_subducted_carbon_track_400myr,5368,,,,,,,,primed_within800,,0.609963,7.416e-06,0
+polygon vs volatiles,"all reference points, within age deciles",686,,,c300_mantle_subducted_carbon_track_400myr,5368,,,,,,,,primed_within800,,0.614057,7.416e-06,0
+polygon vs volatiles,all reference points,450,,,c300_mantle_subducted_carbon_track_800myr,3991,,,,,,,,primed_within800,,0.592823,3.38401e-05,4.1326e-06
+polygon vs volatiles,"all reference points, within age deciles",450,,,c300_mantle_subducted_carbon_track_800myr,3991,,,,,,,,primed_within800,,0.585564,3.38401e-05,4.1326e-06
+polygon vs volatiles,all reference points,1015,,,c_mantle_subducted_carbon_stock,6294,,,,,,,,primed_within800,,0.423262,0.000365151,0.000506676
+polygon vs volatiles,"all reference points, within age deciles",1015,,,c_mantle_subducted_carbon_stock,6294,,,,,,,,primed_within800,,0.518672,0.000365151,0.000506676
+polygon vs volatiles,all reference points,1012,,,c_mantle_subducted_carbon_fixed_25myr,6283,,,,,,,,primed_within800,,0.606355,0,0
+polygon vs volatiles,"all reference points, within age deciles",1012,,,c_mantle_subducted_carbon_fixed_25myr,6283,,,,,,,,primed_within800,,0.623047,0,0
+polygon vs volatiles,all reference points,1011,,,c_mantle_subducted_carbon_fixed_50myr,6280,,,,,,,,primed_within800,,0.608201,6.84224e-07,0
+polygon vs volatiles,"all reference points, within age deciles",1011,,,c_mantle_subducted_carbon_fixed_50myr,6280,,,,,,,,primed_within800,,0.62899,6.84224e-07,0
+polygon vs volatiles,all reference points,955,,,c_mantle_subducted_carbon_fixed_100myr,6177,,,,,,,,primed_within800,,0.600482,1.79521e-05,2.50577e-08
+polygon vs volatiles,"all reference points, within age deciles",955,,,c_mantle_subducted_carbon_fixed_100myr,6177,,,,,,,,primed_within800,,0.615925,1.79521e-05,2.50577e-08
+polygon vs volatiles,all reference points,938,,,c_mantle_subducted_carbon_fixed_200myr,6162,,,,,,,,primed_within800,,0.597444,5.79841e-05,2.4756e-05
+polygon vs volatiles,"all reference points, within age deciles",938,,,c_mantle_subducted_carbon_fixed_200myr,6162,,,,,,,,primed_within800,,0.615673,5.79841e-05,2.4756e-05
+polygon vs volatiles,all reference points,884,,,c_mantle_subducted_carbon_fixed_400myr,6079,,,,,,,,primed_within800,,0.551799,0.000143349,0.000112414
+polygon vs volatiles,"all reference points, within age deciles",884,,,c_mantle_subducted_carbon_fixed_400myr,6079,,,,,,,,primed_within800,,0.574264,0.000143349,0.000112414
+polygon vs volatiles,all reference points,684,,,c_mantle_subducted_carbon_fixed_800myr,5715,,,,,,,,primed_within800,,0.473831,0.00025251,0.000301247
+polygon vs volatiles,"all reference points, within age deciles",684,,,c_mantle_subducted_carbon_fixed_800myr,5715,,,,,,,,primed_within800,,0.475737,0.00025251,0.000301247
+polygon vs volatiles,all reference points,1010,,,c_mantle_subducted_carbon_track_25myr,6279,,,,,,,,primed_within800,,0.594843,0,0
+polygon vs volatiles,"all reference points, within age deciles",1010,,,c_mantle_subducted_carbon_track_25myr,6279,,,,,,,,primed_within800,,0.606615,0,0
+polygon vs volatiles,all reference points,1009,,,c_mantle_subducted_carbon_track_50myr,6266,,,,,,,,primed_within800,,0.60839,0,0
+polygon vs volatiles,"all reference points, within age deciles",1009,,,c_mantle_subducted_carbon_track_50myr,6266,,,,,,,,primed_within800,,0.623852,0,0
+polygon vs volatiles,all reference points,953,,,c_mantle_subducted_carbon_track_100myr,6138,,,,,,,,primed_within800,,0.627497,4.14502e-07,0
+polygon vs volatiles,"all reference points, within age deciles",953,,,c_mantle_subducted_carbon_track_100myr,6138,,,,,,,,primed_within800,,0.646841,4.14502e-07,0
+polygon vs volatiles,all reference points,921,,,c_mantle_subducted_carbon_track_200myr,6053,,,,,,,,primed_within800,,0.650732,7.09666e-06,0
+polygon vs volatiles,"all reference points, within age deciles",921,,,c_mantle_subducted_carbon_track_200myr,6053,,,,,,,,primed_within800,,0.675763,7.09666e-06,0
+polygon vs volatiles,all reference points,830,,,c_mantle_subducted_carbon_track_400myr,5627,,,,,,,,primed_within800,,0.636335,4.31783e-05,1.41727e-06
+polygon vs volatiles,"all reference points, within age deciles",830,,,c_mantle_subducted_carbon_track_400myr,5627,,,,,,,,primed_within800,,0.666863,4.31783e-05,1.41727e-06
+polygon vs volatiles,all reference points,472,,,c_mantle_subducted_carbon_track_800myr,4204,,,,,,,,primed_within800,,0.627399,0.000121353,3.66467e-05
+polygon vs volatiles,"all reference points, within age deciles",472,,,c_mantle_subducted_carbon_track_800myr,4204,,,,,,,,primed_within800,,0.621883,0.000121353,3.66467e-05
+polygon vs volatiles,all reference points,241,,,c_carbonate_subducted_carbon_stock,1355,,,,,,,,primed_within800,,0.551751,2.31373e-05,8.96552e-06
+polygon vs volatiles,"all reference points, within age deciles",241,,,c_carbonate_subducted_carbon_stock,1355,,,,,,,,primed_within800,,0.603141,2.31373e-05,8.96552e-06
+polygon vs volatiles,all reference points,195,,,c_carbonate_subducted_carbon_fixed_25myr,1225,,,,,,,,primed_within800,,0.713599,6.5652e-06,1.4019e-07
+polygon vs volatiles,"all reference points, within age deciles",195,,,c_carbonate_subducted_carbon_fixed_25myr,1225,,,,,,,,primed_within800,,0.71249,6.5652e-06,1.4019e-07
+polygon vs volatiles,all reference points,132,,,c_carbonate_subducted_carbon_fixed_50myr,984,,,,,,,,primed_within800,,0.725479,2.86978e-05,1.41471e-06
+polygon vs volatiles,"all reference points, within age deciles",132,,,c_carbonate_subducted_carbon_fixed_50myr,984,,,,,,,,primed_within800,,0.714664,2.86978e-05,1.41471e-06
+polygon vs volatiles,all reference points,28,,,c_carbonate_subducted_carbon_fixed_100myr,473,,,,,,,,primed_within800,,0.673437,6.58584e-05,1.72212e-05
+polygon vs volatiles,"all reference points, within age deciles",28,,,c_carbonate_subducted_carbon_fixed_100myr,473,,,,,,,,primed_within800,,0.686747,6.58584e-05,1.72212e-05
+polygon vs volatiles,all reference points,0,,,c_carbonate_subducted_carbon_fixed_200myr,0,,,,,,,,primed_within800,,,,
+polygon vs volatiles,"all reference points, within age deciles",0,,,c_carbonate_subducted_carbon_fixed_200myr,0,,,,,,,,primed_within800,,,,
+polygon vs volatiles,all reference points,189,,,c_carbonate_subducted_carbon_track_25myr,1039,,,,,,,,primed_within800,,0.659232,1.85676e-06,5.25212e-08
+polygon vs volatiles,"all reference points, within age deciles",189,,,c_carbonate_subducted_carbon_track_25myr,1039,,,,,,,,primed_within800,,0.650528,1.85676e-06,5.25212e-08
+polygon vs volatiles,all reference points,150,,,c_carbonate_subducted_carbon_track_50myr,748,,,,,,,,primed_within800,,0.602487,4.92913e-06,8.81391e-07
+polygon vs volatiles,"all reference points, within age deciles",150,,,c_carbonate_subducted_carbon_track_50myr,748,,,,,,,,primed_within800,,0.597451,4.92913e-06,8.81391e-07
+polygon vs volatiles,all reference points,79,,,c_carbonate_subducted_carbon_track_100myr,315,,,,,,,,primed_within800,,0.482499,2.22127e-05,3.03443e-05
+polygon vs volatiles,"all reference points, within age deciles",79,,,c_carbonate_subducted_carbon_track_100myr,315,,,,,,,,primed_within800,,0.480338,2.22127e-05,3.03443e-05
+polygon vs volatiles,all reference points,0,,,c_carbonate_subducted_carbon_track_200myr,0,,,,,,,,primed_within800,,,,
+polygon vs volatiles,"all reference points, within age deciles",0,,,c_carbonate_subducted_carbon_track_200myr,0,,,,,,,,primed_within800,,,,
+polygon vs volatiles,all reference points,626,,,c_organic_subducted_carbon_stock,5119,,,,,,,,primed_within800,,0.531735,1.4141e-05,1.24322e-05
+polygon vs volatiles,"all reference points, within age deciles",626,,,c_organic_subducted_carbon_stock,5119,,,,,,,,primed_within800,,0.532454,1.4141e-05,1.24322e-05
+polygon vs volatiles,all reference points,619,,,c_organic_subducted_carbon_fixed_25myr,5040,,,,,,,,primed_within800,,0.659266,7.5281e-08,6.68902e-17
+polygon vs volatiles,"all reference points, within age deciles",619,,,c_organic_subducted_carbon_fixed_25myr,5027,,,,,,,,primed_within800,,0.664228,7.5281e-08,6.68902e-17
+polygon vs volatiles,all reference points,603,,,c_organic_subducted_carbon_fixed_50myr,4941,,,,,,,,primed_within800,,0.645436,8.14416e-07,4.65269e-13
+polygon vs volatiles,"all reference points, within age deciles",603,,,c_organic_subducted_carbon_fixed_50myr,4941,,,,,,,,primed_within800,,0.651321,8.14416e-07,4.65269e-13
+polygon vs volatiles,all reference points,575,,,c_organic_subducted_carbon_fixed_100myr,4780,,,,,,,,primed_within800,,0.612275,2.13853e-06,4.98558e-09
+polygon vs volatiles,"all reference points, within age deciles",575,,,c_organic_subducted_carbon_fixed_100myr,4780,,,,,,,,primed_within800,,0.614107,2.13853e-06,4.98558e-09
+polygon vs volatiles,all reference points,524,,,c_organic_subducted_carbon_fixed_200myr,4327,,,,,,,,primed_within800,,0.59809,4.79584e-06,1.51377e-06
+polygon vs volatiles,"all reference points, within age deciles",524,,,c_organic_subducted_carbon_fixed_200myr,4327,,,,,,,,primed_within800,,0.593386,4.79584e-06,1.51377e-06
+polygon vs volatiles,all reference points,209,,,c_organic_subducted_carbon_fixed_400myr,2863,,,,,,,,primed_within800,,0.554289,1.52792e-05,8.88462e-06
+polygon vs volatiles,"all reference points, within age deciles",209,,,c_organic_subducted_carbon_fixed_400myr,2863,,,,,,,,primed_within800,,0.550957,1.52792e-05,8.88462e-06
+polygon vs volatiles,all reference points,613,,,c_organic_subducted_carbon_track_25myr,4920,,,,,,,,primed_within800,,0.664025,1.24523e-08,6.28498e-19
+polygon vs volatiles,"all reference points, within age deciles",613,,,c_organic_subducted_carbon_track_25myr,4916,,,,,,,,primed_within800,,0.665495,1.24523e-08,6.28498e-19
+polygon vs volatiles,all reference points,603,,,c_organic_subducted_carbon_track_50myr,4768,,,,,,,,primed_within800,,0.662107,4.90465e-08,1.36489e-16
+polygon vs volatiles,"all reference points, within age deciles",603,,,c_organic_subducted_carbon_track_50myr,4768,,,,,,,,primed_within800,,0.662919,4.90465e-08,1.36489e-16
+polygon vs volatiles,all reference points,577,,,c_organic_subducted_carbon_track_100myr,4453,,,,,,,,primed_within800,,0.675538,3.08445e-07,4.32849e-14
+polygon vs volatiles,"all reference points, within age deciles",577,,,c_organic_subducted_carbon_track_100myr,4453,,,,,,,,primed_within800,,0.676474,3.08445e-07,4.32849e-14
+polygon vs volatiles,all reference points,502,,,c_organic_subducted_carbon_track_200myr,3826,,,,,,,,primed_within800,,0.693669,1.26694e-06,1.3034e-11
+polygon vs volatiles,"all reference points, within age deciles",502,,,c_organic_subducted_carbon_track_200myr,3821,,,,,,,,primed_within800,,0.691096,1.26694e-06,1.3034e-11
+polygon vs volatiles,all reference points,304,,,c_organic_subducted_carbon_track_400myr,2056,,,,,,,,primed_within800,,0.672088,9.14445e-06,1.88975e-07
+polygon vs volatiles,"all reference points, within age deciles",304,,,c_organic_subducted_carbon_track_400myr,2056,,,,,,,,primed_within800,,0.675348,9.14445e-06,1.88975e-07
+polygon vs volatiles,all reference points,1015,,,out_sed_path_full,6283,,,,,,,,primed_within800,,0.590024,1.99214e-05,1.71322e-06
+polygon vs volatiles,"all reference points, within age deciles",1015,,,out_sed_path_full,6283,,,,,,,,primed_within800,,0.654102,1.99214e-05,1.71322e-06
+polygon vs volatiles,all reference points,933,,,out_sed_path_lag_myr,5444,,,,,,,,primed_within800,,0.435956,249.777,340.133
+polygon vs volatiles,"all reference points, within age deciles",933,,,out_sed_path_lag_myr,5444,,,,,,,,primed_within800,,0.463044,249.777,340.133
+polygon vs volatiles,all reference points,924,,,out_sed_path_100myr,5681,,,,,,,,primed_within800,,0.665626,2.22244e-11,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,out_sed_path_100myr,5681,,,,,,,,primed_within800,,0.68854,2.22244e-11,0
+polygon vs volatiles,all reference points,854,,,out_sed_path_200myr,5234,,,,,,,,primed_within800,,0.682248,1.81143e-08,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,out_sed_path_200myr,5234,,,,,,,,primed_within800,,0.708652,1.81143e-08,0
+polygon vs volatiles,all reference points,609,,,out_sed_path_400myr,4073,,,,,,,,primed_within800,,0.676213,3.9381e-07,1.29288e-14
+polygon vs volatiles,"all reference points, within age deciles",609,,,out_sed_path_400myr,4073,,,,,,,,primed_within800,,0.705713,3.9381e-07,1.29288e-14
+polygon vs volatiles,all reference points,270,,,out_sed_path_800myr,2728,,,,,,,,primed_within800,,0.67708,1.33817e-05,5.55522e-08
+polygon vs volatiles,"all reference points, within age deciles",270,,,out_sed_path_800myr,2728,,,,,,,,primed_within800,,0.676641,1.33817e-05,5.55522e-08
+polygon vs volatiles,all reference points,213,,,out_sed_path_1200myr,2022,,,,,,,,primed_within800,,0.69461,1.84166e-05,5.9082e-08
+polygon vs volatiles,"all reference points, within age deciles",213,,,out_sed_path_1200myr,2022,,,,,,,,primed_within800,,0.697856,1.84166e-05,5.9082e-08
+polygon vs volatiles,all reference points,1015,,,out_crust_path_full,6283,,,,,,,,primed_within800,,0.608881,0.000128664,7.98228e-06
+polygon vs volatiles,"all reference points, within age deciles",1015,,,out_crust_path_full,6283,,,,,,,,primed_within800,,0.673604,0.000128664,7.98228e-06
+polygon vs volatiles,all reference points,932,,,out_crust_path_lag_myr,5402,,,,,,,,primed_within800,,0.4322,252.344,343.305
+polygon vs volatiles,"all reference points, within age deciles",932,,,out_crust_path_lag_myr,5402,,,,,,,,primed_within800,,0.456569,252.344,343.305
+polygon vs volatiles,all reference points,924,,,out_crust_path_100myr,5681,,,,,,,,primed_within800,,0.667453,2.71574e-10,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,out_crust_path_100myr,5681,,,,,,,,primed_within800,,0.688472,2.71574e-10,0
+polygon vs volatiles,all reference points,854,,,out_crust_path_200myr,5234,,,,,,,,primed_within800,,0.689994,1.2527e-07,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,out_crust_path_200myr,5234,,,,,,,,primed_within800,,0.715463,1.2527e-07,0
+polygon vs volatiles,all reference points,609,,,out_crust_path_400myr,4073,,,,,,,,primed_within800,,0.683606,2.6045e-06,6.39233e-14
+polygon vs volatiles,"all reference points, within age deciles",609,,,out_crust_path_400myr,4073,,,,,,,,primed_within800,,0.711941,2.6045e-06,6.39233e-14
+polygon vs volatiles,all reference points,270,,,out_crust_path_800myr,2728,,,,,,,,primed_within800,,0.688369,5.06685e-05,2.42581e-07
+polygon vs volatiles,"all reference points, within age deciles",270,,,out_crust_path_800myr,2728,,,,,,,,primed_within800,,0.688252,5.06685e-05,2.42581e-07
+polygon vs volatiles,all reference points,213,,,out_crust_path_1200myr,2022,,,,,,,,primed_within800,,0.706151,7.2633e-05,2.7503e-07
+polygon vs volatiles,"all reference points, within age deciles",213,,,out_crust_path_1200myr,2022,,,,,,,,primed_within800,,0.707816,7.2633e-05,2.7503e-07
+polygon vs volatiles,all reference points,1015,,,out_mantle_path_full,6283,,,,,,,,primed_within800,,0.598026,0.000114224,8.81919e-06
+polygon vs volatiles,"all reference points, within age deciles",1015,,,out_mantle_path_full,6283,,,,,,,,primed_within800,,0.642878,0.000114224,8.81919e-06
+polygon vs volatiles,all reference points,795,,,out_mantle_path_lag_myr,3935,,,,,,,,primed_within800,,0.439193,272.061,357.451
+polygon vs volatiles,"all reference points, within age deciles",795,,,out_mantle_path_lag_myr,3935,,,,,,,,primed_within800,,0.449758,272.061,357.451
+polygon vs volatiles,all reference points,924,,,out_mantle_path_100myr,5681,,,,,,,,primed_within800,,0.60346,0,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,out_mantle_path_100myr,5681,,,,,,,,primed_within800,,0.613793,0,0
+polygon vs volatiles,all reference points,854,,,out_mantle_path_200myr,5234,,,,,,,,primed_within800,,0.63209,0,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,out_mantle_path_200myr,5234,,,,,,,,primed_within800,,0.645968,0,0
+polygon vs volatiles,all reference points,609,,,out_mantle_path_400myr,4073,,,,,,,,primed_within800,,0.635698,2.21953e-06,0
+polygon vs volatiles,"all reference points, within age deciles",609,,,out_mantle_path_400myr,4073,,,,,,,,primed_within800,,0.649261,2.21953e-06,0
+polygon vs volatiles,all reference points,270,,,out_mantle_path_800myr,2728,,,,,,,,primed_within800,,0.664298,5.0641e-05,1.64948e-07
+polygon vs volatiles,"all reference points, within age deciles",270,,,out_mantle_path_800myr,2728,,,,,,,,primed_within800,,0.663152,5.0641e-05,1.64948e-07
+polygon vs volatiles,all reference points,213,,,out_mantle_path_1200myr,2022,,,,,,,,primed_within800,,0.685119,7.31095e-05,1.80526e-07
+polygon vs volatiles,"all reference points, within age deciles",213,,,out_mantle_path_1200myr,2022,,,,,,,,primed_within800,,0.687342,7.31095e-05,1.80526e-07
+polygon vs volatiles,all reference points,1015,,,out_total_path_full,6283,,,,,,,,primed_within800,,0.604838,0.000260324,1.91146e-05
+polygon vs volatiles,"all reference points, within age deciles",1015,,,out_total_path_full,6283,,,,,,,,primed_within800,,0.666412,0.000260324,1.91146e-05
+polygon vs volatiles,all reference points,938,,,out_total_path_lag_myr,5486,,,,,,,,primed_within800,,0.428886,251.665,345.265
+polygon vs volatiles,"all reference points, within age deciles",938,,,out_total_path_lag_myr,5486,,,,,,,,primed_within800,,0.456398,251.665,345.265
+polygon vs volatiles,all reference points,924,,,out_total_path_100myr,5681,,,,,,,,primed_within800,,0.668435,3.02222e-10,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,out_total_path_100myr,5681,,,,,,,,primed_within800,,0.689538,3.02222e-10,0
+polygon vs volatiles,all reference points,854,,,out_total_path_200myr,5234,,,,,,,,primed_within800,,0.687482,1.94146e-07,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,out_total_path_200myr,5234,,,,,,,,primed_within800,,0.712768,1.94146e-07,0
+polygon vs volatiles,all reference points,609,,,out_total_path_400myr,4073,,,,,,,,primed_within800,,0.680629,5.58658e-06,9.89321e-14
+polygon vs volatiles,"all reference points, within age deciles",609,,,out_total_path_400myr,4073,,,,,,,,primed_within800,,0.708253,5.58658e-06,9.89321e-14
+polygon vs volatiles,all reference points,270,,,out_total_path_800myr,2728,,,,,,,,primed_within800,,0.683128,0.000118971,5.02245e-07
+polygon vs volatiles,"all reference points, within age deciles",270,,,out_total_path_800myr,2728,,,,,,,,primed_within800,,0.683228,0.000118971,5.02245e-07
+polygon vs volatiles,all reference points,213,,,out_total_path_1200myr,2022,,,,,,,,primed_within800,,0.699684,0.00018599,5.6797e-07
+polygon vs volatiles,"all reference points, within age deciles",213,,,out_total_path_1200myr,2022,,,,,,,,primed_within800,,0.702274,0.00018599,5.6797e-07
+polygon vs volatiles,all reference points,1015,,,sub_total_path_full,6283,,,,,,,,primed_within800,,0.605266,0.000287502,2.17032e-05
+polygon vs volatiles,"all reference points, within age deciles",1015,,,sub_total_path_full,6283,,,,,,,,primed_within800,,0.665833,0.000287502,2.17032e-05
+polygon vs volatiles,all reference points,939,,,sub_total_path_lag_myr,5499,,,,,,,,primed_within800,,0.426118,251.11,350.4
+polygon vs volatiles,"all reference points, within age deciles",939,,,sub_total_path_lag_myr,5499,,,,,,,,primed_within800,,0.455224,251.11,350.4
+polygon vs volatiles,all reference points,924,,,sub_total_path_100myr,5681,,,,,,,,primed_within800,,0.667372,3.32092e-10,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,sub_total_path_100myr,5681,,,,,,,,primed_within800,,0.688847,3.32092e-10,0
+polygon vs volatiles,all reference points,854,,,sub_total_path_200myr,5234,,,,,,,,primed_within800,,0.688135,2.04297e-07,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,sub_total_path_200myr,5234,,,,,,,,primed_within800,,0.711812,2.04297e-07,0
+polygon vs volatiles,all reference points,609,,,sub_total_path_400myr,4073,,,,,,,,primed_within800,,0.680219,6.15247e-06,9.90805e-14
+polygon vs volatiles,"all reference points, within age deciles",609,,,sub_total_path_400myr,4073,,,,,,,,primed_within800,,0.707005,6.15247e-06,9.90805e-14
+polygon vs volatiles,all reference points,270,,,sub_total_path_800myr,2728,,,,,,,,primed_within800,,0.683092,0.000126646,5.1031e-07
+polygon vs volatiles,"all reference points, within age deciles",270,,,sub_total_path_800myr,2728,,,,,,,,primed_within800,,0.683332,0.000126646,5.1031e-07
+polygon vs volatiles,all reference points,213,,,sub_total_path_1200myr,2022,,,,,,,,primed_within800,,0.700051,0.000200647,5.97451e-07
+polygon vs volatiles,"all reference points, within age deciles",213,,,sub_total_path_1200myr,2022,,,,,,,,primed_within800,,0.703006,0.000200647,5.97451e-07
+polygon vs volatiles,all reference points,1015,,,c_mantle_path_full,6283,,,,,,,,primed_within800,,0.621928,7.11312e-05,1.43556e-05
+polygon vs volatiles,"all reference points, within age deciles",1015,,,c_mantle_path_full,6283,,,,,,,,primed_within800,,0.676811,7.11312e-05,1.43556e-05
+polygon vs volatiles,all reference points,891,,,c_mantle_path_lag_myr,4638,,,,,,,,primed_within800,,0.425848,266.989,372.135
+polygon vs volatiles,"all reference points, within age deciles",891,,,c_mantle_path_lag_myr,4638,,,,,,,,primed_within800,,0.445341,266.989,372.135
+polygon vs volatiles,all reference points,924,,,c_mantle_path_100myr,5681,,,,,,,,primed_within800,,0.650583,2.4142e-07,0
+polygon vs volatiles,"all reference points, within age deciles",924,,,c_mantle_path_100myr,5681,,,,,,,,primed_within800,,0.664056,2.4142e-07,0
+polygon vs volatiles,all reference points,854,,,c_mantle_path_200myr,5234,,,,,,,,primed_within800,,0.689273,5.21696e-06,0
+polygon vs volatiles,"all reference points, within age deciles",854,,,c_mantle_path_200myr,5234,,,,,,,,primed_within800,,0.706314,5.21696e-06,0
+polygon vs volatiles,all reference points,609,,,c_mantle_path_400myr,4073,,,,,,,,primed_within800,,0.687924,1.72308e-05,0
+polygon vs volatiles,"all reference points, within age deciles",609,,,c_mantle_path_400myr,4073,,,,,,,,primed_within800,,0.70662,1.72308e-05,0
+polygon vs volatiles,all reference points,270,,,c_mantle_path_800myr,2728,,,,,,,,primed_within800,,0.683853,6.55054e-05,3.74473e-06
+polygon vs volatiles,"all reference points, within age deciles",270,,,c_mantle_path_800myr,2728,,,,,,,,primed_within800,,0.682913,6.55054e-05,3.74473e-06
+polygon vs volatiles,all reference points,213,,,c_mantle_path_1200myr,2022,,,,,,,,primed_within800,,0.698859,7.50061e-05,3.73928e-06
+polygon vs volatiles,"all reference points, within age deciles",213,,,c_mantle_path_1200myr,2022,,,,,,,,primed_within800,,0.699854,7.50061e-05,3.73928e-06
+polygon vs volatiles,all reference points,884,,,c300_path_full,6068,,,,,,,,primed_within800,,0.599405,6.06644e-06,3.34106e-08
+polygon vs volatiles,"all reference points, within age deciles",884,,,c300_path_full,6068,,,,,,,,primed_within800,,0.631969,6.06644e-06,3.34106e-08
+polygon vs volatiles,all reference points,623,,,c300_path_lag_myr,3140,,,,,,,,primed_within800,,0.442427,225.147,311.71
+polygon vs volatiles,"all reference points, within age deciles",623,,,c300_path_lag_myr,3140,,,,,,,,primed_within800,,0.451942,225.147,311.71
+polygon vs volatiles,all reference points,853,,,c300_path_100myr,5584,,,,,,,,primed_within800,,0.594015,0,0
+polygon vs volatiles,"all reference points, within age deciles",853,,,c300_path_100myr,5584,,,,,,,,primed_within800,,0.601323,0,0
+polygon vs volatiles,all reference points,758,,,c300_path_200myr,5099,,,,,,,,primed_within800,,0.637791,0,0
+polygon vs volatiles,"all reference points, within age deciles",758,,,c300_path_200myr,5099,,,,,,,,primed_within800,,0.645303,0,0
+polygon vs volatiles,all reference points,476,,,c300_path_400myr,3822,,,,,,,,primed_within800,,0.645781,2.47824e-07,0
+polygon vs volatiles,"all reference points, within age deciles",476,,,c300_path_400myr,3822,,,,,,,,primed_within800,,0.646549,2.47824e-07,0
+polygon vs volatiles,all reference points,257,,,c300_path_800myr,2560,,,,,,,,primed_within800,,0.640167,4.68516e-06,0
+polygon vs volatiles,"all reference points, within age deciles",257,,,c300_path_800myr,2560,,,,,,,,primed_within800,,0.640345,4.68516e-06,0
+polygon vs volatiles,all reference points,151,,,c300_path_1200myr,1370,,,,,,,,primed_within800,,0.676937,3.7083e-06,0
+polygon vs volatiles,"all reference points, within age deciles",151,,,c300_path_1200myr,1370,,,,,,,,primed_within800,,0.677246,3.7083e-06,0
+polygon vs volatiles,all reference points,1015,,,path_cover_to_ma,6294,,,,,,,,primed_within800,,0.544061,1670,1000
+polygon vs volatiles,"all reference points, within age deciles",1015,,,path_cover_to_ma,6294,,,,,,,,primed_within800,,0.46846,1670,1000
+polygon vs volatiles,all reference points,1015,,,over_500km_myr,6294,,,,,,,,primed_within800,,0.625749,20,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_500km_myr,6294,,,,,,,,primed_within800,,0.66708,20,0
+polygon vs volatiles,all reference points,1015,,,over_500km_longest_myr,6294,,,,,,,,primed_within800,,0.623815,20,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_500km_longest_myr,6294,,,,,,,,primed_within800,,0.66358,20,0
+polygon vs volatiles,all reference points,252,,,over_500km_since_myr,773,,,,,,,,primed_within800,,0.277639,61.075,411.075
+polygon vs volatiles,"all reference points, within age deciles",252,,,over_500km_since_myr,773,,,,,,,,primed_within800,,0.326766,61.075,411.075
+polygon vs volatiles,all reference points,252,,,over_500km_first_myr,773,,,,,,,,primed_within800,,0.296798,275.5,575
+polygon vs volatiles,"all reference points, within age deciles",252,,,over_500km_first_myr,773,,,,,,,,primed_within800,,0.337096,275.5,575
+polygon vs volatiles,all reference points,1015,,,over_500km_stable_myr,6294,,,,,,,,primed_within800,,0.563111,0,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_500km_stable_myr,6294,,,,,,,,primed_within800,,0.575495,0,0
+polygon vs volatiles,all reference points,1015,,,over_500km_stable_longest_myr,6294,,,,,,,,primed_within800,,0.563888,0,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_500km_stable_longest_myr,6294,,,,,,,,primed_within800,,0.576259,0,0
+polygon vs volatiles,all reference points,252,,,over_500km_stable_since_myr,773,,,,,,,,primed_within800,,0.277639,61.075,411.075
+polygon vs volatiles,"all reference points, within age deciles",252,,,over_500km_stable_since_myr,773,,,,,,,,primed_within800,,0.326766,61.075,411.075
+polygon vs volatiles,all reference points,1015,,,over_900km_myr,6294,,,,,,,,primed_within800,,0.704981,165,45
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_900km_myr,6294,,,,,,,,primed_within800,,0.752775,165,45
+polygon vs volatiles,all reference points,1015,,,over_900km_longest_myr,6294,,,,,,,,primed_within800,,0.707576,130,40
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_900km_longest_myr,6294,,,,,,,,primed_within800,,0.748016,130,40
+polygon vs volatiles,all reference points,641,,,over_900km_since_myr,1875,,,,,,,,primed_within800,,0.250941,61.075,435
+polygon vs volatiles,"all reference points, within age deciles",641,,,over_900km_since_myr,1875,,,,,,,,primed_within800,,0.287707,61.075,435
+polygon vs volatiles,all reference points,641,,,over_900km_first_myr,1875,,,,,,,,primed_within800,,0.321509,374.5,690
+polygon vs volatiles,"all reference points, within age deciles",641,,,over_900km_first_myr,1875,,,,,,,,primed_within800,,0.351595,374.5,690
+polygon vs volatiles,all reference points,1015,,,over_900km_stable_myr,6294,,,,,,,,primed_within800,,0.654585,100,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_900km_stable_myr,6294,,,,,,,,primed_within800,,0.673057,100,0
+polygon vs volatiles,all reference points,1015,,,over_900km_stable_longest_myr,6294,,,,,,,,primed_within800,,0.657043,100,0
+polygon vs volatiles,"all reference points, within age deciles",1015,,,over_900km_stable_longest_myr,6294,,,,,,,,primed_within800,,0.675344,100,0
+polygon vs volatiles,all reference points,546,,,over_900km_stable_since_myr,1515,,,,,,,,primed_within800,,0.24148,59.3095,472
+polygon vs volatiles,"all reference points, within age deciles",546,,,over_900km_stable_since_myr,1515,,,,,,,,primed_within800,,0.284371,59.3095,472
+polygon vs volatiles,all reference points,1015,,,topo_cover_myr,6294,,,,,,,,primed_within800,,0.438981,475,605
+polygon vs volatiles,"all reference points, within age deciles",1015,,,topo_cover_myr,6294,,,,,,,,primed_within800,,0.467585,475,605

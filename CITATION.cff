@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software or its derived data, please cite both the software and the paper."
+title: "Alkaline rare-earth deposits follow subduction, carbonatites follow lithospheric steps: analysis and figure code"
+type: software
+license: MIT
+repository-code: "https://github.com/EarthByte/Carbonatite-REE_Subduction-history"
+keywords:
+  - carbonatites
+  - rare earth elements
+  - alkaline igneous rocks
+  - subduction
+  - subducted volatiles
+  - lithospheric thickness
+  - plate reconstructions
+  - mineral systems
+  - critical minerals
+authors:
+  - family-names: "Müller"
+    given-names: "R. Dietmar"
+    affiliation: "EarthByte Group, School of Geosciences, University of Sydney, Australia"
+    orcid: "https://orcid.org/0000-0002-3334-5764"
+preferred-citation:
+  type: article
+  title: "Alkaline rare-earth deposits follow subduction, carbonatites follow lithospheric steps"
+  authors:
+    - family-names: "Müller"
+      given-names: "R. Dietmar"

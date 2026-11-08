@@ -1,0 +1,176 @@
+# Muller_rifts workflow configuration.
+# Paths are relative to the repository root unless absolute.
+
+paths:
+  pmm_data_dir: data/plate_models          # PlateModelManager download cache
+  raw_data: data/raw                       # source deposit tables (fetched by scripts/00_fetch_data.py)
+  derived: data/derived
+  external: data/external          # grids redistributed with the GPlately tutorials                    # single-file outputs of each step
+  figures: figures
+  # Cumulative slab-water grids (mantle frame, Muller2025). Variables used:
+  #   mean_subducted_water, mean_slab_outflux (released above 125 km).
+  #   mean_stored_water is not used here.
+  water_grid_dir: /path/to/slab_water_grids
+  water_grid_glob: "*.nc"
+  water_folder_template: "Muller2025_{variable}_300km_{component}"
+  # Age-coded rift database GloRiDa (unpublished, restricted licence; held under a separate licence).
+  rift_db_file: /path/to/rift_database.gpkg
+  # Evenick (2021) global sedimentary basins (redistributed with the GPlately-pyGMT tutorials).
+  basins_file: data/external/Evenick2021_GlobalBasins.shp
+  # Natural Earth 10 m glaciated areas: present-day ice sheets, caps and glaciers.
+  ice_file: data/external/ne_10m_glaciated_areas.shp
+  ice_shelf_file: data/external/ne_10m_antarctic_ice_shelves_polys.shp
+  # Craton polygons (Merdith et al.), reconstructed with the mantle model, and REVEAL
+  # horizontal shear-wave velocity at 150 km (Thrastarson et al. 2024, sampled by Shirmard
+  # et al. 2025) for the present-day comparison.
+  # Craton outlines of Shirmard et al. (2025), delineated from REVEAL full-waveform tomography
+  # (present-day polygons, GPL-3, github.com/EarthByte/Craton_Boundaries); cut by the static
+  # polygons of the mantle model by scripts/44_shirmard_cratons.py so that they reconstruct.
+  # They replace the Merdith et al. polygons (data/external/shapes_cratons_Merdith_etal.gpml).
+  craton_source: data/external/Craton_Boundaries_Shirmard2025/Craton_Boundaries_Inferred.shp
+  craton_file: data/external/cratons_Shirmard2025_partitioned.gpmlz
+  # crustal thickness: Earth Crustal Model 1 (Mooney et al. 2023), total crust Hc on 1 degree
+  # cells, interpolated to a 0.1 degree grid by scripts/51_ecm1_crust.py
+  crust_source: data/external/Mooney2023_ECM1/Hc_ECM1.txt
+  crust_file: data/external/ECM1_Hc_Mooney2023_0p1deg.nc
+  vsh_file: data/external/reveal_vsh_150km.nc
+  # REVEAL upper mantle (0-1,000 km, VSV/VSH/VPV/RHO on 0.5 degrees, 10 km shells), read by scripts/87 for the
+  # fast-lid thickness; the 170 km LAB contour of Hoggard et al. (2020), as distributed with Shirmard et al.
+  # (2025, github.com/EarthByte/Craton_Boundaries), is the benchmark
+  reveal_upper_file: /path/to/data
+  hoggard_lab170_file: data/external/Craton_Boundaries_Shirmard2025/LAB170_Hoggard2020.shp
+  # plate-frame dynamic topography of Young et al. (2022), mantle-flow run gld428 on Merdith et al. (2021) in a
+  # no-net-rotation frame, every 20 Myr 0-980 Ma (GPlately tutorial data bundle); read by scripts/88
+  dt_young2022_dir: /path/to/data
+  # plate-frame dynamic topography of the six mantle-flow cases M1-M6 of Dhungana & Flament (Zenodo
+  # 10.5281/zenodo.20603294, v1.1.0), one tarball per case, every 20 Myr 0-1000 Ma; read by scripts/88
+  dt_dhungana2025_dir: data/raw/dynamic_topography_Dhungana2025
+
+models:
+  mantle:                                  # absolute plate speed, trench migration, water
+    name: muller2025
+    anchor_plate: 0
+  paleomag:                                # paleolatitude
+    name: cao2024
+    anchor_plate: 0
+
+time:
+  max_age_ma: 1800
+  # Lags in Myr relative to formation age t_f; positive = older (before formation),
+  # negative = younger (after formation). Every deposit and null point is sampled at t_f + lag.
+  lags_myr: [-100, -75, -50, -40, -30, -20, -10, -5, 0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200]
+  velocity_delta_myr: 1.0
+
+boundaries:
+  spacing_deg: 0.25                        # boundary sampling (~28 km)
+  divergence_threshold_cm_yr: 0.1          # orthogonal opening faster than this counts as divergent
+  convergence_threshold_cm_yr: 0.1
+  continental_probe_km: [50, 150, 300, 500]  # offsets either side of a boundary tested for continental crust
+  margin_km: 300                           # divergence counts as continental (rift / young margin) within this offset
+  search_radii_km: [250, 500, 1000]        # radii for boundary-length and mean-rate summaries
+
+deposits:
+  dedup_radius_km: 5
+  cluster_radius_km: 50                    # deposits closer than this (chained) form one district
+  # Source priority when duplicates are merged (first wins).
+  # gernon2023_kimberlite is deliberately absent: every kimberlite in the compilation the
+  # papers rest on comes from Giuliani & Pearson (2019), and the Gernon file reached the
+  # working copy after that table was built. Listing it here would silently change the
+  # kimberlite set on the next rebuild. Its ages also descend in part from Tappe et al.
+  # (2018), which has since been removed by the publisher.
+  source_priority: [earthbyte_craton, hoggard2020, usgs_sir20105090z, usgs_sedznpb, usgs_sedexmvt, usgs_sedcu, wk2008_carbonatite, usgs_carbonatite, usgs_ree, gp2019_kimberlite, georoc_lamproite, usgs_potash, usgs_phosphate]
+  age_draws: 50                            # Monte Carlo realisations of formation age
+
+nulls:
+  n_points: 20000
+  seed: 42
+  # 'continental'  : equal-area points on present-day continental polygons of the mantle model
+  # 'class_terranes': restricted to static polygons that host at least one deposit of the class
+  mode: continental
+  age_matched: true                        # null ages drawn from the class age distribution
+  # Masks applied to the null side by scripts/04_screen.py --null-set (flags from scripts/17):
+  # nulls under present-day ice, and nulls further than this from any deposit of another
+  # family, which stand in ground no one has explored.
+  explored_radius_km: auto      # per class, the radius keeping 95 % of its own deposits
+
+# Subducted carbon and water held in a diffusing mantle reservoir (scripts/90), reference model
+# (kappa 1,000 km^2/Myr, no loss), every 10 Myr on a 0.8-degree mesh: one stacked file per field,
+# <dir>.nc, read by scripts/23 with --grid-set <name> --variable <name>.
+memory_fields:
+  - name: mem_carbon
+    dir: data/derived/mantle_memory_fields_carbon
+    variables: [mem_carbon]
+  - name: mem_water_sub
+    dir: data/derived/mantle_memory_fields_water_sub
+    variables: [mem_water_sub]
+  - name: mem_water_deep
+    dir: data/derived/mantle_memory_fields_water_deep
+    variables: [mem_water_deep]
+  - name: mem_water_out
+    dir: data/derived/mantle_memory_fields_water_out
+    variables: [mem_water_out]
+  - name: mem_carbon_1myr                  # the carbon reservoir every 1 Myr (scripts/62, 66)
+    dir: data/derived/mantle_memory_fields_carbon_1myr
+    variables: [mem_carbon]
+
+context:
+  rift_source: outlines                    # outlines (released, scripts/06) or structures (raw GloRiDa)
+  rift_max_km: 150                         # nearest GloRiDa feature further than this is not attached
+  rift_stage_tol_myr: 5
+  rift_max_lead_myr: 300                   # an age-compatible rift began at most this long before the point
+
+water:
+  # Each grid set is sampled the same way; output columns are <name>_<variable>_{fixed,track}_<T>myr.
+  # All grids are cumulative, in the Muller2025 mantle frame (checked: the seafloor-age grids
+  # they were built from put Muller2025 ridges on <5 Myr crust, Cao2024 ridges on older crust).
+  # The grid series (~125 GB) stay on the SSD; it must be mounted for the steps that sample
+  # them (03, 10, 23, 24, 62). A series folder may be replaced by one stacked file
+  # <folder>.nc (tools/stack_grids.py), which rifts/water.WaterGrids reads where the folder is absent.
+  grid_sets:
+    - name: h2o
+      dir: /path/to/slab_water_grids
+      folder_template: "Muller2025_{variable}_300km_{component}"
+      variables: [mean_subducted_water, mean_slab_outflux]
+      components: [sediment_bound, crust_bound, mantle]
+    - name: c300_mantle       # all plate reservoirs, 300 km smoothing like the water grids, 0-1500 Ma
+      dir: /path/to/subducted_carbon_grids_300km
+      folder_template: "."
+      variables: [subducted_carbon]
+      components: [mantle]
+      windows_myr: [25, 50, 100, 200, 400, 800]   # carbon stays in the mantle for hundreds of Myr
+      stock: true
+      bad_steps: [850]                            # one-step injection of ~570 units at 851->850 Ma
+    - name: c_mantle          # serpentinite + crust + lithosphere, 0-1800 Ma
+      dir: /path/to/subducted_carbon_grids_500km
+      folder_template: "Mantle/mean"
+      windows_myr: [25, 50, 100, 200, 400, 800]
+      stock: true
+      bad_steps: [850]
+      variables: [subducted_carbon]
+      components: ["Mantle"]
+    - name: c_carbonate          # carbonate sediment, grids for 0-239 Ma
+      dir: /path/to/subducted_carbon_grids_500km
+      folder_template: "Sediment/mean"
+      windows_myr: [25, 50, 100, 200]
+      stock: true
+      variables: [subducted_carbon]
+      components: ["Sediment"]
+    - name: c_organic          # organic sediment, grids for 0-599 Ma
+      dir: /path/to/subducted_carbon_grids_500km
+      folder_template: "Organic_Sediments/mean"
+      windows_myr: [25, 50, 100, 200, 400]
+      stock: true
+      variables: [subducted_carbon]
+      components: ["Organic_Sediments"]
+  variables: [mean_subducted_water, mean_slab_outflux]
+  components: [sediment_bound, crust_bound, mantle]
+  windows_myr: [25, 50, 100, 200, 400]     # integration windows preceding formation
+  along_track: true                        # follow the site through the mantle frame
+
+outlines:
+  spacing_km: 5          # densification of structures before triangulation
+  max_edge_km: 100       # alpha-shape edge limit (~ median rift width): wider gaps and embayments stay open
+  pad_km: 10             # outline widened beyond the outermost structures
+  smooth_km: 5           # closing/opening radius
+  simplify_km: 2         # vertex tolerance of the released outline
+  sweep_max_edge_km: [25, 50, 75, 100, 150, 250]

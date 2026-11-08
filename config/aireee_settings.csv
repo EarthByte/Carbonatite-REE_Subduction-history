@@ -1,0 +1,55 @@
+name,country,lon,lat,age_ma,setting,confidence,basis
+Akitskii,Russia,110.366667,56.016667,199,rift,medium,North Baikal alkaline province (Synnyr-Burpala-Akit); within-plate alkaline magmatism on the Siberian craton margin
+Junguni,Malawi,35.283333,-15.033333,131,rift,high,Chilwa Alkaline Province; Early Cretaceous within-plate magmatism of the East African rift precursor
+Arenopolis (Areianopolis),Brazil,-51.533333,-16.366667,104.55,rift,high,Goias Alkaline Province; Late Cretaceous within-plate magmatism of the Parana-Etendeka aftermath
+Ilimaussaq,Greenland,-51.2,63.0,1168,rift,high,Gardar rift; Beard et al. 2024
+Jabal Archenu,Libya,24.716667,22.266667,34.29,rift,medium,Jabal Arknu ring complex; within-plate alkaline magmatism of the Saharan metacraton
+Karaganskii,Kyrgyzstan,70.0,39.75,305.381,post-collisional,medium,Late Carboniferous-Permian alkaline magmatism of the Tien Shan after the Hercynian collision
+Karsakpai,Kazakhstan,66.416667,47.883333,406.545,uncertain,low,Devonian alkaline rocks of Ulytau; setting not established
+Khaldzan-Buregtey,Mongolia,91.966667,48.416667,385,rift,medium,Devonian peralkaline granites of the Mongolian Altai in a within-plate rift zone (Kovalenko et al. 2004)
+Khan Bogdo,Mongolia,107.2,43.2,305.381,uncertain,low,Late Carboniferous-Permian peralkaline granite of the Gobi; rift zone over a former active margin
+Kipawa Lake,Canada,-78.5,46.8,1240,rift,medium,Peralkaline syenite emplaced before Grenvillian collision; rift-related
+Flowers Bay,Canada,-59.833333,55.666667,1262,rift,high,Flowers River peralkaline granites of the Nain Plutonic Suite; anorogenic
+Bokan Mountain (Ross-Adams),United States,-132.133333,54.916667,151,rift,medium,Jurassic peralkaline granite of the Alexander terrane; within-plate extensional setting (Dostal et al. 2014)
+Brandberg Complex,Namibia,14.55,-21.133333,121.8,rift,high,Damaraland complexes; Early Cretaceous magmatism of the South Atlantic opening
+Amis Complex,Namibia,14.5,-21.166667,121.8,rift,high,Damaraland complexes; Early Cretaceous magmatism of the South Atlantic opening
+Bunduk,Armenia,44.75,40.75,36,post-collisional,high,Eocene alkaline magmatism of the Lesser Caucasus after Arabia-Eurasia convergence
+Tezhsar,Armenia,44.65,40.683333,38,post-collisional,high,Late Eocene Tezhsar complex of the Lesser Caucasus; post-collisional
+Burpalinskii (Burpala),Russia,110.75,56.55,326,rift,medium,North Baikal alkaline province; within-plate alkaline magmatism
+Chilembwe (Petauke),Zambia,31.683333,-13.983333,493.925,post-collisional,medium,Cambrian alkaline magmatism after the Pan-African (Zambezi-Lufilian) orogeny
+Churuata,Venezuela,-65.466667,3.45,1300,rift,medium,Mesoproterozoic anorogenic magmatism of the Guiana Shield (Parguaza-type)
+Dara-Pioz,Tajikistan,70.733333,39.416667,328.88,post-collisional,medium,Carboniferous-Permian alkaline magmatism of the Alai range after the Hercynian collision
+Dong Pao,Vietnam,103.566667,22.283333,44.52,post-collisional,high,Cenozoic alkaline-carbonatite magmatism of the Ailao Shan-Red River zone after India-Asia collision
+Elisenvaara (Elisenvaarskii; includes Kaivimyaki/Kaivomaki and Raivimyaki/ Raivimaki),Russia,29.916667,61.416667,1750,post-collisional,medium,Svecofennian post-collisional shoshonitic-alkaline magmatism of Ladoga Karelia
+Cida,China,102.083333,27.0,230,rift,medium,Panxi alkaline magmatism of the Emeishan large igneous province and its rift
+Kodal,Norway,10.166667,59.25,275.401,rift,high,Oslo Rift
+Langesundsfjord District (Larvik),Norway,9.75,59.0,275.401,rift,high,Oslo Rift
+Shvanidzorskii,Armenia,46.383333,39.0,38.5,post-collisional,high,Eocene alkaline magmatism of the Lesser Caucasus; post-collisional
+Sierra de Tamaulipas,Mexico,-98.4,23.2,28,post-collisional,medium,Eastern Mexico alkaline province; extension after Laramide subduction and shortening
+Srednetatarskii (Zaangarskii),Russia,93.583333,58.4,667.5,rift,medium,Neoproterozoic rift-related alkaline magmatism of the Yenisei Ridge
+Srednevorogovskii,Russia,90.033333,61.25,546.5,rift,medium,Neoproterozoic-Cambrian rift-related alkaline magmatism of the Yenisei Ridge
+Strange Lake (Lac Brisson),Canada,-64.116667,56.3,1271,rift,high,Mesoproterozoic anorogenic peralkaline granite; Gardar-age magmatism of Labrador
+Synnyr,Russia,111.333333,56.916667,350,rift,medium,North Baikal alkaline province; within-plate alkaline magmatism
+Tleumbetskii,Kazakhstan,77.033333,50.766667,286.65,post-collisional,low,Permian alkaline magmatism of eastern Kazakhstan after the Hercynian collision
+Topsails,Canada,-57.0,48.75,421,post-collisional,medium,Silurian peralkaline granites of Newfoundland after the Taconic-Salinic orogeny
+Vedi-Azatskii,Armenia,45.0,39.983333,12,post-collisional,high,Miocene alkaline magmatism of the Lesser Caucasus; post-collisional
+Yastrebets,Ukraine,28.85,51.233333,1740,rift,high,Palaeoproterozoic anorogenic alkaline magmatism of the Ukrainian Shield
+Korgeredaba,Russia,97.25,50.083333,304,uncertain,low,Late Palaeozoic alkaline massif of Tuva; setting not established
+Saima,China,124.2,40.983333,231,post-collisional,medium,Triassic alkaline magmatism of the northern North China craton after the Palaeo-Asian Ocean closed
+Kutessai-II,Kyrgyzstan,76.166667,42.666667,275.401,post-collisional,medium,Permian alkaline magmatism of the Tien Shan after the Hercynian collision
+Kyzyl-Ompul,Kyrgyzstan,75.916667,42.35,275.401,post-collisional,medium,Permian alkaline magmatism of the Tien Shan after the Hercynian collision
+Letitia Lake - Mann 1,Canada,-62.383333,54.233333,1300,rift,high,Mesoproterozoic anorogenic peralkaline magmatism of Labrador (Red Wine)
+Red Wine,Canada,-62.583333,54.083333,1345,rift,high,Mesoproterozoic anorogenic peralkaline magmatism of Labrador
+Los Archipelago (Los Islands; Iles de Los),Guinea,-13.8,9.466667,104.3,rift,high,Cretaceous nepheline syenite of the opening central Atlantic margin
+Lovozero,Russia,34.75,67.783333,386,rift,high,Kola Alkaline Province; Devonian within-plate (rift) magmatism
+Malotersyanskii,Ukraine,35.65,48.333333,1740,rift,high,Palaeoproterozoic anorogenic alkaline magmatism of the Ukrainian Shield
+Meponda,Mozambique,34.9,-13.45,1519.4,uncertain,low,Age and setting not established
+Pocos de Caldas (Morro do Ferro),Brazil,-46.566667,-21.916667,60.8,rift,high,Late Cretaceous-Palaeocene anorogenic alkaline magmatism of southeastern Brazil
+Pilansberg Complex (Pilanesberg; Pilaan's berg),South Africa,27.066667,-25.233333,1519.4,rift,high,Mesoproterozoic anorogenic complex of the Kaapvaal craton
+Pajarito Mountain,United States,-105.433333,33.233333,1519.4,rift,medium,Mesoproterozoic anorogenic peralkaline syenite of New Mexico
+Mount Prindle (Roy Creek),United States,-147.1,65.483333,86.7,uncertain,low,Cretaceous alkaline magmatism of the Yukon-Tanana upland; arc-related or post-subduction
+Nosy Komba,Madagascar,48.333333,-13.466667,10.4,rift,medium,Cenozoic within-plate alkaline magmatism of northern Madagascar
+Rexspar (Birch Island),Canada,-119.9,51.566667,341.13,rift,medium,Devonian-Mississippian peralkaline volcanic complex in an extensional setting
+Mutum,Brazil,-57.416667,1.883333,1026,rift,medium,Mesoproterozoic anorogenic magmatism of the Guiana Shield
+Nejoio,Angola,13.233333,-13.666667,104.03,rift,high,Early Cretaceous alkaline-carbonatite magmatism of the South Atlantic opening
+Mount St. Hilaire,Canada,-73.166667,45.55,127,rift,high,Monteregian Hills; Cretaceous within-plate magmatism on the reactivated Ottawa-Bonnechere graben

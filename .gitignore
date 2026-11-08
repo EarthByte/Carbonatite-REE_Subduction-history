@@ -1,0 +1,38 @@
+__pycache__/
+*.pyc
+.DS_Store
+.pytest_cache/
+*.partial
+
+# outputs that are not redistributable
+private/
+
+# no data of any kind is committed. The age-coded rift database is licensed and cannot be
+# redistributed; the rift outlines derived from it are released with the paper, not here.
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.gpml
+*.gpmlz
+*.rot
+*.nc
+*.tif
+*.xls
+*.xlsx
+*.parquet
+
+# inputs and outputs are not versioned: the compilations and grids are third-party and the
+# derived tables and figures are reproduced by running the workflow
+data/raw/
+data/external/
+data/plate_models/
+data/derived/
+figures/
+
+# the released data are the one exception, named file by file: the rift outlines (outline
+# layer only, cleared fields only) and the derived tables behind the paper
+!data/released/rift_outlines.gpkg
+!data/released/reveal_lid_thickness.nc
