@@ -322,7 +322,7 @@ def fig5(p, out):
               label="reference lithosphere")
         ax.set_xlabel(xlab)
     axes[0].set_ylabel("cumulative share of districts")
-    axes[0].legend(frameon=False, loc="lower right")
+    axes[2].legend(frameon=False, loc="lower right")     # the only panel with an empty lower right
     panel_letters(axes)
     fig.tight_layout()
     save(fig, out, "carbonatite_fig5.pdf")
