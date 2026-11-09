@@ -18,6 +18,7 @@
 - `released/numbers_through_time.csv`
 - `released/recurrence.csv`
 - `released/isotope_districts.csv`
+- `released/further_checks.csv`
 - `released/aireee_settings.csv`
 - `released/reveal_lid_thickness.nc`
 - `released/llsvp_vote_4models.npz`

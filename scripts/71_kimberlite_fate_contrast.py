@@ -86,6 +86,7 @@ SLIDE = tuple((float(a), float(a + 10)) for a in range(0, 115, 5))
 CAPS = (1000.0, 1500.0, 2000.0, 3000.0, 5000.0, 25000.0)
 FATES = ("margin", "failed rift")
 SYSTEM_KM, SYSTEM_GAP = (100.0, 200.0), 50.0
+EVENT_BIN_MYR = 100.0   # end-age bin that, with the margin's plate, defines a breakup event
 
 
 def system_phases(rifts, fate, km, gap):
@@ -308,6 +309,33 @@ def main():
     mantle, _ = load_models(cfg)
     rows = []
 
+    # plate of every rift (the mode of the plate IDs of its outline vertices in the mantle-frame model);
+    # used for the breakup-event units below and for the frame decomposition at the end
+    try:
+        from rifts.riftlag import _rift_vertices
+        xy, owner = _rift_vertices(rifts)
+        pid_v, _, _ = mantle.assign_plate_ids(xy[:, 0], xy[:, 1])
+        rift_pid = pd.Series(pid_v).groupby(owner).agg(lambda v: pd.Series(v).mode().iloc[0])
+        rift_pid = rift_pid.reindex(range(len(rifts))).to_numpy()
+        rift_multi = pd.Series(pid_v).groupby(owner).nunique().reindex(range(len(rifts))).to_numpy()
+    except Exception as exc:                                    # plate assignment unavailable
+        print(f"  plate IDs of rift vertices not assigned: {exc}")
+        pid_v = None
+        rift_pid = np.full(len(rifts), -1)
+        rift_multi = np.full(len(rifts), np.nan)
+    end_bin = np.floor(end0 / EVENT_BIN_MYR)
+
+    def event_ids(im):
+        """Breakup event of the nearest qualifying margin of each locality (review 2026-11-09): the margin's
+        plate and the EVENT_BIN_MYR bin in which its rifting ended, coded as one integer (-1 without a
+        margin or without a plate). The rift database names a rift system for too few rifts to define
+        events directly."""
+        ok = im >= 0
+        j = np.where(ok, im, 0)
+        key = np.where(ok, np.asarray(rift_pid[j], float) * 1000 + end_bin[j], np.nan)
+        code, _ = pd.factorize(key)
+        return np.where(ok, code, -1)
+
     sides = {}
     for cls in ("KIMB", "PCU"):
         d, r = deposit_rows(frame, cls), reference_rows(frame, cls)
@@ -363,9 +391,11 @@ def main():
                 (xm, im, hm), (ym, jm, gm) = window_values(s, rifts, fs["margin"], lo, hi)
                 (xf, i_f, hf), (yf, jf, gf) = window_values(s, rifts, fs["failed rift"], lo, hi)
                 grp_rift, n_units = rift_groups(s.cluster, [im, i_f])
+                grp_ev, n_ev = rift_groups(s.cluster, [event_ids(im)])
                 treat = {
                     "district": (s.groups, None, None, None),
                     "shared rift": (grp_rift, None, None, None),
+                    "breakup event": (grp_ev, None, None, None),
                     "measured ages": ([g[measured[g]] for g in s.groups if measured[g].any()], None, None, measured),
                     "craton-edge and trench tertiles": (s.groups, None, cells, None),
                     "without age balance": (s.groups, np.ones(len(s.r)), None, None),
@@ -417,6 +447,21 @@ def main():
                     rows.append(dict(kind="leave one unit out", dclass=cls, frame=fr, window=w, fate_def=fdef,
                                      treatment="shared margin", quantity="effective number of units", auc=ess_units,
                                      n_units=n_units_m, n_districts=int(s.d["cluster_id"].nunique())))
+                    # the same with breakup events as units (margin plate and end-age bin; districts without a
+                    # qualifying margin stay single units)
+                    wu = np.asarray([s.wd[g].sum() for g in grp_ev])
+                    for k, g in enumerate(grp_ev):
+                        keep_idx = np.concatenate([gg for j, gg in enumerate(grp_ev) if j != k])
+                        idx = (keep_idx, np.arange(len(s.r)))
+                        rows.append(dict(kind="leave one unit out", dclass=cls, frame=fr, window=w, fate_def=fdef,
+                                         treatment="breakup event", unit=k, unit_share=float(wu[k] / wu.sum()),
+                                         n_districts_left_out=int(pd.Series(s.cluster[g]).nunique()),
+                                         quantity="margins", auc=est(s, xm, ym, idx), auc_full=est(s, xm, ym)))
+                        rows[-1]["auc_failed"] = est(s, xf, yf, idx)
+                    rows.append(dict(kind="leave one unit out", dclass=cls, frame=fr, window=w, fate_def=fdef,
+                                     treatment="breakup event", quantity="effective number of units",
+                                     auc=float(wu.sum() ** 2 / (wu ** 2).sum()), n_units=n_ev,
+                                     n_districts=int(s.d["cluster_id"].nunique())))
                 if cls == "KIMB" and fr == "present" and fdef == "database phases":
                     print(f"  {w}: shared-rift units {n_units} of {s.d['cluster_id'].nunique()} districts")
         print(f"  contrast {cls} {fdef} done", flush=True)
@@ -661,18 +706,7 @@ def main():
                              auc=smd(s.d[col].to_numpy(float), s.wd, s.r[col].to_numpy(float), np.ones(len(s.r)))))
 
     # -------------------------------------------------------- why the frames differ
-    pid_v = None
-    try:
-        from rifts.riftlag import _rift_vertices
-        xy, owner = _rift_vertices(rifts)
-        pid_v, _, _ = mantle.assign_plate_ids(xy[:, 0], xy[:, 1])
-        rift_pid = pd.Series(pid_v).groupby(owner).agg(lambda v: pd.Series(v).mode().iloc[0])
-        rift_pid = rift_pid.reindex(range(len(rifts))).to_numpy()
-        rift_multi = pd.Series(pid_v).groupby(owner).nunique().reindex(range(len(rifts))).to_numpy()
-    except Exception as exc:                                    # plate assignment unavailable
-        print(f"  plate IDs of rift vertices not assigned: {exc}")
-        rift_pid = np.full(len(rifts), -1)
-        rift_multi = np.full(len(rifts), np.nan)
+    # rift_pid and rift_multi were assigned after the models were loaded
     sp, sr = sides["KIMB"]["present"], sides["KIMB"]["reconstructed"]
     for fname in FATES:
         for lo, hi in WINDOWS:

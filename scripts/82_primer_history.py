@@ -24,7 +24,7 @@ Part ``water`` (needs the grid series on the SSD):
 Part ``topo`` (resolved topologies of the mantle-frame model, every ``--step`` Myr):
 
 * ``over_<D>km_myr``: Myr the point spent on the overriding plate within D km of a subduction
-  zone before formation (D = 500 and 900 km);
+  zone before formation (D = 500, 700, 900 and 1,100 km);
 * ``over_<D>km_longest_myr``: the longest continuous such episode;
 * ``over_<D>km_since_myr``: time between formation and the end of the most recent episode
   lasting at least 100 Myr (the criterion of Spandler et al. 2026), missing if none;
@@ -32,6 +32,11 @@ Part ``topo`` (resolved topologies of the mantle-frame model, every ``--step`` M
 * ``over_<D>km_stable_myr``, ``_stable_longest_myr``, ``_stable_since_myr``: the same for episodes
   of at least 100 Myr at a stationary trench, one whose distance from the point varies by less than
   ``--stable-km`` (500 km) over the episode: the fixed-trench criterion of Spandler et al. (2026).
+* ``over_<D>km_since_L<L>myr`` and ``over_<D>km_episode_L<L>myr``: the time since, and the presence of,
+  the most recent episode of at least L = 50 or 150 Myr, a sensitivity test of the 100 Myr criterion;
+* ``over_<D>km_after_myr``: how long after formation the point stayed on the overriding plate within D km,
+  read forwards from the first step at or after formation (0 if it was not there at that step; at most
+  100 Myr), which tells whether a lag of one step marks an episode that ended or one still under way.
 
 Writes ONE table, data/derived/primer_history_<tag> (parquet), through a .partial file. With
 ``--parts`` a run of one part keeps the other part's columns from the existing table.
@@ -52,8 +57,10 @@ from rifts.common import chord_to_km, load_config, lonlat_to_xyz, read_table, wr
 
 CLASSES = ("CARB", "AIREE", "KIMB", "PCU")
 WINDOWS = (100, 200, 400, 800, 1200)
-INBOARD_KM = (500, 900)
+INBOARD_KM = (500, 700, 900, 1100)
 MIN_EPISODE_MYR = 100
+SENS_EPISODE_MYR = (50, 150)  # shorter and longer qualifying episodes, a sensitivity test (review 2026-11-09)
+AFTER_MYR = 100               # how far after formation the persistence of the setting is followed
 SEARCH_KM = 2500.0            # trench search radius; distances beyond it are not needed
 
 
@@ -225,27 +232,39 @@ def topo_pids(snap, x, y):
     return out
 
 
-def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_km=500.0):
+def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_km=500.0,
+             sens_myr=SENS_EPISODE_MYR, after_myr=AFTER_MYR):
     """Time each point spent on the overriding plate near a trench before formation, every ``step`` Myr
-    back to ``tmax`` or the entry of its block into the model. At each step the point is reconstructed,
-    its topological plate found, and its distance taken to the nearest trench point whose overriding
-    plate is that plate. Per distance of ``inboard``: total time, longest episode, the time since the
-    end of the most recent episode of at least MIN_EPISODE_MYR and since the start of the oldest, the
-    censored lag and episode flag, and the same totals for episodes at a stationary trench (distance
-    range at most ``stable_km``)."""
+    back to ``tmax`` or the entry of its block into the model, and whether that setting persisted after
+    formation. At each step the point is reconstructed, its topological plate found, and its distance taken
+    to the nearest trench point whose overriding plate is that plate. Per distance of ``inboard``: total
+    time, longest episode, the time since the end of the most recent episode of at least MIN_EPISODE_MYR and
+    since the start of the oldest, the censored lag and episode flag, the same totals for episodes at a
+    stationary trench (distance range at most ``stable_km``), the time since the end of the most recent
+    episode of at least each of ``sens_myr`` (with its flag), and the time for which the point stayed within
+    that distance after formation, read forwards from the first step at or after formation over at most
+    ``after_myr`` (review 2026-11-09: a lag of one step can mean that the episode ended just before
+    formation or that it was still under way)."""
     tf = p["age_ma"].to_numpy(float)
     lon, lat, pid = p["lon"].to_numpy(), p["lat"].to_numpy(), p["pid"].to_numpy()
-    times = np.arange(step, tmax + step / 2, step, dtype=float)
+    # steps from the present back to tmax: a step older than formation belongs to the history before it, a
+    # step at or younger than formation (back to after_myr later) shows whether the setting persisted
+    times = np.arange(0.0, tmax + step / 2, step, dtype=float)
     hist = {D: np.zeros((len(p), len(times)), bool) for D in inboard}
+    after = {D: np.zeros((len(p), len(times)), bool) for D in inboard}
     dist = np.full((len(p), len(times)), np.inf)          # distance to the point's own trench
-    valid = np.zeros((len(p), len(times)), bool)
+    valid = np.zeros((len(p), len(times)), bool)          # steps before formation within the block's life
+    valid_after = np.zeros((len(p), len(times)), bool)    # steps at or after formation, up to after_myr
     tr = Trenches(mantle)
     t0 = _time.time()
     for k, t in enumerate(times):
-        rows = np.nonzero((tf < t) & (t <= begin))[0]
+        before_rows = (tf < t) & (t <= begin)
+        after_rows = (t <= tf) & (t >= tf - after_myr)
+        rows = np.nonzero(before_rows | after_rows)[0]
         if not len(rows):
             continue
-        valid[rows, k] = True
+        valid[before_rows, k] = True
+        valid_after[after_rows, k] = True
         snap, tree, over = tr.snapshot(t)
         if tree is None:
             continue
@@ -266,9 +285,13 @@ def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_k
             mine = h[over[h] == tp[ok][i]]
             if len(mine):
                 dmin[i] = chord_to_km(np.min(np.linalg.norm(tree.data[mine] - q[i], axis=1)))
-        dist[rows[ok], k] = dmin
+        r_ok = rows[ok]
+        dist[r_ok, k] = dmin
+        is_before = before_rows[r_ok]
         for D in inboard:
-            hist[D][rows[ok], k] = dmin <= D
+            near = dmin <= D
+            hist[D][r_ok[is_before], k] = near[is_before]
+            after[D][r_ok[~is_before], k] = near[~is_before]
         if progress and k % 20 == 0:
             print(f"  topology t = {t:.0f} Ma ({len(rows)} points, {(_time.time() - t0) / 60:.1f} min)", flush=True)
     out = {}
@@ -279,7 +302,15 @@ def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_k
         since = np.full(len(p), np.nan)
         first = np.full(len(p), np.nan)
         st_total, st_longest, st_since = np.zeros(len(p)), np.zeros(len(p)), np.full(len(p), np.nan)
+        since_s = {L: np.full(len(p), np.nan) for L in sens_myr}
+        after_d = np.full(len(p), np.nan)
         for i in range(len(p)):
+            # persistence after formation: consecutive steps within D km, from the first step at or after
+            # formation towards the present (zero if the point was not within D km at that step)
+            ka = np.nonzero(valid_after[i])[0][::-1]
+            if len(ka):
+                seq = after[D][i, ka]
+                after_d[i] = (len(seq) if seq.all() else int(np.argmin(seq))) * step
             row = h[i]
             if not row.any():
                 continue
@@ -292,6 +323,10 @@ def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_k
             if long_.any():
                 since[i] = times[starts[long_].min()] - tf[i]      # youngest end of a long episode
                 first[i] = times[ends[long_].max()] - tf[i]        # oldest start of a long episode
+            for L in sens_myr:
+                long_l = lens >= L
+                if long_l.any():
+                    since_s[L][i] = times[starts[long_l].min()] - tf[i]
             # an episode at a stationary trench: the distance from the point to its trench varies by
             # less than stable_km over the episode (the plates carry the point, so a trench fixed to
             # the continent keeps its distance; a retreating or advancing one does not)
@@ -301,19 +336,23 @@ def run_topo(p, mantle, begin, step, inboard, tmax=1800, progress=True, stable_k
                 st_total[i] = lens[stable].sum()
                 st_longest[i] = lens[stable].max()
                 st_since[i] = times[starts[stable].min()] - tf[i]
-        out[f"over_{D}km_myr"] = total
-        out[f"over_{D}km_longest_myr"] = longest
-        out[f"over_{D}km_since_myr"] = since
-        out[f"over_{D}km_first_myr"] = first
+        out[f"over_{D:g}km_myr"] = total
+        out[f"over_{D:g}km_longest_myr"] = longest
+        out[f"over_{D:g}km_since_myr"] = since
+        out[f"over_{D:g}km_first_myr"] = first
         # the lag is undefined for a point that never had an episode of at least MIN_EPISODE_MYR, and
         # such points are most of some classes; the censored lag sets it to the length of the covered
         # history (the point has had no episode for at least that long), and the flag records whether
         # an episode exists, so the two can be compared without conditioning on having one
-        out[f"over_{D}km_since_censored_myr"] = np.where(np.isfinite(since), since, valid.sum(1) * step)
-        out[f"over_{D}km_episode"] = np.isfinite(since).astype(float)
-        out[f"over_{D}km_stable_myr"] = st_total
-        out[f"over_{D}km_stable_longest_myr"] = st_longest
-        out[f"over_{D}km_stable_since_myr"] = st_since
+        out[f"over_{D:g}km_since_censored_myr"] = np.where(np.isfinite(since), since, valid.sum(1) * step)
+        out[f"over_{D:g}km_episode"] = np.isfinite(since).astype(float)
+        out[f"over_{D:g}km_stable_myr"] = st_total
+        out[f"over_{D:g}km_stable_longest_myr"] = st_longest
+        out[f"over_{D:g}km_stable_since_myr"] = st_since
+        for L in sens_myr:
+            out[f"over_{D:g}km_since_L{L:g}myr"] = since_s[L]
+            out[f"over_{D:g}km_episode_L{L:g}myr"] = np.isfinite(since_s[L]).astype(float)
+        out[f"over_{D:g}km_after_myr"] = after_d
     out["topo_cover_myr"] = valid.sum(1) * step
     return pd.DataFrame(out)
 

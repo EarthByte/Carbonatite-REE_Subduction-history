@@ -56,7 +56,9 @@ from rifts.common import EARTH_RADIUS_KM, load_config, lonlat_to_xyz, read_table
 STEP = 10.0
 MAX_AGE = 1800.0
 SMOOTH_MYR = 50.0
-LEADS = (0, 25, 50, 100, 150, 200, 300)
+# leads that are whole multiples of STEP, so that the label is the shift applied (a lead of 25 Myr was
+# applied as 20 Myr, two 10 Myr bins; review 2026-11-09)
+LEADS = (0, 20, 50, 100, 150, 200, 300)
 MIN_SHIFT = 200.0
 HIGHPASS_MYR = 300.0
 WINDOWS = ((0, 1800), (0, 300), (300, 1800))

@@ -18,6 +18,9 @@ number in them comes from the workflow.
        and shear-wave gradient, and their REE deposits split by host
   t5   isotopes and lanthanum against subducted volatiles (scripts/86)
   t6   numbers through time against subduction (scripts/85): correlations and recurrence
+  t7   checks of the principal comparisons (scripts/84): ore by commodity, era, spatial blocks, episode thresholds
+  t8   checks of the review of 2026-11-09 (scripts/96): episode definitions and persistence after formation,
+       fertilised domains under joint matching, paired skill differences, the zero-free εNd correlation
 
     python tools/carbonatite_tables.py t1 [--tag carb26]
     python tools/carbonatite_tables.py all > /tmp/carbonatite_tables.md
@@ -316,14 +319,24 @@ ISO_Q = {"out_total_path_full", "out_sed_path_full", "sub_total_path_full", "c_m
 def t5(der, tag):
     i = pd.read_csv(der / f"carbonatite_isotopes_{tag}.csv")
     d = i[(i["part"] == "dose") & (i["variant"] == "all samples") & i["quantity"].isin(ISO_Q)]
+    # p-values of the rank correlations and Benjamini-Hochberg q-values over the correlations of each class in
+    # this table (scripts/96, review 2026-11-09); the columns stay empty if scripts/96 has not run
+    rc = der / f"carbonatite_review_checks_{tag}.csv"
+    pq = {}
+    if rc.exists():
+        r96 = pd.read_csv(rc)
+        r96 = r96[(r96["part"] == "isotopes") & ~r96["measure"].str.contains("above zero")]
+        pq = {(x.set, x.measure): (x.p, x.q) for x in r96.itertuples()}
     out = ["| Class | Measure | Against | Districts | Rank correlation (95% interval) | Spatial blocks | "
-           "Age held constant | Age and lithosphere held constant |",
-           "|---|---|---|---:|---|---|---:|---:|"]
+           "Age held constant | Age and lithosphere held constant | p | q |",
+           "|---|---|---|---:|---|---|---:|---:|---:|---:|"]
     for _, r in d.iterrows():
         lab = LABEL.get(r["quantity"], r["quantity"].replace("_", " "))
+        pv, qv = pq.get((r["cls"], f"{r['measure']} vs {r['quantity']}"), (np.nan, np.nan))
+        fp = lambda v: "–" if not np.isfinite(v) else (f"{v:.3f}" if v >= 0.001 else "<0.001")  # noqa: E731
         out.append(f"| {GROUP[r['cls']]} | {ISO[r['measure']]} | {lab} | {int(r['n_districts'])} | "
                    f"{r['rho']:.2f} ({span(r['lo'], r['hi'])}) | {span(r['block_lo'], r['block_hi'])} | "
-                   f"{r['rho_age_partialled']:.2f} | {r['rho_age_lithosphere_partialled']:.2f} |")
+                   f"{r['rho_age_partialled']:.2f} | {r['rho_age_lithosphere_partialled']:.2f} | {fp(pv)} | {fp(qv)} |")
     sp = i[(i["part"] == "split") & (i["variant"] == "all samples")]
     out += ["", "| Class | Measure | Split | Districts | Probability (95% interval) | Median, group | Median, others |",
             "|---|---|---|---:|---|---:|---:|"]
@@ -457,7 +470,82 @@ def t7(der, tag):
     return "\n".join(out).replace("-0.", "−0.")
 
 
-TABLES = {"t1": t1, "t2": t2, "t3": t3, "t4": t4, "t5": t5, "t6": t6, "t7": t7}
+EPI = {"over_700km_since_myr": "Trench within 700 km, episode of at least 100 Myr",
+       "over_900km_since_myr": "Trench within 900 km, episode of at least 100 Myr (main text)",
+       "over_1100km_since_myr": "Trench within 1,100 km, episode of at least 100 Myr",
+       "over_900km_since_L50myr": "Trench within 900 km, episode of at least 50 Myr",
+       "over_900km_since_L150myr": "Trench within 900 km, episode of at least 150 Myr"}
+SKILL = {"without exposure and source minus without exposure": "Subducted-volatile measures removed",
+         "without exposure and lithosphere minus without exposure": "Lithospheric measures removed",
+         "without exposure and trigger minus without exposure": "Trigger measures removed",
+         "all features minus without exposure": "Exposure measures added",
+         "exposure alone minus without exposure": "Exposure measures alone"}
+
+
+def t8(der, tag):
+    """Supplementary Table 8 (review 2026-11-09), from scripts/96: the subduction-episode measure under other
+    radii and qualifying durations; whether the setting persisted after formation; the fertilised-domain
+    shares under joint matching; paired differences in model skill; and the εNd correlation without the
+    districts that received no sediment-bound water."""
+    t = pd.read_csv(der / f"carbonatite_review_checks_{tag}.csv")
+    out = []
+    e = t[t["part"] == "episodes"]
+    if len(e):
+        out += ["*Alkaline-silicate REE districts, all and post-collisional or post-subduction, against carbonatite districts "
+                "reweighted to their ages: time since the most recent subduction episode on the overriding plate*", "",
+                "| Districts | Definition of the episode | Probability (95% interval) | Districts with an episode "
+                "(alkaline-silicate, carbonatite) | Share with an episode (alkaline-silicate, carbonatite) | Median time "
+                "since its end, Myr (alkaline-silicate, carbonatite) |",
+                "|---|---|---|---|---|---|"]
+        for x in e.itertuples():
+            who = "Post-collisional and post-subduction" if "post-collisional" in x.set else "All alkaline-silicate REE"
+            out.append(f"| {who} | {EPI.get(x.measure, x.measure)} | {x.value:.2f} ({span(x.lo, x.hi)}) | {int(x.n)}, "
+                       f"{int(x.n_ref)} | {x.share_dep:.2f}, {x.share_ref:.2f} | {x.median_dep:.0f}, {x.median_ref:.0f} |")
+    q = t[t["part"] == "persistence"]
+    if len(q):
+        out += ["", "*Districts with an episode (trench within 900 km, at least 100 Myr): the share whose episode ends within one "
+                "5 Myr step of formation, the share that still lay within 900 km of an active trench at the first step after "
+                "formation, and for how long it stayed there (median, among those)*", "",
+                "| Districts | Districts with an episode | Within one step of formation | Still within 900 km after formation | "
+                "Median time it stayed, Myr |", "|---|---:|---:|---:|---:|"]
+        for x in q.itertuples():
+            who = ("Carbonatites" if x.set.startswith("CARB") else
+                   "Post-collisional and post-subduction alkaline-silicate REE" if "post-collisional" in x.set else
+                   "Alkaline-silicate REE")
+            if who == "Carbonatites" and "post-collisional" in x.set:
+                continue
+            out.append(f"| {who} | {int(x.n)} | {x.share_dep:.2f} | {x.value:.2f} | {num(x.median_dep)} |")
+    d = t[t["part"] == "domains"]
+    if len(d):
+        out += ["", "*Share inside a subduction-fertilised domain of Spandler et al. (2026) against the share expected when reference "
+                "positions are matched on present-day craton-edge distance, shear-wave-speed gradient at 150 km and exploration "
+                "density together (joint tertiles)*", "",
+                "| Class | Domain | Districts | Share of districts | Share of reference positions | Expected, joint matching | "
+                "Observed minus expected (95% interval) | Share of districts matched |", "|---|---|---:|---:|---:|---:|---|---:|"]
+        for x in d.itertuples():
+            out.append(f"| {GROUP[x.set]} | {DOMAIN.get(x.measure, x.measure)} | {int(x.n)} | {x.share_dep:.2f} | {x.share_ref:.2f} | "
+                       f"{x.median_ref:.2f} | {x.value:+.2f} ({span(x.lo, x.hi)}) | {x.matched:.2f} |".replace("+-", "−"))
+    k = t[t["part"] == "skill"]
+    if len(k):
+        out += ["", "*Held-out skill of the random forests: difference from the model without the exposure measures, repetition by "
+                "repetition on identical folds (mean, smallest and largest over ten repetitions; repetitions with a gain)*", "",
+                "| Class | Model | Skill | Model without exposure | Difference (range over repetitions) | Repetitions with a gain |",
+                "|---|---|---:|---:|---|---:|"]
+        lab = {"CARB": "Carbonatites", "CARB ore": "Ore-bearing carbonatites", "AIREE": "Alkaline-silicate REE",
+               "KIMB": "Kimberlites", "PCU": "Porphyry Cu"}
+        for x in k.itertuples():
+            out.append(f"| {lab.get(x.set, x.set)} | {SKILL.get(x.measure, x.measure)} | {x.median_dep:.2f} | {x.median_ref:.2f} | "
+                       f"{x.value:+.3f} ({span(x.lo, x.hi)}) | {int(round(x.share_dep * x.n))} of {int(x.n)} |".replace("+-", "−"))
+    z = t[(t["part"] == "isotopes") & t["measure"].str.contains("above zero")]
+    if len(z):
+        x = z.iloc[0]
+        out += ["", f"*Departure of initial εNd from depleted mantle against the sediment-bound slab water along the plate path, "
+                f"carbonatite districts that received some: rank correlation {x['value']:.2f} (p = {x['p']:.3f}; "
+                f"{int(x['n'])} districts, {x['share_dep']:.0%} of those with εNd)*"]
+    return "\n".join(out).replace("-0.", "−0.")
+
+
+TABLES = {"t1": t1, "t2": t2, "t3": t3, "t4": t4, "t5": t5, "t6": t6, "t7": t7, "t8": t8}
 
 
 def main():

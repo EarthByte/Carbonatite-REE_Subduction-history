@@ -306,8 +306,11 @@ def ore_flags(p, root, cfg):
     occ = r[["longitude", "latitude"]].to_numpy(float)
     dep = (p["kind"] == "deposit").to_numpy()
     carb, alk = (p["group"] == "CARB").to_numpy(), (p["group"] == "AIREE").to_numpy()
-    # a record of the USGS carbonatite-deposit table is itself a deposit with grade and tonnage
-    near_dep = _near(p, np.vstack(deposits), ORE_RADIUS_KM) | (p["source"] == "usgs_carbonatite").to_numpy()
+    # a record of the USGS carbonatite table counts as ore only through the REE or niobium grade of a
+    # deposit within ORE_RADIUS_KM, itself included (it lies 0 km from itself); a USGS record without such a
+    # grade, of which the table holds some, is not ore (review 2026-11-09: two records were flagged ore by
+    # their source alone, so that the ore class exceeded the union of its REE and niobium parts)
+    near_dep = _near(p, np.vstack(deposits), ORE_RADIUS_KM)
     near_any = near_dep | _near(p, occ, ORE_RADIUS_KM)
     # the ore class split by commodity (review 2026-11-08): ``ore_ree`` within ORE_RADIUS_KM of a USGS
     # carbonatite deposit with an REE grade or of a magmatic REE ore deposit of Spandler et al.;

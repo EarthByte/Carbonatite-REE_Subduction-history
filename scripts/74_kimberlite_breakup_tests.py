@@ -298,13 +298,22 @@ def main():
                 obs = wauc(xd[0], s.wd, xr[0], s.wr)
                 obs_reach = reach(xd[0], s.wd) - reach(xr[0], s.wr)
                 for pname, pool in (("margins shuffled", pool_m), ("all rifts shuffled", pool_all),
-                                    ("margins shuffled within plates", pool_m)):
+                                    ("margins shuffled within plates", pool_m),
+                                    ("margins shuffled within 100 Myr age bins", pool_m)):
                     rng = np.random.default_rng(74)
                     ids = np.nonzero(pool)[0]
                     # restricted reassignment (review 2026-11-08): ages exchanged only among margins on
                     # the same present-day plate, so that the null keeps the age distribution of each
                     # continent; a plate with one margin keeps its age
-                    blocks = [ids[rift_pid[ids] == k] for k in np.unique(rift_pid[ids])] if "within" in pname else [ids]
+                    # or (review 2026-11-09) only among margins whose rifting ended in the same 100 Myr bin, so that
+                    # the null keeps the broad age of every margin and tests the age within that bin
+                    if "plates" in pname:
+                        blocks = [ids[rift_pid[ids] == k] for k in np.unique(rift_pid[ids])]
+                    elif "age bins" in pname:
+                        ebin = np.floor(end0[ids] / 100.0)
+                        blocks = [ids[ebin == k] for k in np.unique(ebin)]
+                    else:
+                        blocks = [ids]
                     null, null_reach = [], []
                     for _ in range(a.perm):
                         p = np.concatenate([rng.permutation(b) for b in blocks])
@@ -343,9 +352,13 @@ def main():
             xd, xr = vals(K, np.ones(len(lips), bool), lo, hi, lip_on0, lip_on0, D=Dlip["KIMB"])
             obs = wauc(xd[0], K.wd, xr[0], K.wr)
             lip_pid = pd.Series(lip_pid_all).groupby(lip_code).agg(lambda v: pd.Series(v).mode().iloc[0]).to_numpy()
+            lip_bin = np.floor(lip_age / 100.0)
             for qname, groups in (("large igneous provinces shuffled", [np.arange(len(lip_age))]),
                                   ("large igneous provinces shuffled within plates",
-                                   [np.flatnonzero(lip_pid == k) for k in np.unique(lip_pid)])):
+                                   [np.flatnonzero(lip_pid == k) for k in np.unique(lip_pid)]),
+                                  # review 2026-11-09: ages exchanged only within 100 Myr bins of emplacement age
+                                  ("large igneous provinces shuffled within 100 Myr age bins",
+                                   [np.flatnonzero(lip_bin == k) for k in np.unique(lip_bin)])):
                 rng = np.random.default_rng(75)
                 null = []
                 for _ in range(a.perm):

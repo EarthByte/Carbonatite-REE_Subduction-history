@@ -141,7 +141,7 @@ def fig1(p, out):
     from matplotlib.patches import Patch
     h = [Line2D([], [], ls="", marker="o", mfc=COLOUR["CARB"], mec=COLOUR["CARB"], ms=4,
                 label="carbonatite district with REE or Nb ore"),
-         Line2D([], [], ls="", marker="o", mfc="white", mec=COLOUR["CARB"], ms=4, label="carbonatite district without ore"),
+         Line2D([], [], ls="", marker="o", mfc="white", mec=COLOUR["CARB"], ms=4, label="carbonatite district without recorded ore"),
          Line2D([], [], ls="", marker="D", mfc=COLOUR["AIREE"], mec=COLOUR["AIREE"], ms=4, label="alkaline-silicate REE district"),
          Line2D([], [], ls="", marker="^", mfc=COLOUR["KIMB"], mec="none", ms=3, label="kimberlite district"),
          Line2D([], [], color="#1f1f1f", lw=0.6, label="craton outline (Shirmard et al.)"),
@@ -210,10 +210,12 @@ def fig2(sysdf, out):
     save(fig, out, "carbonatite_fig2.pdf")
 
 
-def fig3(sp, out):
-    """Fig. 3: (a) share of districts inside a fertilised domain against reference positions and the share
-    expected at equal craton-edge distance, (b) the REE deposits of Spandler et al. by host rock inside
-    domains formed before them, within each age gap, against the expected share."""
+def fig3(sp, out, rc=None):
+    """Fig. 3: (a) share of districts inside a fertilised domain against reference positions, the share
+    expected at equal craton-edge distance and, where scripts/96 has run, the share expected under joint
+    matching on craton-edge distance, shear-wave gradient and exploration density; (b) the REE deposits of
+    Spandler et al. by host rock inside domains formed before them, within each age gap, against the
+    expected share."""
     fig, axes = plt.subplots(1, 2, figsize=(width_mm("double") * MM, 62 * MM))
     a, b = axes
     groups = ["CARB", "AIREE", "KIMB", "PCU"]
@@ -221,24 +223,39 @@ def fig3(sp, out):
     e = sp[(sp["kind"] == "share at equal") & (sp["measure"] == "primed") &
            (sp["condition"] == "craton_present_km")].set_index("group")
     x = np.arange(len(groups))
-    a.bar(x - 0.25, [s.loc[g, "share_dep"] for g in groups], 0.25, color=[COLOUR[g] for g in groups])
-    a.errorbar(x - 0.25, [s.loc[g, "share_dep"] for g in groups],
+    # joint matching (scripts/96): the expected share is in median_ref of the "domains" rows
+    j = None
+    if rc is not None:
+        jj = rc[(rc["part"] == "domains") & (rc["measure"] == "primed")].set_index("set")
+        if set(groups) <= set(jj.index):
+            j = jj
+    bw = 0.2 if j is not None else 0.25
+    off = [-1.5 * bw, -0.5 * bw, 0.5 * bw, 1.5 * bw] if j is not None else [-bw, 0.0, bw]
+    a.bar(x + off[0], [s.loc[g, "share_dep"] for g in groups], bw, color=[COLOUR[g] for g in groups])
+    a.errorbar(x + off[0], [s.loc[g, "share_dep"] for g in groups],
                yerr=[[s.loc[g, "share_dep"] - s.loc[g, "dep_lo"] for g in groups],
                      [s.loc[g, "dep_hi"] - s.loc[g, "share_dep"] for g in groups]], fmt="none", ecolor="#222222", elinewidth=0.6)
-    a.bar(x, [s.loc[g, "share_ref"] for g in groups], 0.25, color="#d9d9d9", edgecolor="#7f7f7f", lw=0.5, hatch="////")
-    a.bar(x + 0.25, [e.loc[g, "share_ref"] for g in groups], 0.25, color="white", edgecolor="#7f7f7f", lw=0.8)
+    a.bar(x + off[1], [s.loc[g, "share_ref"] for g in groups], bw, color="#d9d9d9", edgecolor="#7f7f7f", lw=0.5, hatch="////")
+    a.bar(x + off[2], [e.loc[g, "share_ref"] for g in groups], bw, color="white", edgecolor="#7f7f7f", lw=0.8)
+    if j is not None:
+        a.bar(x + off[3], [j.loc[g, "median_ref"] for g in groups], bw, color="white", edgecolor="#222222", lw=0.8,
+              hatch="....")
     from matplotlib.patches import Patch
     # the district bars take the colour of each class; their key entry is a hatched neutral swatch, which
     # the colour-safety check of rifts.figures tells apart from the grey and white reference entries
     a.legend(handles=[Patch(facecolor="white", edgecolor="#222222", lw=1.2, hatch="xx", label="districts (bars in the colour of the class)"),
                       Patch(facecolor="#d9d9d9", edgecolor="#7f7f7f", hatch="////", lw=0.5,
                             label="reference positions of the same ages"),
-                      Patch(facecolor="white", edgecolor="#7f7f7f", lw=0.8, label="expected at equal craton-edge distance")],
+                      Patch(facecolor="white", edgecolor="#7f7f7f", lw=0.8, label="expected at equal craton-edge distance")]
+             + ([Patch(facecolor="white", edgecolor="#222222", lw=0.8, hatch="....",
+                       label="expected at equal craton-edge distance,\nshear-wave gradient and exploration density")]
+                if j is not None else []),
              frameon=False, loc="upper left")
     a.set_xticks(x)
     a.set_xticklabels(["carbonatites", "alkaline-\nsilicate REE", "kimberlites", "porphyry\ncopper"])
     a.set_ylabel("share inside a fertilised domain")
-    a.set_ylim(0, 1.3)
+    a.set_ylim(0, 1.3 if j is None else 1.6)      # room for the key above the bars
+    a.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
     h = sp[(sp["kind"] == "spandler by host") & (sp["condition"] == "craton_present_km")]
     hosts = [("REE ore, carbonatite", "carbonatite-hosted REE ore"), ("REE ore, alkaline-silicate", "alkaline-silicate REE ore")]
     meas = [("primed", "any age"), ("primed_within400", "≤400 Myr"), ("primed_within800", "≤800 Myr"),
@@ -282,6 +299,8 @@ def fig4(p, sec, out):
         ax.set_ylabel("cumulative share")
         if xmax:
             ax.set_xlim(0, xmax)
+    # panel a holds only the districts with a reconstructed episode (19 and 106 in v6): the caption gives the
+    # numbers, since a count in the key would split one class into two key entries of the same colour
     a.legend(frameon=False, loc="lower right")
     s = sec[sec["part"] == "series"].sort_values("time_ma")
     t = s["time_ma"].to_numpy(float)
@@ -359,7 +378,9 @@ def main():
     out.mkdir(exist_ok=True)
     use_journal("ngeo")
     p = read_table(der / f"carbonatite_features_{a.tag}")
-    p = p[~p["ice"].fillna(False).astype(bool)]
+    # the districts and reference points compared in scripts/84: not beneath present-day ice and on a block the
+    # plate model holds at their age, so that every figure shows the population of the statistics
+    p = p[~p["ice"].fillna(False).astype(bool) & p["in_model"].fillna(True).astype(bool)]
     sysdf = pd.read_csv(der / f"carbonatite_systems_{a.tag}.csv", low_memory=False)
     todo = set(a.only or range(1, 7))
     if 1 in todo:
@@ -367,7 +388,9 @@ def main():
     if 2 in todo:
         fig2(sysdf, out)
     if 3 in todo:
-        fig3(pd.read_csv(der / f"spandler_reassessment_{a.tag}.csv"), out)
+        rc = der / f"carbonatite_review_checks_{a.tag}.csv"
+        fig3(pd.read_csv(der / f"spandler_reassessment_{a.tag}.csv"), out,
+             pd.read_csv(rc) if rc.exists() else None)
     if 4 in todo:
         fig4(p, pd.read_csv(der / f"carbonatite_secular_{a.tag}.csv"), out)
     if 5 in todo:

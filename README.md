@@ -1,4 +1,4 @@
-# Lithospheric steps and subduction cessation control distinct rare-earth mineral systems
+# Lithospheric structure and subduction history distinguish rare-earth mineral systems
 
 Code and data behind the paper. Carbonatites (the dated occurrences of Humphreys-Williams & Zahirovic, 2021, with
 the USGS carbonatite and rare-earth deposit tables), alkaline-silicate rare-earth deposits (Orris & Grauch, 2002),
@@ -44,6 +44,7 @@ mineral system, scored on spatial blocks excluded from training, measure what ea
 | `scripts/84_carbonatite_systems.py` | every comparison and the random-forest skill with and without each stage |
 | `scripts/85_carbonatite_secular_recurrence.py` | district numbers through time against global subduction; recurrence of districts at a site |
 | `scripts/86_carbonatite_isotopes.py` | initial neodymium and strontium isotope ratios of the districts against their subduction history |
+| `scripts/96_carbonatite_review_checks.py` | `further_checks.csv`: the episode measure under other radii and durations, persistence after formation, the fertilised domains under joint matching, paired model skill, isotope q-values |
 | `scripts/91_carbonatite_figures.py` | Figures 1 to 6 |
 | `tools/carbonatite_tables.py` | the tables of the supplement, from the data files |
 
@@ -72,6 +73,7 @@ outlines of the companion papers are absent.
     python scripts/84_carbonatite_systems.py --tag carb26
     python scripts/85_carbonatite_secular_recurrence.py --tag carb26
     python scripts/86_carbonatite_isotopes.py --tag carb26
+    python scripts/96_carbonatite_review_checks.py --tag carb26
     python scripts/91_carbonatite_figures.py --tag carb26
     python tools/carbonatite_tables.py all       # the tables of the supplement
 

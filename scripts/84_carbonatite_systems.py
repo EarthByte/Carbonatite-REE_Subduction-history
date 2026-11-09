@@ -89,6 +89,33 @@ def aireee_setting(d, root):
     return pd.Series(out, index=d.index)
 
 
+def district_flags(p):
+    """Ore status and era of every carbonatite and alkaline-silicate district, given to each of its records,
+    so that no district falls on both sides of a split (review 2026-11-09). A district is ore-bearing when any
+    of its records has a qualifying deposit within 10 km, REE-ore-bearing when any has REE ore, and
+    niobium-ore-only when it has niobium ore and no REE ore; its era is that of the median age of its
+    records, and it lies inside or outside a craton by the median of their distances to the craton edge.
+    Reference points keep their own values and no ore."""
+    p = p.copy()
+    dep = (p["kind"] == "deposit").to_numpy()
+    key = p["cluster_id"].fillna(p["pt_id"]).to_numpy()[dep]
+    d = p.loc[dep]
+    for c in ("ore", "ore_ree", "ore_nb_only"):
+        if c in p:
+            p.loc[dep, c] = d[c].astype(bool).groupby(key).transform("any").to_numpy()
+    if "ore_ree" in p and "ore_nb_only" in p:
+        p.loc[dep, "ore_nb_only"] = p.loc[dep, "ore_nb_only"].astype(bool) & ~p.loc[dep, "ore_ree"].astype(bool)
+    p["district_age_ma"] = p["age_ma"].astype(float)
+    p.loc[dep, "district_age_ma"] = d["age_ma"].astype(float).groupby(key).transform("median").to_numpy()
+    # inside or outside a craton outline at the age of the site: the median over the district's records
+    p["district_craton_km"] = p["craton_dist_km"].astype(float)
+    p.loc[dep, "district_craton_km"] = d["craton_dist_km"].astype(float).groupby(key).transform("median").to_numpy()
+    for c in ("ore", "ore_ree", "ore_nb_only"):
+        if c in p:
+            p[c] = p[c].fillna(False).astype(bool)
+    return p
+
+
 def sets(p, mineable=False):
     """(label, deposit rows, reference rows) for every comparison."""
     ok = ~p["ice"].fillna(False).astype(bool) & p["in_model"].fillna(True).astype(bool)
@@ -112,13 +139,15 @@ def sets(p, mineable=False):
             dm, rm = d["fml_primed"] == 1, r["fml_primed"] == 1
             out.append((f"{cls} in fertilised domains", d[dm], r[rm]))
             # on and off cratons (craton outline at the age of the point)
-            for name, sd, sr in (("inside cratons", d["craton_dist_km"] < 0, r["craton_dist_km"] < 0),
-                                 ("outside cratons", d["craton_dist_km"] >= 0, r["craton_dist_km"] >= 0)):
+            for name, sd, sr in (("inside cratons", d["district_craton_km"] < 0, r["craton_dist_km"] < 0),
+                                 ("outside cratons", d["district_craton_km"] >= 0, r["craton_dist_km"] >= 0)):
                 out.append((f"{cls} {name}", d[sd], r[sr]))
             # by era, each against the reference points of the same era: whether the present-day
             # lithospheric measures separate the young districts as they do the old (review 2026-11-08)
             for era, lo, hi in (("Phanerozoic", 0.0, 541.0), ("Proterozoic", 541.0, 2500.0)):
-                sd, sr = (d["age_ma"] >= lo) & (d["age_ma"] < hi), (r["age_ma"] >= lo) & (r["age_ma"] < hi)
+                # a district takes the era of its median age (district_flags), a reference point its own age
+                sd = (d["district_age_ma"] >= lo) & (d["district_age_ma"] < hi)
+                sr = (r["age_ma"] >= lo) & (r["age_ma"] < hi)
                 if d.loc[sd, "cluster_id"].nunique() >= 5:
                     out.append((f"{cls} {era}", d[sd], r[sr]))
     return out
@@ -296,8 +325,8 @@ def run_compare(p, feats, stage, boot, seed=84):
         # carbonatites of its own era reweighted to its ages: whether the short lag after subduction belongs
         # to the Phanerozoic, largely post-collisional districts or extends to the Proterozoic ones
         for era, lo, hi in (("Phanerozoic", 0.0, 541.0), ("Proterozoic", 541.0, 2500.0)):
-            alk_e = alk[(alk["age_ma"] >= lo) & (alk["age_ma"] < hi)]
-            carb_e = carb[(carb["age_ma"] >= lo) & (carb["age_ma"] < hi)]
+            alk_e = alk[(alk["district_age_ma"] >= lo) & (alk["district_age_ma"] < hi)]
+            carb_e = carb[(carb["district_age_ma"] >= lo) & (carb["district_age_ma"] < hi)]
             if alk_e["cluster_id"].nunique() < 5 or carb_e["cluster_id"].nunique() < 5:
                 continue
             for col in feats:
@@ -488,6 +517,7 @@ def main():
     feats = [c for c in st["feature"] if c in p]
     for c in feats:
         p[c] = pd.to_numeric(p[c], errors="coerce") if p[c].dtype != bool else p[c].astype(float)
+    p = district_flags(p)
     rows = []
     if "compare" in a.parts:
         rows += run_compare(p, feats, stage, a.boot)
