@@ -10,14 +10,20 @@ checked for overlapping and undersized lettering before it is written.
 
   carbonatite_fig1.pdf  districts over the thickness of the fast lithospheric lid, craton outlines and
                         the fertilised domains (present-day positions)
-  carbonatite_fig2.pdf  subducted water and carbon along the plate path against reference lithosphere,
+  (Fig. 2, the reconstructed slab-water maps with craton outlines and districts, is drawn by
+   scripts/23_reconstruction_maps.py --paper carbonatite)
+  carbonatite_fig3.pdf  subducted water and carbon along the plate path against reference lithosphere,
                         by window, for every class
-  carbonatite_fig3.pdf  shares inside the fertilised domains, and the REE deposits of Spandler et al.
+  carbonatite_fig4.pdf  shares inside the fertilised domains, and the REE deposits of Spandler et al.
                         by host rock against the share expected at equal craton-edge distance
-  carbonatite_fig4.pdf  the two rare-earth systems: time since the last subduction episode, trench
-                        distance, dynamic-topography rise, and numbers through time against subduction
-  carbonatite_fig5.pdf  lid thickness and shear-velocity gradient beneath the classes
-  carbonatite_fig6.pdf  neodymium enrichment against sediment-bound slab water along the plate path
+  carbonatite_fig5.pdf  the two rare-earth systems: time since the last subduction episode, trench
+                        distance, dynamic-topography rise, numbers through time against subduction, and
+                        neodymium enrichment with and without sediment-bound slab water (writes
+                        carbonatite_nd_split_<tag>.csv)
+  carbonatite_fig6.pdf  sketch of the results (the paper's closing figure)
+  carbonatite_figS1.pdf lid thickness and shear-velocity gradient beneath the classes (--only 7)
+
+--only takes the figure numbers 1, 3, 4, 5 and 6, and 7 for Supplementary Fig. 1.
 
     python scripts/91_carbonatite_figures.py --tag carb26
 """
@@ -107,7 +113,8 @@ def draw_polys(ax, polys, tr, **kw):
 
 
 def fig1(p, out):
-    """Fig. 1: carbonatite (with and without REE or Nb ore), alkaline-silicate REE and kimberlite districts
+    """Sources are cited in the caption, not in the key: an author name without its reference number is an
+    incomplete citation (review 2026-11-14). Fig. 1: carbonatite (with and without REE or Nb ore), alkaline-silicate REE and kimberlite districts
     over the REVEAL lid thickness (1.5% threshold), the craton outlines of Shirmard et al. (2025) and
     the fertilised domains of Spandler et al. (2026), at present-day positions."""
     import geopandas as gpd
@@ -144,8 +151,8 @@ def fig1(p, out):
          Line2D([], [], ls="", marker="o", mfc="white", mec=COLOUR["CARB"], ms=4, label="carbonatite district without recorded ore"),
          Line2D([], [], ls="", marker="D", mfc=COLOUR["AIREE"], mec=COLOUR["AIREE"], ms=4, label="alkaline-silicate REE district"),
          Line2D([], [], ls="", marker="^", mfc=COLOUR["KIMB"], mec="none", ms=3, label="kimberlite district"),
-         Line2D([], [], color="#1f1f1f", lw=0.6, label="craton outline (Shirmard et al.)"),
-         Patch(facecolor="none", edgecolor="#4393c3", hatch="////", lw=0.35, label="fertilised domain (Spandler et al.)")]
+         Line2D([], [], color="#1f1f1f", lw=0.6, label="craton outline"),
+         Patch(facecolor="none", edgecolor="#4393c3", hatch="////", lw=0.35, label="subduction-fertilised domain")]
     fig.legend(handles=h, loc="lower center", ncol=3, frameon=False, bbox_to_anchor=(0.45, -0.07))
     cax = fig.add_axes([0.92, 0.25, 0.012, 0.5])
     cb = fig.colorbar(m, cax=cax, extend="both")
@@ -174,8 +181,8 @@ FIG2_MEASURES = [
 ]
 
 
-def fig2(sysdf, out):
-    """Fig. 2: probability that the slab input beneath a district exceeds that beneath reference
+def fig3(sysdf, out):
+    """Fig. 3 (Fig. 2 until v11): probability that the slab input beneath a district exceeds that beneath reference
     lithosphere of the same age, for every measure of FIG2_MEASURES and every class, with 95% intervals
     (carbonatite_systems compare rows)."""
     sets = ["CARB", "CARB ore", "AIREE", "KIMB", "PCU"]
@@ -207,11 +214,11 @@ def fig2(sysdf, out):
     ax.set_xlabel("probability that the value beneath a district exceeds that beneath\nreference lithosphere of the same age (0.5: no difference)")
     ax.legend(frameon=False, loc="upper left", bbox_to_anchor=(1.01, 1.0))
     fig.tight_layout()
-    save(fig, out, "carbonatite_fig2.pdf")
+    save(fig, out, "carbonatite_fig3.pdf")
 
 
-def fig3(sp, out, rc=None):
-    """Fig. 3: (a) share of districts inside a fertilised domain against reference positions, the share
+def fig4(sp, out, rc=None):
+    """Fig. 4 (Fig. 3 until v11): (a) share of districts inside a fertilised domain against reference positions, the share
     expected at equal craton-edge distance and, where scripts/96 has run, the share expected under joint
     matching on craton-edge distance, shear-wave gradient and exploration density; (b) the REE deposits of
     Spandler et al. by host rock inside domains formed before them, within each age gap, against the
@@ -276,54 +283,11 @@ def fig3(sp, out, rc=None):
     b.legend(frameon=False, loc="upper right")
     panel_letters(axes)
     fig.tight_layout()
-    save(fig, out, "carbonatite_fig3.pdf")
-
-
-def fig4(p, sec, out):
-    """Fig. 4: weighted cumulative distributions for alkaline-silicate REE districts, carbonatite districts
-    and reference lithosphere of (a) the time since the last subduction episode, (b) trench distance,
-    (c) the rise of dynamic topography over 200 Myr, and (d) the high-pass alkaline-silicate REE record
-    against the consumption of oceanic lithosphere through time."""
-    fig, axes = plt.subplots(2, 2, figsize=(width_mm("double") * MM, 110 * MM))
-    (a, b), (c, d) = axes
-    ca, ra = sides(p, "AIREE")
-    cc, rc = sides(p, "CARB")
-    for ax, col, xlab, xmax in ((a, "over_900km_since_myr", "time since the last subduction episode beneath\nthe overriding plate (Myr)", 1500),
-                                (b, "sz_dist_km", "distance to a subduction zone at formation (km)", 6000),
-                                (c, "dt_rise_200", "rise of dynamic topography over the preceding\n200 Myr (m; median of six mantle-flow models)", None)):
-        wecdf(ax, ca[col].to_numpy(float), ca["w_cluster"].to_numpy(float), color=COLOUR["AIREE"], lw=1.2, label=LABEL["AIREE"])
-        wecdf(ax, cc[col].to_numpy(float), cc["w_cluster"].to_numpy(float), color=COLOUR["CARB"], lw=1.2, label=LABEL["CARB"])
-        wecdf(ax, ra[col].to_numpy(float), np.ones(len(ra)), color=REF_COLOUR, lw=1.0, ls=(0, (2, 1.5)),
-              label="reference lithosphere")
-        ax.set_xlabel(xlab)
-        ax.set_ylabel("cumulative share")
-        if xmax:
-            ax.set_xlim(0, xmax)
-    # panel a holds only the districts with a reconstructed episode (19 and 106 in v6): the caption gives the
-    # numbers, since a count in the key would split one class into two key entries of the same colour
-    a.legend(frameon=False, loc="lower right")
-    s = sec[sec["part"] == "series"].sort_values("time_ma")
-    t = s["time_ma"].to_numpy(float)
-
-    def hp(v):
-        v = pd.Series(v).rolling(5, center=True, min_periods=1).mean()
-        return (v - v.rolling(30, center=True, min_periods=1).mean()).to_numpy()
-    for name, col, lab in (("n_AIREE", COLOUR["AIREE"], "alkaline-silicate REE"),
-                           ("consumed_km2_yr", "#222222", "consumption of oceanic lithosphere")):
-        v = hp(s[name].to_numpy(float))
-        d.plot(t, v / np.nanstd(v), color=col, lw=1.0, label=lab)
-    d.set_xlim(1000, 0)
-    d.set_ylim(-3.5, 6.5)
-    d.set_xlabel("age (Ma)")
-    d.set_ylabel("departure from the 300 Myr\nrunning mean (standard deviations)")
-    d.legend(frameon=False, loc="upper left")
-    panel_letters(axes.ravel())
-    fig.tight_layout()
     save(fig, out, "carbonatite_fig4.pdf")
 
 
-def fig5(p, out):
-    """Fig. 5: weighted cumulative distributions of lid thickness and of the shear-wave-speed gradient at
+def figS1(p, out):
+    """Supplementary Fig. 1 (Fig. 5 until v10): weighted cumulative distributions of lid thickness and of the shear-wave-speed gradient at
     150 km beneath carbonatite, alkaline-silicate REE and kimberlite districts and reference
     lithosphere."""
     fig, axes = plt.subplots(1, 3, figsize=(width_mm("double") * MM, 58 * MM), sharey=True)
@@ -344,25 +308,239 @@ def fig5(p, out):
     axes[2].legend(frameon=False, loc="lower right")     # the only panel with an empty lower right
     panel_letters(axes)
     fig.tight_layout()
+    save(fig, out, "carbonatite_figS1.pdf")
+
+
+def subduction_panels(axes, p, sec):
+    """Panels a-d of Fig. 5: weighted cumulative distributions for alkaline-silicate REE districts,
+    carbonatite districts and reference lithosphere of (a) the time since the last subduction episode,
+    (b) trench distance and (c) the rise of dynamic topography over 200 Myr, and (d) the high-pass
+    alkaline-silicate REE record against the consumption of oceanic lithosphere through time."""
+    a, b, c, d = axes
+    ca, ra = sides(p, "AIREE")
+    cc, rc = sides(p, "CARB")
+    for ax, col, xlab, xmax in ((a, "over_900km_since_myr", "time since the last subduction episode\nbeneath the overriding plate (Myr)", 1500),
+                                (b, "sz_dist_km", "distance to a subduction zone\nat formation (km)", 6000),
+                                (c, "dt_rise_200", "rise of dynamic topography over the\npreceding 200 Myr (m)", None)):
+        wecdf(ax, ca[col].to_numpy(float), ca["w_cluster"].to_numpy(float), color=COLOUR["AIREE"], lw=1.2, label=LABEL["AIREE"])
+        wecdf(ax, cc[col].to_numpy(float), cc["w_cluster"].to_numpy(float), color=COLOUR["CARB"], lw=1.2, label=LABEL["CARB"])
+        wecdf(ax, ra[col].to_numpy(float), np.ones(len(ra)), color=REF_COLOUR, lw=1.0, ls=(0, (2, 1.5)),
+              label="reference lithosphere")
+        ax.set_xlabel(xlab)
+        if xmax:
+            ax.set_xlim(0, xmax)
+    a.set_ylabel("cumulative share")
+    # one key for panels a-c, above them, since the narrow panels leave no corner free of data; panel a holds
+    # only the districts with a reconstructed episode (19 and 106), which the caption gives
+    a.figure.legend(*a.get_legend_handles_labels(), loc="upper center", ncol=3, frameon=False,
+                    bbox_to_anchor=(0.5, 1.0))
+    s = sec[sec["part"] == "series"].sort_values("time_ma")
+    t = s["time_ma"].to_numpy(float)
+
+    def hp(v):
+        v = pd.Series(v).rolling(5, center=True, min_periods=1).mean()
+        return (v - v.rolling(30, center=True, min_periods=1).mean()).to_numpy()
+    for name, col, lab in (("n_AIREE", COLOUR["AIREE"], "alkaline-silicate REE"),
+                           ("consumed_km2_yr", "#222222", "consumption of oceanic lithosphere")):
+        v = hp(s[name].to_numpy(float))
+        d.plot(t, v / np.nanstd(v), color=col, lw=1.0, label=lab)
+    d.set_xlim(1000, 0)
+    d.set_ylim(-3.5, 6.5)
+    d.set_xlabel("age (Ma)")
+    d.set_ylabel("departure from the 300 Myr\nrunning mean (standard deviations)")
+    d.legend(frameon=False, loc="upper left")
+
+
+ND_SPLIT = 1e-6       # t/m²: below this the delivery is the numerical tail of the smoothing kernel (data gap 1e-7 to 1e-6)
+
+
+def nd_split(iso, threshold=ND_SPLIT, n_boot=5000, seed=0):
+    """Neodymium enrichment of carbonatite districts that did and did not receive sediment-bound slab water
+    along their plate paths: median of each group, the difference of medians with a bootstrap interval
+    (districts resampled within each group), for all districts and for those younger and older than 300 Ma,
+    and the same split at other thresholds. Returns (districts, table)."""
+    d = iso[(iso["cls"] == "CARB") & (iso["variant"] == "all samples")].dropna(subset=["d_eNd", "out_sed_path_full"]).copy()
+    d["enrich"] = -d["d_eNd"]
+    rng = np.random.default_rng(seed)
+    rows = []
+    for thr in sorted({threshold, 1e-9, 1e-7, 1e-5}):
+        rec = d["out_sed_path_full"] > thr
+        for lab, sel in (("all", np.ones(len(d), bool)), ("younger than 300 Ma", d["age_ma"] < 300),
+                         ("300 Ma and older", d["age_ma"] >= 300)):
+            a = d.loc[sel & rec, "enrich"].to_numpy()
+            b = d.loc[sel & ~rec, "enrich"].to_numpy()
+            bs = [np.median(rng.choice(a, len(a))) - np.median(rng.choice(b, len(b))) for _ in range(n_boot)]
+            lo, hi = np.percentile(bs, [2.5, 97.5])
+            rows.append(dict(threshold_t_m2=thr, group=lab, n_received=len(a), n_none=len(b),
+                             median_received=np.median(a), median_none=np.median(b),
+                             difference=np.median(a) - np.median(b), lo=lo, hi=hi))
+    d["received"] = d["out_sed_path_full"] > threshold
+    return d, pd.DataFrame(rows)
+
+
+def nd_panel(ax, d):
+    """Panel e of Fig. 5: neodymium enrichment relative to the depleted mantle of carbonatite districts
+    whose lithosphere did and did not receive sediment-bound slab water along its plate path, for all
+    districts and for those younger and older than 300 Ma; boxes span the quartiles, bars mark the
+    medians, numbers give the districts."""
+    from matplotlib.lines import Line2D
+    none_c, rec_c = REF_COLOUR, CLASS_COLOUR["CD"]
+    groups = [("all", d), ("<300 Ma", d[d["age_ma"] < 300]), ("≥300 Ma", d[d["age_ma"] >= 300])]
+    rng = np.random.default_rng(1)
+    ticks = []
+    for i, (lab, s) in enumerate(groups):
+        for j, (rec, c) in enumerate(((False, none_c), (True, rec_c))):
+            v = s.loc[s["received"] == rec, "enrich"].to_numpy()
+            x = i * 2.6 + j
+            q1, m, q3 = np.percentile(v, [25, 50, 75])
+            ax.add_patch(plt.Rectangle((x - 0.32, q1), 0.64, q3 - q1, facecolor=c, alpha=0.18, edgecolor="none", zorder=1))
+            ax.plot([x - 0.32, x + 0.32], [m, m], color=c, lw=1.6, zorder=3, solid_capstyle="butt")
+            ax.scatter(x + rng.uniform(-0.22, 0.22, len(v)), v, s=6, color=c, edgecolors="white", linewidths=0.3, zorder=2)
+            ax.text(x, -1.6, f"{len(v)}", ha="center", va="top", color=c)
+        ticks.append((i * 2.6 + 0.5, lab))
+    ax.set_xticks([t for t, _ in ticks])
+    ax.set_xticklabels([l for _, l in ticks])
+    ax.tick_params(axis="x", length=0, pad=11)
+    ax.set_ylim(-3.6, 29.5)
+    ax.set_xlim(-0.7, 2 * 2.6 + 1.7)
+    ax.set_yticks([0, 5, 10, 15, 20])
+    ax.spines["left"].set_bounds(0, 22.5)
+    for sp in ("top", "right", "bottom"):
+        ax.spines[sp].set_visible(False)
+    ax.set_ylabel("neodymium enrichment relative to\ndepleted mantle (ε units)")
+    ax.legend(handles=[Line2D([], [], marker="o", ls="", color=none_c, ms=3, label="no sediment-bound slab water"),
+                       Line2D([], [], marker="o", ls="", color=rec_c, ms=3, label="sediment-bound slab water")],
+              loc="upper left", frameon=False, handletextpad=0.2, borderaxespad=0.1)
+
+
+def fig5(p, sec, iso, out, der, tag):
+    """Fig. 5: the two rare-earth systems. (a-d) subduction history of alkaline-silicate REE and
+    carbonatite districts (subduction_panels); (e) neodymium enrichment of carbonatite districts with and
+    without sediment-bound slab water (nd_panel). Writes carbonatite_nd_split_<tag>.csv as well."""
+    d, tab = nd_split(iso)
+    tab.to_csv(der / f"carbonatite_nd_split_{tag}.csv", index=False)
+    print(tab[tab["threshold_t_m2"] == ND_SPLIT].round(2).to_string(index=False))
+    fig = plt.figure(figsize=(width_mm("double") * MM, 118 * MM))
+    gs = fig.add_gridspec(2, 6, hspace=0.6, wspace=0.9, top=0.9, bottom=0.1, left=0.08, right=0.99)
+    a = fig.add_subplot(gs[0, 0:2])
+    b = fig.add_subplot(gs[0, 2:4], sharey=a)
+    c = fig.add_subplot(gs[0, 4:6], sharey=a)
+    d_ax = fig.add_subplot(gs[1, 0:4])
+    e = fig.add_subplot(gs[1, 4:6])
+    for ax in (b, c):
+        ax.tick_params(labelleft=False)
+    subduction_panels((a, b, c, d_ax), p, sec)
+    nd_panel(e, d)
+    panel_letters([a, b, c, d_ax, e])
     save(fig, out, "carbonatite_fig5.pdf")
 
 
-def fig6(iso, out):
-    """Fig. 6: neodymium enrichment relative to the depleted mantle of carbonatite districts against the
-    sediment-bound slab water delivered along the plate path, coloured by age."""
-    d = iso[(iso["cls"] == "CARB") & (iso["variant"] == "all samples")].dropna(subset=["d_eNd", "out_sed_path_full"])
-    fig, ax = plt.subplots(figsize=(width_mm("single") * MM, 70 * MM))
-    sc = ax.scatter(d["out_sed_path_full"].clip(lower=1e-7), -d["d_eNd"], c=d["age_ma"], cmap="viridis", s=10,
-                    edgecolors="#333333", linewidths=0.3, vmin=0, vmax=1500)
-    ax.set_xscale("log")
-    from matplotlib.ticker import FuncFormatter, LogLocator
-    ax.xaxis.set_major_locator(LogLocator(base=10, numticks=6))
-    ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: "none" if np.isclose(v, 1e-7) else f"{v:g}"))
-    ax.set_xlabel("sediment-bound slab water delivered\nalong the plate path (t/m²)")
-    ax.set_ylabel("neodymium enrichment relative to\ndepleted mantle (ε units)")
-    cb = fig.colorbar(sc, ax=ax)
-    cb.set_label("age (Ma)")
-    fig.tight_layout()
+def _rounded(pts, n=4):
+    """Chaikin corner cutting: a closed polygon with its corners rounded off, for the sketch."""
+    p = np.asarray(pts, float)
+    for _ in range(n):
+        q = np.roll(p, -1, axis=0)
+        p = np.column_stack([0.75 * p + 0.25 * q, 0.25 * p + 0.75 * q]).reshape(-1, 2)
+    return p
+
+
+def fig6(out):
+    """Fig. 6: sketch of the results. Carbonatites rise at the lateral seismic-velocity contrast at the
+    edge of a cratonic keel, from mantle that holds sediment recycled by ancient subduction; alkaline-
+    silicate REE systems form inboard of an active arc late in long-lived subduction, about half as far
+    from the trench as reference lithosphere. Schematic, not to scale; distances and times are the
+    medians of the paper. Drawn at the 89 mm single-column width and wider than tall, so that the 7 pt
+    lettering (the Nature maximum) reads at a useful size against the artwork; shapes have rounded corners
+    and are clipped to a rounded frame, every label lies inside the frame, and each label sits on its
+    object or is tied to it by a thin leader line (review 2026-11-13). Saturation follows importance: pale
+    setting, stronger colour for the keel edge, the velocity contrast, the slab water and the recycled
+    sediment."""
+    from matplotlib.patches import Polygon, FancyArrowPatch, FancyBboxPatch
+    carb, airee, pcu = COLOUR["CARB"], COLOUR["AIREE"], COLOUR["PCU"]
+    sky, mantle, lith, keel, crust = "#eef4f8", "#f7f0e6", "#ebdcc0", "#b07a3c", "#c3c8cc"
+    ocean, oplate, slab, old = "#a9d0ee", "#8592a0", "#5f7386", "#dcd6e2"
+    wedge, sed, step = "#4fa3e3", "#174a93", "#d62839"
+    grey = "#555555"
+    k = 0.72                     # vertical squeeze of everything below the surface
+    X0, X1, Y0, Y1 = 0, 100, -36, 25
+    fig, ax = plt.subplots(figsize=(width_mm("single") * MM, 58 * MM))
+    ax.set_xlim(X0, X1)
+    ax.set_ylim(Y0, Y1)
+    ax.axis("off")
+    frame = FancyBboxPatch((X0, Y0), X1 - X0, Y1 - Y0, boxstyle="round,pad=0,rounding_size=3.5",
+                           facecolor="none", edgecolor="none", zorder=0)
+    ax.add_patch(frame)
+
+    def sq(pts):
+        return [(x, y * k if y < 0 else y) for x, y in pts]
+
+    def poly(pts, fc, z, rounded=True, n=4, **kw):
+        q = _rounded(sq(pts), n) if rounded else sq(pts)
+        pa = Polygon(q, closed=True, facecolor=fc, edgecolor="none", zorder=z, **kw)
+        ax.add_patch(pa)
+        pa.set_clip_path(frame)
+
+    def arrow(a, b, c, lw=1.6, **kw):
+        a, b = sq([a])[0], sq([b])[0]
+        ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=8, color=c, lw=lw, zorder=4, **kw))
+
+    def volcano(x, c):
+        ax.add_patch(Polygon(_rounded([(x - 2.6, -0.2), (x + 2.6, -0.2), (x + 0.5, 2.8), (x - 0.5, 2.8)], 3),
+                             closed=True, facecolor=c, edgecolor="none", zorder=5))
+
+    def text(x, y, s, **kw):
+        ax.text(x, y * k if y < 0 else y, s, **kw)
+
+    def tag(s, xy_text, xy_obj, c, **kw):
+        """A label tied to its object by a thin leader line in the label's colour."""
+        ax.annotate(s, xy=sq([xy_obj])[0], xytext=sq([xy_text])[0], color=c, zorder=6, **kw,
+                    arrowprops=dict(arrowstyle="-", color=c, lw=0.6, shrinkA=1.5, shrinkB=0.5))
+
+    # sky and mantle fill the frame; shapes reach beyond it and are clipped, so only inner corners round
+    poly([(-10, 0), (110, 0), (110, 40), (-10, 40)], sky, 0, rounded=False)
+    poly([(-10, -80), (110, -80), (110, 0), (-10, 0)], mantle, 0.1, rounded=False)
+    # continental lithosphere: a cratonic keel at the left, its edge at x ~ 30, thinner towards the arc
+    poly([(-10, -1), (86.5, -1), (86.5, -6), (78, -7), (60, -8), (38, -9), (33, -13), (31, -22), (27, -27), (-10, -27)], lith, 2)
+    poly([(-10, -2), (25, -2), (29, -8), (31, -20), (27, -25), (-10, -25)], keel, 2.1)
+    poly([(-10, 0), (86.5, 0), (86.5, -2.2), (-10, -2.2)], crust, 2.2, rounded=False)
+    text(11, -13, "cratonic\nkeel", ha="center", va="center", color="white")
+    ax.plot(*zip(*sq([(29.0, -6), (31.2, -12), (31.7, -21), (29.8, -25.5)])), color=step, lw=1.6,
+            ls=(0, (3, 1.6)), zorder=3, dash_capstyle="round")
+    tag("velocity\ncontrast", (40, -24), (31.6, -17.5), step, ha="left", va="center")
+    # an ancient slab and the sediment it left in the lithosphere at the keel edge
+    poly([(41, -15), (45, -15), (30, -48), (26, -48)], old, 1, alpha=0.9)
+    tag("ancient slab", (44, -40), (35.5, -33), "#6a5f78", ha="left", va="center")
+    rng = np.random.default_rng(3)
+    dx, dy = rng.uniform(25, 35, 40), rng.uniform(-24, -15, 40)
+    dots = ax.scatter(dx, dy * k, s=2.4, color=sed, zorder=3.2, linewidths=0)
+    dots.set_clip_path(frame)
+    tag("recycled\nsediment", (12, -38), (26, -22.5), sed, ha="center", va="center")
+    arrow((31.1, -20), (30.2, 0.4), carb, connectionstyle="arc3,rad=0.15")
+    # active margin: oceanic plate, retreating slab, hydrated wedge, arc
+    poly([(86.5, 0), (150, 0), (150, 1.8), (86.5, 1.8)], ocean, 2.3, rounded=False)
+    poly([(86.5, 0), (150, 0), (150, -5), (89, -5)], oplate, 2.4, rounded=False)
+    poly([(85, 1.5), (91, -3), (71, -70), (64, -70)], slab, 1.5, n=2)
+    arrow((96, -2.4), (91, -2.4), "white", lw=1.0)
+    arrow((82, -28), (90, -28), grey, lw=1.2)
+    text(86.5, -31, "slab\nretreat", ha="center", va="top", color=grey)
+    poly([(55, -9), (78, -7.5), (84, -6), (76, -21), (68, -23), (56, -15)], wedge, 1.8)
+    text(68, -14.5, "slab water\nand carbon", ha="center", va="center", color="white")
+    # volcanoes, each with its name and the time since subduction beneath it (medians)
+    arrow((62, -9.5), (60.3, 0.4), airee)
+    for x, c, name, when in ((30.1, carb, "carbonatite", "460 ± 40 Myr\nafter subduction"),
+                             (58, airee, "alkaline-silicate REE", "5 Myr after\nsubduction")):
+        volcano(x if c == carb else 60, c)
+        t = ax.text(x, 3.6, when, ha="center", va="bottom", color=c)
+        ax.annotate(name, xy=(0.5, 1.0), xycoords=t, xytext=(0, 3.0), textcoords="offset points",
+                    ha="center", va="bottom", color=c, fontweight="bold")
+    volcano(80, pcu)
+    ax.text(79.5, 3.6, "porphyry\ncopper", ha="center", va="bottom", color=pcu)
+    # distance from the trench at formation (medians), and the trench itself
+    ax.add_patch(FancyArrowPatch((86.5, 18.5), (60, 18.5), arrowstyle="<|-|>", mutation_scale=6, color=airee, lw=0.9, zorder=4))
+    ax.text(73.2, 19.3, "1,200 km", ha="center", va="bottom", color=airee)
+    ax.plot([86.5, 86.5], [2.4, 17.8], color=grey, lw=0.6, ls=(0, (2, 1.5)), zorder=3)
+    ax.text(88, 14.0, "trench", ha="left", va="center", color=grey)
+    fig.tight_layout(pad=0.1)
     save(fig, out, "carbonatite_fig6.pdf")
 
 
@@ -382,21 +560,23 @@ def main():
     # plate model holds at their age, so that every figure shows the population of the statistics
     p = p[~p["ice"].fillna(False).astype(bool) & p["in_model"].fillna(True).astype(bool)]
     sysdf = pd.read_csv(der / f"carbonatite_systems_{a.tag}.csv", low_memory=False)
-    todo = set(a.only or range(1, 7))
+    todo = set(a.only or (1, 3, 4, 5, 6, 7))
     if 1 in todo:
         fig1(p, out)
-    if 2 in todo:
-        fig2(sysdf, out)
+    # Fig. 2, the reconstructed slab-water maps, is drawn by scripts/23 (--paper carbonatite)
     if 3 in todo:
-        rc = der / f"carbonatite_review_checks_{a.tag}.csv"
-        fig3(pd.read_csv(der / f"spandler_reassessment_{a.tag}.csv"), out,
-             pd.read_csv(rc) if rc.exists() else None)
+        fig3(sysdf, out)
     if 4 in todo:
-        fig4(p, pd.read_csv(der / f"carbonatite_secular_{a.tag}.csv"), out)
+        rc = der / f"carbonatite_review_checks_{a.tag}.csv"
+        fig4(pd.read_csv(der / f"spandler_reassessment_{a.tag}.csv"), out,
+             pd.read_csv(rc) if rc.exists() else None)
     if 5 in todo:
-        fig5(p, out)
+        fig5(p, pd.read_csv(der / f"carbonatite_secular_{a.tag}.csv"),
+             pd.read_csv(der / f"carbonatite_isotope_districts_{a.tag}.csv"), out, der, a.tag)
     if 6 in todo:
-        fig6(pd.read_csv(der / f"carbonatite_isotope_districts_{a.tag}.csv"), out)
+        fig6(out)
+    if 7 in todo:
+        figS1(p, out)
     return 0
 
 

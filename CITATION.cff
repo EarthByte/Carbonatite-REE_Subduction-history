@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software or its derived data, please cite both the software and the paper."
-title: "Lithospheric structure and subduction history distinguish rare-earth mineral systems: analysis and figure code"
+title: "Lithospheric steps and subduction cessation control distinct REE mineral systems: analysis and figure code"
 type: software
 license: MIT
 repository-code: "https://github.com/EarthByte/Carbonatite-REE_Subduction-history"
@@ -21,7 +21,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-3334-5764"
 preferred-citation:
   type: article
-  title: "Lithospheric structure and subduction history distinguish rare-earth mineral systems"
+  title: "Lithospheric steps and subduction cessation control distinct REE mineral systems"
   authors:
     - family-names: "Müller"
       given-names: "R. Dietmar"

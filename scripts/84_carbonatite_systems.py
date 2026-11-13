@@ -251,6 +251,29 @@ def matched_weights(age1, w1, age2, w2, n=10):
     return w2 * np.where(s2[b2] > 0, s1[b2] / np.maximum(s2[b2], 1e-12), 0.0)
 
 
+def district_median_interval(cid, v, w, boot, rng):
+    """Median over districts of a measure, each district its median over records and weighted by the sum of
+    its record weights (age-matched weights where given), with the 95% interval from resampling districts.
+    Returns (median, lo, hi); NaN where no district has a value (review 2026-11-13: the medians quoted in the
+    text carry an interval)."""
+    ok = np.isfinite(v) & np.isfinite(w)
+    if not ok.any():
+        return np.nan, np.nan, np.nan
+    g = pd.DataFrame(dict(c=cid[ok], v=v[ok], w=w[ok])).groupby("c").agg(v=("v", "median"), w=("w", "sum"))
+    vv, ww = g["v"].to_numpy(float), g["w"].to_numpy(float)
+
+    def wmed(a, b):
+        o = np.argsort(a)
+        c = np.cumsum(b[o])
+        return a[o][np.searchsorted(c, c[-1] / 2)] if c[-1] > 0 else np.nan
+    m = wmed(vv, ww)
+    if not boot:
+        return m, np.nan, np.nan
+    b = [wmed(vv[i], ww[i]) for i in (rng.integers(0, len(vv), len(vv)) for _ in range(boot))]
+    lo, hi = np.nanpercentile(b, [2.5, 97.5])
+    return m, lo, hi
+
+
 def direct(d1, d2, col, boot, rng, age_match=False):
     """The same probability between two sets of districts, ``d1`` against ``d2``, both weighted by district
     and resampled by district; with ``age_match`` the second set is reweighted to the ages of the first
@@ -265,6 +288,11 @@ def direct(d1, d2, col, boot, rng, age_match=False):
                n_ref=int(d2.loc[np.isfinite(y), "cluster_id"].nunique()),
                median_dep=float(np.nanmedian(x)) if np.isfinite(x).any() else np.nan,
                median_ref=float(np.nanmedian(y)) if np.isfinite(y).any() else np.nan, auc=wauc(x, wx, y, wy))
+    # district medians with intervals, from their own generator so that the other intervals are unchanged
+    mrng = np.random.default_rng(841)
+    for side, d, v, w in (("dep", d1, x, wx), ("ref", d2, y, wy)):
+        row[f"median_{side}_district"], row[f"median_{side}_lo"], row[f"median_{side}_hi"] = \
+            district_median_interval(d["cluster_id"].to_numpy(), v, w, boot, mrng)
     g1 = list(pd.Series(range(len(d1))).groupby(d1["cluster_id"].to_numpy()).indices.values())
     g2 = list(pd.Series(range(len(d2))).groupby(d2["cluster_id"].to_numpy()).indices.values())
     if boot and np.isfinite(row["auc"]):

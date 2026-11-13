@@ -94,7 +94,9 @@ def part_episodes(p, s84, boot, rng):
             rows.append(dict(part="episodes", set=f"{label} vs CARB, age-matched", measure=col, radius_km=km,
                              min_episode_myr=myr, n=r["n_districts"], n_ref=r["n_ref"], value=r["auc"],
                              lo=r.get("lo"), hi=r.get("hi"), p=r.get("p"), median_dep=r["median_dep"],
-                             median_ref=r["median_ref"], share_dep=share_a, share_ref=share_c))
+                             median_ref=r["median_ref"], share_dep=share_a, share_ref=share_c,
+                             **{k: r.get(k) for k in ("median_dep_district", "median_dep_lo", "median_dep_hi",
+                                                      "median_ref_district", "median_ref_lo", "median_ref_hi")}))
         # persistence after formation, among districts with a 900 km, 100 Myr episode
         for cls, d in ((label, a), ("CARB", carb)):
             if "over_900km_after_myr" not in d:

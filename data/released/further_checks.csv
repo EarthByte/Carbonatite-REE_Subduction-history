@@ -1,137 +1,137 @@
-part,set,measure,radius_km,min_episode_myr,n,n_ref,value,lo,hi,p,median_dep,median_ref,share_dep,share_ref,note,matched,q
-episodes,"AIREE vs CARB, age-matched",over_700km_since_myr,700,100,15,66,0.163171,0.0627892,0.314338,0.003,7.5,492,0.295918,0.252896,,,
-episodes,"AIREE vs CARB, age-matched",over_900km_since_myr,900,100,19,106,0.180843,0.0772064,0.329142,0.001,4.8095,466.8,0.367347,0.407336,,,
-episodes,"AIREE vs CARB, age-matched",over_1100km_since_myr,1100,100,20,126,0.158825,0.0796397,0.254725,0.001,4.8095,433,0.397959,0.476834,,,
-episodes,"AIREE vs CARB, age-matched",over_900km_since_L50myr,900,50,28,141,0.295686,0.195888,0.400812,0.001,34,410.45,0.561224,0.544402,,,
-episodes,"AIREE vs CARB, age-matched",over_900km_since_L150myr,900,150,15,60,0.179714,0.0589886,0.329976,0.001,4.5,490,0.295918,0.23166,,,
-persistence,AIREE,over_900km_after_myr,900,100,19,,0.684211,,,,40,,0.526316,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
-persistence,CARB (with AIREE),over_900km_after_myr,900,100,106,,0.160377,,,,50,,0.0754717,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
-episodes,"AIREE post-collisional vs CARB, age-matched",over_700km_since_myr,700,100,5,66,0.0737958,0.0139154,0.178473,0.00105152,3.5,492,0.416667,0.252896,,,
-episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_myr,900,100,6,106,0.0550604,0.0168076,0.112906,0.00102041,3,466.8,0.5,0.407336,,,
-episodes,"AIREE post-collisional vs CARB, age-matched",over_1100km_since_myr,1100,100,6,126,0.0631808,0.0217373,0.127158,0.00101729,3,433,0.5,0.476834,,,
-episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_L50myr,900,50,9,141,0.135229,0.0520596,0.240944,0.001,3.5,410.45,0.75,0.544402,,,
-episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_L150myr,900,150,4,60,0.0490886,0.00663971,0.114998,0.00114943,3,490,0.333333,0.23166,,,
-persistence,AIREE post-collisional,over_900km_after_myr,900,100,6,,0.666667,,,,35,,0.666667,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
-persistence,CARB (with AIREE post-collisional),over_900km_after_myr,900,100,106,,0.160377,,,,50,,0.0754717,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
-skill,AIREE,without exposure and source minus without exposure,,,10,,0.00634,-0.0458,0.0348,,0.68257,0.67623,0.7,,volatile (source) measures removed,,
-skill,AIREE,without exposure and lithosphere minus without exposure,,,10,,-0.08097,-0.1025,-0.0545,,0.59526,0.67623,0,,lithospheric measures removed,,
-skill,AIREE,without exposure and trigger minus without exposure,,,10,,-0.06002,-0.091,-0.0262,,0.61621,0.67623,0,,trigger measures removed,,
-skill,AIREE,all features minus without exposure,,,10,,0.08389,0.0387,0.115,,0.76012,0.67623,1,,exposure measures added,,
-skill,AIREE,exposure alone minus without exposure,,,10,,0.0537,-0.0233,0.1214,,0.72993,0.67623,0.9,,exposure alone against the geological measures,,
-skill,CARB,without exposure and source minus without exposure,,,10,,0.01433,-0.0052,0.0318,,0.6794,0.66507,0.9,,volatile (source) measures removed,,
-skill,CARB,without exposure and lithosphere minus without exposure,,,10,,-0.05449,-0.0872,-0.0267,,0.61058,0.66507,0,,lithospheric measures removed,,
-skill,CARB,without exposure and trigger minus without exposure,,,10,,-0.01359,-0.026,0.0051,,0.65148,0.66507,0.1,,trigger measures removed,,
-skill,CARB,all features minus without exposure,,,10,,0.04296,0.0114,0.0771,,0.70803,0.66507,1,,exposure measures added,,
-skill,CARB,exposure alone minus without exposure,,,10,,-0.07384,-0.1245,-0.0356,,0.59123,0.66507,0,,exposure alone against the geological measures,,
-skill,CARB ore,without exposure and source minus without exposure,,,10,,0.0177,-0.0174,0.0517,,0.71067,0.69297,0.7,,volatile (source) measures removed,,
-skill,CARB ore,without exposure and lithosphere minus without exposure,,,10,,-0.14676,-0.178,-0.0968,,0.54621,0.69297,0,,lithospheric measures removed,,
-skill,CARB ore,without exposure and trigger minus without exposure,,,10,,-0.00525,-0.0291,0.0374,,0.68772,0.69297,0.4,,trigger measures removed,,
-skill,CARB ore,all features minus without exposure,,,10,,0.02534,-0.0044,0.052,,0.71831,0.69297,0.8,,exposure measures added,,
-skill,CARB ore,exposure alone minus without exposure,,,10,,-0.10261,-0.1558,-0.0438,,0.59036,0.69297,0,,exposure alone against the geological measures,,
-skill,KIMB,without exposure and source minus without exposure,,,10,,0.01071,-0.0052,0.0411,,0.78181,0.7711,0.9,,volatile (source) measures removed,,
-skill,KIMB,without exposure and lithosphere minus without exposure,,,10,,-0.075,-0.0993,-0.0472,,0.6961,0.7711,0,,lithospheric measures removed,,
-skill,KIMB,without exposure and trigger minus without exposure,,,10,,-0.02346,-0.038,0.0009,,0.74764,0.7711,0.1,,trigger measures removed,,
-skill,KIMB,all features minus without exposure,,,10,,0.02142,0.016,0.0265,,0.79252,0.7711,1,,exposure measures added,,
-skill,KIMB,exposure alone minus without exposure,,,10,,-0.16529,-0.1938,-0.1332,,0.60581,0.7711,0,,exposure alone against the geological measures,,
-skill,PCU,without exposure and source minus without exposure,,,10,,-0.01939,-0.0384,-0.0026,,0.89126,0.91065,0,,volatile (source) measures removed,,
-skill,PCU,without exposure and lithosphere minus without exposure,,,10,,-0.01861,-0.0251,-0.0134,,0.89204,0.91065,0,,lithospheric measures removed,,
-skill,PCU,without exposure and trigger minus without exposure,,,10,,-0.01865,-0.0295,-0.0116,,0.892,0.91065,0,,trigger measures removed,,
-skill,PCU,all features minus without exposure,,,10,,0.01346,0.0112,0.0164,,0.92411,0.91065,1,,exposure measures added,,
-skill,PCU,exposure alone minus without exposure,,,10,,-0.21743,-0.2332,-0.1981,,0.69322,0.91065,0,,exposure alone against the geological measures,,
-isotopes,AIREE,d_eNd vs out_total_path_full,,,8,,-0.131739,,,0.755833,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs out_sed_path_full,,,8,,-0.0359288,,,0.932691,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs sub_total_path_full,,,8,,-0.131739,,,0.755833,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs c_mantle_path_full,,,8,,-0.0731925,,,0.863253,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs over_900km_myr,,,8,,0.184136,,,0.66247,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs craton_dist_km,,,8,,0.0714286,,,0.866526,,,,,,,0.932691
-isotopes,AIREE,d_eNd vs vsh_grad150,,,8,,0.380952,,,0.351813,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs out_total_path_full,,,8,,-0.347312,,,0.399264,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs out_sed_path_full,,,8,,-0.179644,,,0.670344,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs sub_total_path_full,,,8,,-0.347312,,,0.399264,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs c_mantle_path_full,,,8,,-0.243975,,,0.560376,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs over_900km_myr,,,8,,0.0613786,,,0.885204,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs craton_dist_km,,,8,,-0.047619,,,0.910849,,,,,,,0.932691
-isotopes,AIREE,eNd_i vs vsh_grad150,,,8,,0.0714286,,,0.866526,,,,,,,0.932691
-isotopes,AIREE,d_sr vs out_total_path_full,,,8,,-0.155691,,,0.712762,,,,,,,0.932691
-isotopes,AIREE,d_sr vs out_sed_path_full,,,8,,-0.0838338,,,0.843546,,,,,,,0.932691
-isotopes,AIREE,d_sr vs sub_total_path_full,,,8,,-0.155691,,,0.712762,,,,,,,0.932691
-isotopes,AIREE,d_sr vs c_mantle_path_full,,,8,,-0.121988,,,0.773532,,,,,,,0.932691
-isotopes,AIREE,d_sr vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,0.932691
-isotopes,AIREE,d_sr vs over_900km_myr,,,8,,0.184136,,,0.66247,,,,,,,0.932691
-isotopes,AIREE,d_sr vs craton_dist_km,,,8,,0.047619,,,0.910849,,,,,,,0.932691
-isotopes,AIREE,d_sr vs vsh_grad150,,,8,,0.404762,,,0.319889,,,,,,,0.932691
-isotopes,AIREE,sr_i vs out_total_path_full,,,8,,0.119763,,,0.777583,,,,,,,0.932691
-isotopes,AIREE,sr_i vs out_sed_path_full,,,8,,0.215573,,,0.608149,,,,,,,0.932691
-isotopes,AIREE,sr_i vs sub_total_path_full,,,8,,0.119763,,,0.777583,,,,,,,0.932691
-isotopes,AIREE,sr_i vs c_mantle_path_full,,,8,,0.121988,,,0.773532,,,,,,,0.932691
-isotopes,AIREE,sr_i vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,0.932691
-isotopes,AIREE,sr_i vs over_900km_myr,,,8,,0.405099,,,0.319447,,,,,,,0.932691
-isotopes,AIREE,sr_i vs craton_dist_km,,,8,,0.380952,,,0.351813,,,,,,,0.932691
-isotopes,AIREE,sr_i vs vsh_grad150,,,8,,0.571429,,,0.13896,,,,,,,0.932691
-isotopes,AIREE,la vs out_total_path_full,,,11,,-0.330322,,,0.321138,,,,,,,0.932691
-isotopes,AIREE,la vs out_sed_path_full,,,11,,-0.190749,,,0.57424,,,,,,,0.932691
-isotopes,AIREE,la vs sub_total_path_full,,,11,,-0.330322,,,0.321138,,,,,,,0.932691
-isotopes,AIREE,la vs c_mantle_path_full,,,11,,-0.37185,,,0.260137,,,,,,,0.932691
-isotopes,AIREE,la vs out_total_path_400myr,,,7,,-0.259437,,,0.574237,,,,,,,0.932691
-isotopes,AIREE,la vs over_900km_myr,,,11,,-0.320211,,,0.337053,,,,,,,0.932691
-isotopes,AIREE,la vs craton_dist_km,,,11,,-0.2,,,0.555445,,,,,,,0.932691
-isotopes,AIREE,la vs vsh_grad150,,,11,,-0.245455,,,0.466922,,,,,,,0.932691
-isotopes,CARB,d_eNd vs out_total_path_full,,,82,,0.292863,,,0.00758303,,,,,,,0.0643265
-isotopes,CARB,d_eNd vs out_sed_path_full,,,82,,0.347653,,,0.00137308,,,,,,,0.0383024
-isotopes,CARB,d_eNd vs sub_total_path_full,,,82,,0.28995,,,0.00823388,,,,,,,0.0643265
-isotopes,CARB,d_eNd vs c_mantle_path_full,,,82,,0.343209,,,0.00159593,,,,,,,0.0383024
-isotopes,CARB,d_eNd vs out_total_path_400myr,,,65,,0.0393923,,,0.755383,,,,,,,0.954168
-isotopes,CARB,d_eNd vs over_900km_myr,,,82,,0.312637,,,0.00424121,,,,,,,0.0643265
-isotopes,CARB,d_eNd vs craton_dist_km,,,81,,0.166802,,,0.136663,,,,,,,0.298173
-isotopes,CARB,d_eNd vs vsh_grad150,,,82,,-0.0609157,,,0.586681,,,,,,,0.860514
-isotopes,CARB,eNd_i vs out_total_path_full,,,82,,0.18389,,,0.0981742,,,,,,,0.245343
-isotopes,CARB,eNd_i vs out_sed_path_full,,,82,,0.238708,,,0.0307935,,,,,,,0.125898
-isotopes,CARB,eNd_i vs sub_total_path_full,,,82,,0.181746,,,0.102226,,,,,,,0.245343
-isotopes,CARB,eNd_i vs c_mantle_path_full,,,82,,0.237773,,,0.0314744,,,,,,,0.125898
-isotopes,CARB,eNd_i vs out_total_path_400myr,,,65,,0.0505964,,,0.688963,,,,,,,0.89379
-isotopes,CARB,eNd_i vs over_900km_myr,,,82,,0.226638,,,0.040608,,,,,,,0.145753
-isotopes,CARB,eNd_i vs craton_dist_km,,,81,,0.0579042,,,0.607623,,,,,,,0.860514
-isotopes,CARB,eNd_i vs vsh_grad150,,,82,,-0.0539502,,,0.630239,,,,,,,0.860514
-isotopes,CARB,d_sr vs out_total_path_full,,,88,,0.18565,,,0.0833203,,,,,,,0.245343
-isotopes,CARB,d_sr vs out_sed_path_full,,,88,,0.216758,,,0.0425113,,,,,,,0.145753
-isotopes,CARB,d_sr vs sub_total_path_full,,,88,,0.177095,,,0.0988163,,,,,,,0.245343
-isotopes,CARB,d_sr vs c_mantle_path_full,,,88,,0.210506,,,0.0489986,,,,,,,0.156796
-isotopes,CARB,d_sr vs out_total_path_400myr,,,69,,0.0563854,,,0.645385,,,,,,,0.860514
-isotopes,CARB,d_sr vs over_900km_myr,,,88,,0.0926891,,,0.390385,,,,,,,0.694018
-isotopes,CARB,d_sr vs craton_dist_km,,,87,,0.173708,,,0.107603,,,,,,,0.245949
-isotopes,CARB,d_sr vs vsh_grad150,,,88,,-0.0184389,,,0.864606,,,,,,,0.964562
-isotopes,CARB,sr_i vs out_total_path_full,,,88,,0.245049,,,0.0213862,,,,,,,0.11406
-isotopes,CARB,sr_i vs out_sed_path_full,,,88,,0.27549,,,0.00938094,,,,,,,0.0643265
-isotopes,CARB,sr_i vs sub_total_path_full,,,88,,0.234523,,,0.0278542,,,,,,,0.125898
-isotopes,CARB,sr_i vs c_mantle_path_full,,,88,,0.278542,,,0.00859342,,,,,,,0.0643265
-isotopes,CARB,sr_i vs out_total_path_400myr,,,69,,0.0322709,,,0.79237,,,,,,,0.964562
-isotopes,CARB,sr_i vs over_900km_myr,,,88,,0.150993,,,0.160242,,,,,,,0.334419
-isotopes,CARB,sr_i vs craton_dist_km,,,87,,0.264836,,,0.0131778,,,,,,,0.0790668
-isotopes,CARB,sr_i vs vsh_grad150,,,88,,-0.0175408,,,0.871143,,,,,,,0.964562
-isotopes,CARB,pb206_204 vs out_total_path_full,,,47,,0.00665992,,,0.964562,,,,,,,0.964562
-isotopes,CARB,pb206_204 vs out_sed_path_full,,,47,,-0.0158101,,,0.915998,,,,,,,0.964562
-isotopes,CARB,pb206_204 vs sub_total_path_full,,,47,,0.0139569,,,0.925815,,,,,,,0.964562
-isotopes,CARB,pb206_204 vs c_mantle_path_full,,,47,,0.0731523,,,0.625084,,,,,,,0.860514
-isotopes,CARB,pb206_204 vs out_total_path_400myr,,,37,,-0.111336,,,0.511803,,,,,,,0.792469
-isotopes,CARB,pb206_204 vs over_900km_myr,,,47,,0.00696288,,,0.962951,,,,,,,0.964562
-isotopes,CARB,pb206_204 vs craton_dist_km,,,46,,0.246816,,,0.0982061,,,,,,,0.245343
-isotopes,CARB,pb206_204 vs vsh_grad150,,,47,,0.169119,,,0.255785,,,,,,,0.511569
-isotopes,CARB,la vs out_total_path_full,,,106,,0.0772321,,,0.43134,,,,,,,0.713941
-isotopes,CARB,la vs out_sed_path_full,,,106,,0.0654671,,,0.504933,,,,,,,0.792469
-isotopes,CARB,la vs sub_total_path_full,,,106,,0.0783569,,,0.42464,,,,,,,0.713941
-isotopes,CARB,la vs c_mantle_path_full,,,106,,-0.00784307,,,0.936402,,,,,,,0.964562
-isotopes,CARB,la vs out_total_path_400myr,,,83,,-0.110732,,,0.318964,,,,,,,0.588857
-isotopes,CARB,la vs over_900km_myr,,,108,,-0.00933922,,,0.923577,,,,,,,0.964562
-isotopes,CARB,la vs craton_dist_km,,,107,,0.0209007,,,0.830794,,,,,,,0.964562
-isotopes,CARB,la vs vsh_grad150,,,108,,-0.100275,,,0.301808,,,,,,,0.579472
-isotopes,CARB,"d_eNd vs out_sed_path_full, delivery above zero",,,69,,0.359299,,,0.00242959,,,0.841463,,share: districts with delivery above zero among those with εNd,,
-domains,CARB,primed,,,259,1825,0.131289,0.0708203,0.19386,,0.575581,0.444292,0.575581,0.374795,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,CARB,primed_within800,,,259,1825,0.0644301,0.00853246,0.1158,,0.242894,0.178464,0.242894,0.152877,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,AIREE,primed,,,49,1837,0.157969,0.0221053,0.294145,,0.612245,0.454276,0.612245,0.357648,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,AIREE,primed_within800,,,49,1837,0.188911,0.0576946,0.31811,,0.387755,0.198844,0.387755,0.171475,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,KIMB,primed,,,200,1825,0.170319,0.088336,0.237788,,0.610704,0.440384,0.610704,0.360548,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,KIMB,primed_within800,,,200,1825,-0.0181654,-0.0705721,0.0312206,,0.113569,0.131735,0.113569,0.127123,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,PCU,primed,,,289,1822,0.113682,0.0497028,0.178578,,0.457525,0.343843,0.457525,0.340834,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
-domains,PCU,primed_within800,,,289,1822,0.204451,0.141248,0.270482,,0.373852,0.169402,0.373852,0.103732,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+part,set,measure,radius_km,min_episode_myr,n,n_ref,value,lo,hi,p,median_dep,median_ref,share_dep,share_ref,median_dep_district,median_dep_lo,median_dep_hi,median_ref_district,median_ref_lo,median_ref_hi,note,matched,q
+episodes,"AIREE vs CARB, age-matched",over_700km_since_myr,700,100,15,66,0.163171,0.0627892,0.314338,0.003,7.5,492,0.295918,0.252896,10,3,111,462.1,297,522,,,
+episodes,"AIREE vs CARB, age-matched",over_900km_since_myr,900,100,19,106,0.180843,0.0772064,0.329142,0.001,4.8095,466.8,0.367347,0.407336,4.619,3,61.075,463.5,413,493,,,
+episodes,"AIREE vs CARB, age-matched",over_1100km_since_myr,1100,100,20,126,0.158825,0.0796397,0.254725,0.001,4.8095,433,0.397959,0.476834,4.619,3,34,350.4,275,436.625,,,
+episodes,"AIREE vs CARB, age-matched",over_900km_since_L50myr,900,50,28,141,0.295686,0.195888,0.400812,0.001,34,410.45,0.561224,0.544402,14.619,3.5,135,276,182,410.45,,,
+episodes,"AIREE vs CARB, age-matched",over_900km_since_L150myr,900,150,15,60,0.179714,0.0589886,0.329976,0.001,4.5,490,0.295918,0.23166,5,3,91,459.15,284,554.89,,,
+persistence,AIREE,over_900km_after_myr,900,100,19,,0.684211,,,,40,,0.526316,,,,,,,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
+persistence,CARB (with AIREE),over_900km_after_myr,900,100,106,,0.160377,,,,50,,0.0754717,,,,,,,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
+episodes,"AIREE post-collisional vs CARB, age-matched",over_700km_since_myr,700,100,5,66,0.0737958,0.0139154,0.178473,0.00105152,3.5,492,0.416667,0.252896,3,1.5,134,565,430.4,587.85,,,
+episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_myr,900,100,6,106,0.0550604,0.0168076,0.112906,0.00102041,3,466.8,0.5,0.407336,3,1.5,34,482.4,441.6,587.85,,,
+episodes,"AIREE post-collisional vs CARB, age-matched",over_1100km_since_myr,1100,100,6,126,0.0631808,0.0217373,0.127158,0.00101729,3,433,0.5,0.476834,3,1.5,34,455.2,342,587.85,,,
+episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_L50myr,900,50,9,141,0.135229,0.0520596,0.240944,0.001,3.5,410.45,0.75,0.544402,3,1.5,61.075,442,231,479.599,,,
+episodes,"AIREE post-collisional vs CARB, age-matched",over_900km_since_L150myr,900,150,4,60,0.0490886,0.00663971,0.114998,0.00114943,3,490,0.333333,0.23166,3,1.5,34,525,342,580,,,
+persistence,AIREE post-collisional,over_900km_after_myr,900,100,6,,0.666667,,,,35,,0.666667,,,,,,,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
+persistence,CARB (with AIREE post-collisional),over_900km_after_myr,900,100,106,,0.160377,,,,50,,0.0754717,,,,,,,,"share: lag of one step; value: within 900 km at the first step after formation; median: Myr it stayed there, among those",,
+domains,CARB,primed,,,259,1825,0.131289,0.0656075,0.191165,,0.575581,0.444292,0.575581,0.374795,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,CARB,primed_within800,,,259,1825,0.0644301,-0.000222219,0.118083,,0.242894,0.178464,0.242894,0.152877,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,AIREE,primed,,,49,1837,0.157969,0.029975,0.29284,,0.612245,0.454276,0.612245,0.357648,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,AIREE,primed_within800,,,49,1837,0.188911,0.049609,0.334566,,0.387755,0.198844,0.387755,0.171475,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,KIMB,primed,,,200,1825,0.170319,0.0955253,0.239845,,0.610704,0.440384,0.610704,0.360548,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,KIMB,primed_within800,,,200,1825,-0.0181654,-0.0623142,0.0299004,,0.113569,0.131735,0.113569,0.127123,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,PCU,primed,,,289,1822,0.113682,0.0497769,0.176775,,0.457525,0.343843,0.457525,0.340834,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+domains,PCU,primed_within800,,,289,1822,0.204451,0.140994,0.264082,,0.373852,0.169402,0.373852,0.103732,,,,,,,"value: observed minus expected share in the jointly matched cells (craton-edge distance, shear-wave gradient at 150 km, exploration density; tertiles of each)",1,
+skill,AIREE,without exposure and source minus without exposure,,,10,,0.00634,-0.0458,0.0348,,0.68257,0.67623,0.7,,,,,,,,volatile (source) measures removed,,
+skill,AIREE,without exposure and lithosphere minus without exposure,,,10,,-0.08097,-0.1025,-0.0545,,0.59526,0.67623,0,,,,,,,,lithospheric measures removed,,
+skill,AIREE,without exposure and trigger minus without exposure,,,10,,-0.06002,-0.091,-0.0262,,0.61621,0.67623,0,,,,,,,,trigger measures removed,,
+skill,AIREE,all features minus without exposure,,,10,,0.08389,0.0387,0.115,,0.76012,0.67623,1,,,,,,,,exposure measures added,,
+skill,AIREE,exposure alone minus without exposure,,,10,,0.0537,-0.0233,0.1214,,0.72993,0.67623,0.9,,,,,,,,exposure alone against the geological measures,,
+skill,CARB,without exposure and source minus without exposure,,,10,,0.01433,-0.0052,0.0318,,0.6794,0.66507,0.9,,,,,,,,volatile (source) measures removed,,
+skill,CARB,without exposure and lithosphere minus without exposure,,,10,,-0.05449,-0.0872,-0.0267,,0.61058,0.66507,0,,,,,,,,lithospheric measures removed,,
+skill,CARB,without exposure and trigger minus without exposure,,,10,,-0.01359,-0.026,0.0051,,0.65148,0.66507,0.1,,,,,,,,trigger measures removed,,
+skill,CARB,all features minus without exposure,,,10,,0.04296,0.0114,0.0771,,0.70803,0.66507,1,,,,,,,,exposure measures added,,
+skill,CARB,exposure alone minus without exposure,,,10,,-0.07384,-0.1245,-0.0356,,0.59123,0.66507,0,,,,,,,,exposure alone against the geological measures,,
+skill,CARB ore,without exposure and source minus without exposure,,,10,,0.0177,-0.0174,0.0517,,0.71067,0.69297,0.7,,,,,,,,volatile (source) measures removed,,
+skill,CARB ore,without exposure and lithosphere minus without exposure,,,10,,-0.14676,-0.178,-0.0968,,0.54621,0.69297,0,,,,,,,,lithospheric measures removed,,
+skill,CARB ore,without exposure and trigger minus without exposure,,,10,,-0.00525,-0.0291,0.0374,,0.68772,0.69297,0.4,,,,,,,,trigger measures removed,,
+skill,CARB ore,all features minus without exposure,,,10,,0.02534,-0.0044,0.052,,0.71831,0.69297,0.8,,,,,,,,exposure measures added,,
+skill,CARB ore,exposure alone minus without exposure,,,10,,-0.10261,-0.1558,-0.0438,,0.59036,0.69297,0,,,,,,,,exposure alone against the geological measures,,
+skill,KIMB,without exposure and source minus without exposure,,,10,,0.01071,-0.0052,0.0411,,0.78181,0.7711,0.9,,,,,,,,volatile (source) measures removed,,
+skill,KIMB,without exposure and lithosphere minus without exposure,,,10,,-0.075,-0.0993,-0.0472,,0.6961,0.7711,0,,,,,,,,lithospheric measures removed,,
+skill,KIMB,without exposure and trigger minus without exposure,,,10,,-0.02346,-0.038,0.0009,,0.74764,0.7711,0.1,,,,,,,,trigger measures removed,,
+skill,KIMB,all features minus without exposure,,,10,,0.02142,0.016,0.0265,,0.79252,0.7711,1,,,,,,,,exposure measures added,,
+skill,KIMB,exposure alone minus without exposure,,,10,,-0.16529,-0.1938,-0.1332,,0.60581,0.7711,0,,,,,,,,exposure alone against the geological measures,,
+skill,PCU,without exposure and source minus without exposure,,,10,,-0.01939,-0.0384,-0.0026,,0.89126,0.91065,0,,,,,,,,volatile (source) measures removed,,
+skill,PCU,without exposure and lithosphere minus without exposure,,,10,,-0.01861,-0.0251,-0.0134,,0.89204,0.91065,0,,,,,,,,lithospheric measures removed,,
+skill,PCU,without exposure and trigger minus without exposure,,,10,,-0.01865,-0.0295,-0.0116,,0.892,0.91065,0,,,,,,,,trigger measures removed,,
+skill,PCU,all features minus without exposure,,,10,,0.01346,0.0112,0.0164,,0.92411,0.91065,1,,,,,,,,exposure measures added,,
+skill,PCU,exposure alone minus without exposure,,,10,,-0.21743,-0.2332,-0.1981,,0.69322,0.91065,0,,,,,,,,exposure alone against the geological measures,,
+isotopes,AIREE,d_eNd vs out_total_path_full,,,8,,-0.131739,,,0.755833,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs out_sed_path_full,,,8,,-0.0359288,,,0.932691,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs sub_total_path_full,,,8,,-0.131739,,,0.755833,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs c_mantle_path_full,,,8,,-0.0731925,,,0.863253,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs over_900km_myr,,,8,,0.184136,,,0.66247,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs craton_dist_km,,,8,,0.0714286,,,0.866526,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_eNd vs vsh_grad150,,,8,,0.380952,,,0.351813,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs out_total_path_full,,,8,,-0.347312,,,0.399264,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs out_sed_path_full,,,8,,-0.179644,,,0.670344,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs sub_total_path_full,,,8,,-0.347312,,,0.399264,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs c_mantle_path_full,,,8,,-0.243975,,,0.560376,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs over_900km_myr,,,8,,0.0613786,,,0.885204,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs craton_dist_km,,,8,,-0.047619,,,0.910849,,,,,,,,,,,,,0.932691
+isotopes,AIREE,eNd_i vs vsh_grad150,,,8,,0.0714286,,,0.866526,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs out_total_path_full,,,8,,-0.155691,,,0.712762,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs out_sed_path_full,,,8,,-0.0838338,,,0.843546,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs sub_total_path_full,,,8,,-0.155691,,,0.712762,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs c_mantle_path_full,,,8,,-0.121988,,,0.773532,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs over_900km_myr,,,8,,0.184136,,,0.66247,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs craton_dist_km,,,8,,0.047619,,,0.910849,,,,,,,,,,,,,0.932691
+isotopes,AIREE,d_sr vs vsh_grad150,,,8,,0.404762,,,0.319889,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs out_total_path_full,,,8,,0.119763,,,0.777583,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs out_sed_path_full,,,8,,0.215573,,,0.608149,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs sub_total_path_full,,,8,,0.119763,,,0.777583,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs c_mantle_path_full,,,8,,0.121988,,,0.773532,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs out_total_path_400myr,,,5,,0.2,,,0.74706,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs over_900km_myr,,,8,,0.405099,,,0.319447,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs craton_dist_km,,,8,,0.380952,,,0.351813,,,,,,,,,,,,,0.932691
+isotopes,AIREE,sr_i vs vsh_grad150,,,8,,0.571429,,,0.13896,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs out_total_path_full,,,11,,-0.330322,,,0.321138,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs out_sed_path_full,,,11,,-0.190749,,,0.57424,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs sub_total_path_full,,,11,,-0.330322,,,0.321138,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs c_mantle_path_full,,,11,,-0.37185,,,0.260137,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs out_total_path_400myr,,,7,,-0.259437,,,0.574237,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs over_900km_myr,,,11,,-0.320211,,,0.337053,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs craton_dist_km,,,11,,-0.2,,,0.555445,,,,,,,,,,,,,0.932691
+isotopes,AIREE,la vs vsh_grad150,,,11,,-0.245455,,,0.466922,,,,,,,,,,,,,0.932691
+isotopes,CARB,d_eNd vs out_total_path_full,,,82,,0.292863,,,0.00758303,,,,,,,,,,,,,0.0643265
+isotopes,CARB,d_eNd vs out_sed_path_full,,,82,,0.347653,,,0.00137308,,,,,,,,,,,,,0.0383024
+isotopes,CARB,d_eNd vs sub_total_path_full,,,82,,0.28995,,,0.00823388,,,,,,,,,,,,,0.0643265
+isotopes,CARB,d_eNd vs c_mantle_path_full,,,82,,0.343209,,,0.00159593,,,,,,,,,,,,,0.0383024
+isotopes,CARB,d_eNd vs out_total_path_400myr,,,65,,0.0393923,,,0.755383,,,,,,,,,,,,,0.954168
+isotopes,CARB,d_eNd vs over_900km_myr,,,82,,0.312637,,,0.00424121,,,,,,,,,,,,,0.0643265
+isotopes,CARB,d_eNd vs craton_dist_km,,,81,,0.166802,,,0.136663,,,,,,,,,,,,,0.298173
+isotopes,CARB,d_eNd vs vsh_grad150,,,82,,-0.0609157,,,0.586681,,,,,,,,,,,,,0.860514
+isotopes,CARB,eNd_i vs out_total_path_full,,,82,,0.18389,,,0.0981742,,,,,,,,,,,,,0.245343
+isotopes,CARB,eNd_i vs out_sed_path_full,,,82,,0.238708,,,0.0307935,,,,,,,,,,,,,0.125898
+isotopes,CARB,eNd_i vs sub_total_path_full,,,82,,0.181746,,,0.102226,,,,,,,,,,,,,0.245343
+isotopes,CARB,eNd_i vs c_mantle_path_full,,,82,,0.237773,,,0.0314744,,,,,,,,,,,,,0.125898
+isotopes,CARB,eNd_i vs out_total_path_400myr,,,65,,0.0505964,,,0.688963,,,,,,,,,,,,,0.89379
+isotopes,CARB,eNd_i vs over_900km_myr,,,82,,0.226638,,,0.040608,,,,,,,,,,,,,0.145753
+isotopes,CARB,eNd_i vs craton_dist_km,,,81,,0.0579042,,,0.607623,,,,,,,,,,,,,0.860514
+isotopes,CARB,eNd_i vs vsh_grad150,,,82,,-0.0539502,,,0.630239,,,,,,,,,,,,,0.860514
+isotopes,CARB,d_sr vs out_total_path_full,,,88,,0.18565,,,0.0833203,,,,,,,,,,,,,0.245343
+isotopes,CARB,d_sr vs out_sed_path_full,,,88,,0.216758,,,0.0425113,,,,,,,,,,,,,0.145753
+isotopes,CARB,d_sr vs sub_total_path_full,,,88,,0.177095,,,0.0988163,,,,,,,,,,,,,0.245343
+isotopes,CARB,d_sr vs c_mantle_path_full,,,88,,0.210506,,,0.0489986,,,,,,,,,,,,,0.156796
+isotopes,CARB,d_sr vs out_total_path_400myr,,,69,,0.0563854,,,0.645385,,,,,,,,,,,,,0.860514
+isotopes,CARB,d_sr vs over_900km_myr,,,88,,0.0926891,,,0.390385,,,,,,,,,,,,,0.694018
+isotopes,CARB,d_sr vs craton_dist_km,,,87,,0.173708,,,0.107603,,,,,,,,,,,,,0.245949
+isotopes,CARB,d_sr vs vsh_grad150,,,88,,-0.0184389,,,0.864606,,,,,,,,,,,,,0.964562
+isotopes,CARB,sr_i vs out_total_path_full,,,88,,0.245049,,,0.0213862,,,,,,,,,,,,,0.11406
+isotopes,CARB,sr_i vs out_sed_path_full,,,88,,0.27549,,,0.00938094,,,,,,,,,,,,,0.0643265
+isotopes,CARB,sr_i vs sub_total_path_full,,,88,,0.234523,,,0.0278542,,,,,,,,,,,,,0.125898
+isotopes,CARB,sr_i vs c_mantle_path_full,,,88,,0.278542,,,0.00859342,,,,,,,,,,,,,0.0643265
+isotopes,CARB,sr_i vs out_total_path_400myr,,,69,,0.0322709,,,0.79237,,,,,,,,,,,,,0.964562
+isotopes,CARB,sr_i vs over_900km_myr,,,88,,0.150993,,,0.160242,,,,,,,,,,,,,0.334419
+isotopes,CARB,sr_i vs craton_dist_km,,,87,,0.264836,,,0.0131778,,,,,,,,,,,,,0.0790668
+isotopes,CARB,sr_i vs vsh_grad150,,,88,,-0.0175408,,,0.871143,,,,,,,,,,,,,0.964562
+isotopes,CARB,pb206_204 vs out_total_path_full,,,47,,0.00665992,,,0.964562,,,,,,,,,,,,,0.964562
+isotopes,CARB,pb206_204 vs out_sed_path_full,,,47,,-0.0158101,,,0.915998,,,,,,,,,,,,,0.964562
+isotopes,CARB,pb206_204 vs sub_total_path_full,,,47,,0.0139569,,,0.925815,,,,,,,,,,,,,0.964562
+isotopes,CARB,pb206_204 vs c_mantle_path_full,,,47,,0.0731523,,,0.625084,,,,,,,,,,,,,0.860514
+isotopes,CARB,pb206_204 vs out_total_path_400myr,,,37,,-0.111336,,,0.511803,,,,,,,,,,,,,0.792469
+isotopes,CARB,pb206_204 vs over_900km_myr,,,47,,0.00696288,,,0.962951,,,,,,,,,,,,,0.964562
+isotopes,CARB,pb206_204 vs craton_dist_km,,,46,,0.246816,,,0.0982061,,,,,,,,,,,,,0.245343
+isotopes,CARB,pb206_204 vs vsh_grad150,,,47,,0.169119,,,0.255785,,,,,,,,,,,,,0.511569
+isotopes,CARB,la vs out_total_path_full,,,106,,0.0772321,,,0.43134,,,,,,,,,,,,,0.713941
+isotopes,CARB,la vs out_sed_path_full,,,106,,0.0654671,,,0.504933,,,,,,,,,,,,,0.792469
+isotopes,CARB,la vs sub_total_path_full,,,106,,0.0783569,,,0.42464,,,,,,,,,,,,,0.713941
+isotopes,CARB,la vs c_mantle_path_full,,,106,,-0.00784307,,,0.936402,,,,,,,,,,,,,0.964562
+isotopes,CARB,la vs out_total_path_400myr,,,83,,-0.110732,,,0.318964,,,,,,,,,,,,,0.588857
+isotopes,CARB,la vs over_900km_myr,,,108,,-0.00933922,,,0.923577,,,,,,,,,,,,,0.964562
+isotopes,CARB,la vs craton_dist_km,,,107,,0.0209007,,,0.830794,,,,,,,,,,,,,0.964562
+isotopes,CARB,la vs vsh_grad150,,,108,,-0.100275,,,0.301808,,,,,,,,,,,,,0.579472
+isotopes,CARB,"d_eNd vs out_sed_path_full, delivery above zero",,,69,,0.359299,,,0.00242959,,,0.841463,,,,,,,,share: districts with delivery above zero among those with εNd,,

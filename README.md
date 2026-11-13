@@ -1,4 +1,4 @@
-# Lithospheric structure and subduction history distinguish rare-earth mineral systems
+# Lithospheric steps and subduction cessation control distinct REE mineral systems
 
 Code and data behind the paper. Carbonatites (the dated occurrences of Humphreys-Williams & Zahirovic, 2021, with
 the USGS carbonatite and rare-earth deposit tables), alkaline-silicate rare-earth deposits (Orris & Grauch, 2002),
